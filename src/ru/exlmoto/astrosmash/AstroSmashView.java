@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callback {
+public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callback, IGameWorldListener {
 
 	private AstroSmashThread astroSmashThread = null;
 
@@ -20,6 +20,13 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 	private int x_1 = x_0 + 10;
 	private Paint painter;
 
+	private GameWorld gameWorld = null;
+
+	private boolean m_bFirstPaint = true;
+	private long m_nStartTime;
+	private long m_nPauseTime = 0L;
+	private long m_nPausedTime = 0L;
+
 	public AstroSmashView(Context context) {
 		super(context);
 
@@ -27,30 +34,29 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 
 		getHolder().addCallback(this);
 
+		AstroSmashMidlet m = new AstroSmashMidlet();
+
 		painter = new Paint();
 
-		astroSmashThread = new AstroSmashThread(getHolder(), this);
+		gameWorld = new GameWorld(AstroSmashVersion.getWidth(), AstroSmashVersion.getHeight() - AstroSmashVersion.getCommandHeightPixels(), this, context);
+
+		astroSmashThread = new AstroSmashThread(getHolder(), this, gameWorld);
+
+		this.m_bFirstPaint = true;
+		this.m_nStartTime = 0L;
+		this.m_nPauseTime = 0L;
+		this.m_nPausedTime = 0L;
 
 		setFocusable(true);
 	}
 
-	public void update() {
-		if (x_1 == screenWidth) {
-			x_0 = 0;
-			x_1 = x_0 + 10;
-		} else {
-			x_0 += 1;
-			x_1 += 1;
-		}
-	}
-
 	public void render(Canvas canvas) {
 		if (canvas != null) {
-			canvas.drawColor(Color.argb(255, 26, 128, 182));
-
-			painter.setColor(Color.YELLOW);
-			canvas.drawRect(x_0, 20, x_1, 30, painter);
-			canvas.drawRect(x_0 + 20, 20, x_1 + 20, 30, painter);
+			if (this.m_bFirstPaint) {
+				clearScreen(canvas);
+				this.m_bFirstPaint = false;
+			}
+			this.gameWorld.paint(canvas, painter);
 		}
 	}
 
@@ -81,5 +87,15 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 				AstroSmashActivity.toDebug("Error joining to Game Thread");
 			}
 		}
+	}
+
+	protected void clearScreen(Canvas canvas) {
+		canvas.drawColor(16777215);
+	}
+
+	@Override
+	public void gameIsOver() {
+		// TODO Auto-generated method stub
+
 	}
 }

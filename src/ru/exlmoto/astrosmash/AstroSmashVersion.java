@@ -41,16 +41,18 @@ public class AstroSmashVersion {
 	public static int SHUDDER_TIME = 500;
 	public static String CREDITS_UPC_CODE = "";
 
-	private static int getHeight() {
+	public static int getHeight() {
 		DisplayMetrics dispMetrics = new DisplayMetrics();
 		AstroSmashActivity.toDebug("Height (ASVersion): " + dispMetrics.heightPixels);
-		return dispMetrics.heightPixels;
+		//return dispMetrics.heightPixels;
+		return 160;
 	}
 
-	private static int getWidth() {
+	public static int getWidth() {
 		DisplayMetrics dispMetrics = new DisplayMetrics();
 		AstroSmashActivity.toDebug("Width (ASVersion): " + dispMetrics.widthPixels);
-		return dispMetrics.widthPixels;
+		//return dispMetrics.widthPixels;
+		return 120;
 	}
 
 	public static int getPlatform() {

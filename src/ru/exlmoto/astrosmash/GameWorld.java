@@ -54,6 +54,7 @@ public class GameWorld implements IDeathListener {
 	private Context activityContext = null;
 
 	public GameWorld(int paramInt1, int paramInt2, IGameWorldListener paramIGameWorldListener, Context context) {
+		AstroSmashActivity.toDebug("Test param: " + paramInt1 + ":" + paramInt2);
 		this.activityContext = context;
 		if (this.m_vecFlyingEnemies == null) {
 			this.m_vecFlyingEnemies = new Vector<Enemy>();
