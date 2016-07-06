@@ -135,7 +135,8 @@ public class AstroSmashVersion {
 		int i = getWidth();
 		int j = getHeight();
 		platform = -1;
-		switch (i + j * 1024)
+		//switch (i + j * 1024)
+		switch (149624)
 		{
 		case 48224: 
 		case 52320: 
