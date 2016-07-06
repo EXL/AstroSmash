@@ -75,7 +75,6 @@ public class BackgroundManager {
 		if (this.m_bRegenerateBackground) {
 			regenerateBackground();
 			this.m_bRegenerateBackground = false;
-			AstroSmashActivity.toDebug("Regenerate");
 		}
 		// TODO: 20 ?
 		// paramGraphics.drawImage(this.m_image, 0, 0, 20);
@@ -128,16 +127,16 @@ public class BackgroundManager {
 		// localGraphics.drawImage(this.m_mountain, 0, i - AstrosmashVersion.getMountainFootHeight(), 36);
 		if (this.m_screenWidth > this.m_mountain.getHeight()) {
 			for (int k = 0; k < this.m_screenWidth; k+=120) {
-				canvas.drawBitmap(this.m_mountain, k, i - AstroSmashVersion.getMountainFootHeight() - 10, paint);
+				canvas.drawBitmap(this.m_mountain, k, i - AstroSmashVersion.getMountainFootHeight() - this.m_mountain.getHeight(), paint);
 			}
 		} else {
-			canvas.drawBitmap(this.m_mountain, 0, i - AstroSmashVersion.getMountainFootHeight() - 10, paint);
+			canvas.drawBitmap(this.m_mountain, 0, i - AstroSmashVersion.getMountainFootHeight() - this.m_mountain.getHeight(), paint);
 		}
 		// localGraphics.setColor(AstrosmashVersion.GREENCOLOR);
 		paint.setColor(AstroSmashVersion.GREENCOLOR);
 		// localGraphics.fillRect(0, i, this.m_screenWidth, AstrosmashVersion.getGroundThickness());
 		
-		AstroSmashActivity.toDebug("Ground Level: " + i + ":" + this.m_screenWidth + ":" + AstroSmashVersion.getGroundThickness());
+		//AstroSmashActivity.toDebug("Ground Level: " + i + ":" + this.m_screenWidth + ":" + AstroSmashVersion.getGroundThickness());
 		
 		canvas.drawRect(0, i, this.m_screenWidth, i + AstroSmashVersion.getGroundThickness(), paint);
 		// TODO: 40 ?

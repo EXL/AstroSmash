@@ -8,15 +8,35 @@ public class GunShip extends Enemy {
 
 	public void paint(Canvas canvas, Paint paint) {
 		if ((true == getCollided()) && (1 == getHitReaction())) {
-			Object localObject;
+			//Object localObject;
 			if (hasNextExplosionImage()) {
-				localObject = getNextExplosionImage();
+				Bitmap localObject = getNextExplosionImage();
 				// TODO: 33 ?
 				// paramGraphics.drawImage((Image)localObject, getX(), getY(), 33);
-				canvas.drawBitmap((Bitmap)localObject, getX(), getY(), paint);
+				// 308
+				// AstroSmashActivity.toDebug("Explosion: " + getX() + ":" + getY() + ":" + localObject.getHeight());
+				
+				// 296:12
+				// 296:19
+				// 296:29
+				int gap = 0;
+				switch (localObject.getHeight()) {
+				case 12:
+					gap = 4;
+					break;
+				case 19:
+					gap = 11;
+					break;
+				case 29:
+					gap = 21;
+					break;
+				default:
+					break;
+				}
+				canvas.drawBitmap(localObject, getX() - localObject.getWidth() / 2, getY() - gap, paint);
 			} else {
-				localObject = getDeathListener();
-				((IDeathListener)localObject).doneExploding(this);
+				IDeathListener localObject = getDeathListener();
+				localObject.doneExploding(this);
 			}
 		} else {
 			super.paint(canvas, paint);

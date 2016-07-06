@@ -27,7 +27,7 @@ public class SwappableEnemy extends Enemy {
 		this.m_nSwapInterval = paramInt;
 	}
 
-	public void tick(long paramLong/*, GameWorld paramGameWorld*/) {
+	public void tick(long paramLong, GameWorld paramGameWorld) {
 		this.m_timeSinceLastSwap += paramLong;
 		if (this.m_timeSinceLastSwap > this.m_nSwapInterval) {
 			this.m_bUseSwapImage = (!this.m_bUseSwapImage);
@@ -38,7 +38,7 @@ public class SwappableEnemy extends Enemy {
 			}
 			this.m_timeSinceLastSwap = 0L;
 		}
-		super.tick(paramLong/*, paramGameWorld*/);
+		super.tick(paramLong, paramGameWorld);
 	}
 }
 

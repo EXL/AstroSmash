@@ -15,7 +15,7 @@ public class Ufo extends Enemy {
 			paramGameWorld.fireUfoBullet(getCenterX(), getCenterY());
 			this.m_timeSinceFired = 0L;
 		}
-		super.tick(paramLong/*, paramGameWorld*/);
+		super.tick(paramLong, paramGameWorld);
 	}
 }
 

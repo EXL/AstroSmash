@@ -67,6 +67,10 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 		this.m_nPauseTime = 0L;
 		this.m_nPausedTime = 0L;
 
+		// Set screen on
+		setKeepScreenOn(true);
+
+		// Focus
 		setFocusable(true);
 		setFocusableInTouchMode(true);
 		requestFocus();

@@ -38,7 +38,7 @@ public class Collidable extends Drawable {
 		this.m_nDuration = duration;
 	}
 
-	public void tick(long paramLong/*, GameWorld paramGameWorld*/) {
+	public void tick(long paramLong, GameWorld paramGameWorld) {
 		long l3 = this.m_nVelocityX * paramLong + this.m_nAccumDistanceXTimesTime;
 		long l4 = this.m_nVelocityY * paramLong + this.m_nAccumDistanceYTimesTime;
 		this.m_nAccumDistanceXTimesTime = (l3 % this.m_nDuration);

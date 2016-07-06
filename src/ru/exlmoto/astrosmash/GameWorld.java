@@ -4,6 +4,7 @@ import java.io.PrintStream;
 import java.util.Stack;
 import java.util.Vector;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -83,7 +84,7 @@ public class GameWorld implements IDeathListener {
 			this.m_enemyFactory = new EnemyFactory(this.m_nScreenWidth, this.m_nScreenHeight, this, activityContext);
 		}
 		this.m_ship = this.m_enemyFactory.createShip(i, this.m_groundHeight);
-		this.m_nLives = 4;
+		this.m_nLives = 40;
 		if (this.m_EnemiesToRecycleStack == null) {
 			this.m_EnemiesToRecycleStack = new Stack<Enemy>();
 		}
@@ -201,9 +202,13 @@ public class GameWorld implements IDeathListener {
 	protected void drawFPS(Canvas canvas, Paint paint) {
 		int i = this.m_perfMeter.getTimesPerSecond();
 		String str = Integer.toString(i);
+		str += " fps";
+		Rect bounds = new Rect();
+		paint.getTextBounds(str, 0, str.length(), bounds);
 		paint.setColor(AstroSmashVersion.WHITECOLOR);
-		// TODO: 20 ?
-		canvas.drawText(str + " fps", 2, 20, paint);
+		final int gap = 2;
+		int j = bounds.height() + gap;
+		canvas.drawText(str, gap, j, paint);
 	}
 
 	protected void fireBullet() {
@@ -218,7 +223,7 @@ public class GameWorld implements IDeathListener {
 		try {
 			for (int i = 0; i < this.m_vecFlyingBullets.size(); i++) {
 				Collidable localCollidable = (Collidable)this.m_vecFlyingBullets.elementAt(i);
-				localCollidable.tick(paramLong);
+				localCollidable.tick(paramLong, this);
 				int j = localCollidable.getY() + localCollidable.getHeight();
 				if (j <= 0) {
 					sendBulletToHell(localCollidable);
@@ -270,7 +275,7 @@ public class GameWorld implements IDeathListener {
 		try {
 			for (int i = 0; i < this.m_vecFlyingEnemies.size(); i++) {
 				Enemy localEnemy2 = (Enemy)this.m_vecFlyingEnemies.elementAt(i);
-				localEnemy2.tick(paramLong);
+				localEnemy2.tick(paramLong, this);
 				if ((localEnemy2.getY() + localEnemy2.getHeight() >= this.m_groundHeight) || (localEnemy2.getX() + localEnemy2.getWidth() >= this.m_nScreenWidth) || (localEnemy2.getY() < 0) || (localEnemy2.getX() < 0)) {
 					if ((localEnemy2.getY() + localEnemy2.getHeight() >= this.m_groundHeight) || (localEnemy2.getY() < 0)) {
 						updateScore(localEnemy2.getGroundScore());
@@ -344,6 +349,7 @@ public class GameWorld implements IDeathListener {
 	}
 
 	public void fireUfoBullet(int paramInt1, int paramInt2) {
+		AstroSmashActivity.toDebug("Ufo bullet: " + paramInt1 + ":" + paramInt2);
 		Enemy localEnemy = this.m_enemyFactory.getEnemy(12);
 		localEnemy.setPosition(paramInt1, paramInt2);
 		int i = ENEMY_FALLTIMES[this.m_nLevel] / 2;
@@ -490,26 +496,27 @@ public class GameWorld implements IDeathListener {
 	}
 
 	protected void checkLevel() {
-		int i = 0;
-		if ((this.m_nLevel < 6) && (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)])) {
-			do
-			{
-				this.m_nLevel += 1;
-				i = 1;
-				if (this.m_nLevel >= 6) {
-					break;
-				}
-			} while (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)]);
-		} else if (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]) {
-			while ((this.m_nLevel > this.m_nInitialLevel) && (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]))
-			{
-				this.m_nLevel -= 1;
-				i = 1;
-			}
-		}
-		if (i != 0) {
-			setLevel(this.m_nLevel);
-		}
+//		int i = 0;
+//		if ((this.m_nLevel < 6) && (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)])) {
+//			do
+//			{
+//				this.m_nLevel += 1;
+//				i = 1;
+//				if (this.m_nLevel >= 6) {
+//					break;
+//				}
+//			} while (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)]);
+//		} else if (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]) {
+//			while ((this.m_nLevel > this.m_nInitialLevel) && (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]))
+//			{
+//				this.m_nLevel -= 1;
+//				i = 1;
+//			}
+//		}
+//		if (i != 0) {
+//			setLevel(this.m_nLevel);
+//		}
+		setLevel(6);
 	}
 
 	protected void updateScore(int paramInt) {

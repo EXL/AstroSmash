@@ -80,9 +80,9 @@ public class Enemy extends Collidable {
 		}
 	}
 
-	public void tick(long paramLong/*, GameWorld paramGameWorld*/) {
+	public void tick(long paramLong, GameWorld paramGameWorld) {
 		if (false == getCollided()) {
-			super.tick(paramLong/*, paramGameWorld*/);
+			super.tick(paramLong, paramGameWorld);
 		} else if (1 != this.m_hitReaction) {
 			this.m_deathListener.doneExploding(this);
 		}

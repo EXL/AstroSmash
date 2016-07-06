@@ -12,7 +12,7 @@ public class Pulser extends SwappableEnemy {
 		} else {
 			this.m_nVelocityX = 0;
 		}
-		super.tick(paramLong/*, paramGameWorld*/);
+		super.tick(paramLong, paramGameWorld);
 	}
 }
 
