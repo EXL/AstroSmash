@@ -1,53 +1,66 @@
 package ru.exlmoto.astrosmash;
 
+import java.util.Random;
+
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callback, IGameWorldListener {
+@SuppressWarnings("unused")
+public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 
-	private AstroSmashThread astroSmashThread = null;
-
-	private int screenWidth;
-	private int screenHeight;
-
-	// private Context contextActivity;
-
-	private int x_0 = 200;
-	private int x_1 = x_0 + 10;
-	private Paint painter;
-
-	private GameWorld gameWorld = null;
-
+	public static final int INITIAL_KEY_DELAY = 250;
+	public static final int KEY_REPEAT_CYCLE = 75;
+	private boolean m_bRunning = true;
+	private Thread m_gameThread = null;
+	private GameWorld m_gameWorld = null;
+	private volatile boolean m_bKeyHeldDown = false;
+	private volatile boolean m_bAfterInitialWait = false;
+	private volatile int m_heldDownGameAction;
+	private volatile long m_initialHoldDownTime;
 	private boolean m_bFirstPaint = true;
 	private long m_nStartTime;
 	private long m_nPauseTime = 0L;
 	private long m_nPausedTime = 0L;
+	Thread m_currentThread = null;
+	int m_nThreadSwitches = 0;
+	long m_nLastMemoryUsageTime = 0L;
+
+	private int screenWidth;
+	private int screenHeight;
+
+	private Paint painter;
+	private Canvas canvas;
+
+	private static Random m_random;
+	
+	private SurfaceHolder surfaceHolder = null;
 
 	public AstroSmashView(Context context) {
 		super(context);
 
-		// contextActivity = context;
-
-		getHolder().addCallback(this);
-
-		AstroSmashMidlet m = new AstroSmashMidlet();
+		m_random = new Random(System.currentTimeMillis());
+		
+		surfaceHolder = getHolder();
+		
+		surfaceHolder.addCallback(this);
 
 		painter = new Paint();
 
-		gameWorld = new GameWorld(AstroSmashVersion.getWidth(), AstroSmashVersion.getHeight() - AstroSmashVersion.getCommandHeightPixels(), this, context);
-
-		astroSmashThread = new AstroSmashThread(getHolder(), this, gameWorld);
-
+		m_gameWorld = new GameWorld(AstroSmashVersion.getWidth(), AstroSmashVersion.getHeight() - AstroSmashVersion.getCommandHeightPixels(), this, context);
 		this.m_bFirstPaint = true;
+		// TODO: Debug ?
+
 		this.m_nStartTime = 0L;
 		this.m_nPauseTime = 0L;
 		this.m_nPausedTime = 0L;
 
 		setFocusable(true);
+		setFocusableInTouchMode(true);
+		requestFocus();
 	}
 
 	public void render(Canvas canvas) {
@@ -56,8 +69,93 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 				clearScreen(canvas);
 				this.m_bFirstPaint = false;
 			}
-			this.gameWorld.paint(canvas, painter);
+			this.m_gameWorld.paint(canvas, painter);
 		}
+	}
+
+	public void resetStartTime() {
+		this.m_nStartTime = System.currentTimeMillis();
+		this.m_nPauseTime = 0L;
+		this.m_nPausedTime = 0L;
+	}
+
+	public void pause() {
+		this.m_bRunning = false;
+		this.m_gameThread = null;
+		this.m_gameWorld.pause(true);
+		//		repaint();
+		//		serviceRepaints();
+		if (AstroSmashVersion.getDemoFlag()) {
+			this.m_nPauseTime = System.currentTimeMillis();
+		}
+	}
+
+	public void exit() {
+		this.m_bRunning = false;
+		this.m_gameThread = null;
+	}
+
+	public void start() {
+		if (AstroSmashVersion.getDemoFlag()) {
+			if (this.m_nPauseTime > 0L) {
+				this.m_nPausedTime += System.currentTimeMillis() - this.m_nPauseTime;
+			}
+			this.m_nPauseTime = 0L;
+		}
+		this.m_bRunning = true;
+		this.m_gameThread = new Thread(this);
+		this.m_gameThread.start();
+		this.m_gameWorld.pause(false);
+	}
+
+	public int getPeakScore() {
+		return this.m_gameWorld.getPeakScore();
+	}
+
+	public void restartGame() {
+		this.m_gameWorld.reset();
+		this.m_bFirstPaint = true;
+	}
+
+	public int getGameAction(int paramInt) {
+		switch (paramInt)
+		{
+		case 49: 
+		case 51: 
+			return 9;
+		case 50: 
+			return 1;
+		case 52: 
+			return 2;
+		case 54: 
+			return 5;
+		case 56: 
+			return 6;
+		case 53: 
+		case 55: 
+		case 57: 
+			return 10;
+		}
+		return 0;
+		// return super.getGameAction(paramInt);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		AstroSmashActivity.toDebug("KeyCode: " + keyCode);
+		try {
+			int i = getGameAction(keyCode);
+			if (this.m_bRunning) {
+				this.m_gameWorld.handleAction(i);
+			}
+			this.m_heldDownGameAction = i;
+			this.m_bKeyHeldDown = true;
+			this.m_initialHoldDownTime = System.currentTimeMillis();
+		} catch (Exception localException) {
+			System.out.println(localException.getMessage());
+			localException.printStackTrace();
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	@Override
@@ -66,8 +164,7 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 		screenWidth = holder.getSurfaceFrame().width();
 		screenHeight = holder.getSurfaceFrame().height();
 
-		astroSmashThread.setRunState(true);
-		astroSmashThread.start();
+		start();
 	}
 
 	@Override
@@ -78,10 +175,12 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		boolean shutdown = false;
-		astroSmashThread.setRunState(false);
+		this.m_bRunning = false;
 		while (!shutdown) {
 			try {
-				astroSmashThread.join();
+				if (m_gameThread != null) {
+					this.m_gameThread.join();
+				}
 				shutdown = true;
 			} catch (InterruptedException e) {
 				AstroSmashActivity.toDebug("Error joining to Game Thread");
@@ -95,7 +194,65 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 
 	@Override
 	public void gameIsOver() {
-		// TODO Auto-generated method stub
+		AstroSmashActivity.toDebug("Game Over!");
+		this.m_bRunning = false;
+		this.m_gameThread = null;
+	}
 
+	public static int getAbsRandomInt() {
+		m_random.setSeed(System.currentTimeMillis() + m_random.nextInt());
+		return Math.abs(m_random.nextInt());
+	}
+
+	public static int getRandomInt() {
+		m_random.setSeed(System.currentTimeMillis() + m_random.nextInt());
+		return m_random.nextInt();
+	}
+
+	@Override
+	public void run() {
+		try {
+			long l1 = System.currentTimeMillis();
+			long l2 = System.currentTimeMillis();
+			long l5 = l2;
+			this.m_nLastMemoryUsageTime = 0L;
+			while (this.m_bRunning) {
+				long l3 = System.currentTimeMillis();
+				long l4 = l3 - l2;
+				if (AstroSmashVersion.getDebugFlag()) {
+					if ((AstroSmashVersion.getDebugMemoryFlag()) && (l3 - this.m_nLastMemoryUsageTime > AstroSmashVersion.getDebugMemoryInterval())) {
+						// AstroSmashMidlet.printMemoryUsage("AstrosmashScreen.run (" + (l3 - l1) / 1000L + " secs)");
+						this.m_nLastMemoryUsageTime = l3;
+					}
+					if (this.m_currentThread != Thread.currentThread()) {
+						this.m_currentThread = Thread.currentThread();
+						this.m_nThreadSwitches += 1;
+						System.out.println("AstrosmashScreen.run: Game thread switch (" + this.m_nThreadSwitches + " total)");
+					}
+				}
+				if ((AstroSmashVersion.getDemoFlag()) && (l3 - this.m_nStartTime - this.m_nPausedTime >= AstroSmashVersion.getDemoDuration() * 1000)) {
+					this.m_gameWorld.suspendEnemies();
+				}
+				if ((this.m_bKeyHeldDown) && (l3 - this.m_initialHoldDownTime > 250L) && (l3 - l5 > 75L)) {
+					l5 = l3;
+					this.m_gameWorld.handleAction(this.m_heldDownGameAction);
+				}
+				this.m_gameWorld.tick(l4);
+				try {
+					this.canvas = surfaceHolder.lockCanvas();
+					synchronized (surfaceHolder) {
+						render(this.canvas);
+					}
+				} finally {
+					if (this.canvas != null) {
+						surfaceHolder.unlockCanvasAndPost(this.canvas);
+					}
+				}
+				l2 = l3;
+			}
+		} catch (Exception localException) {
+			System.out.println(localException.getMessage());
+			localException.printStackTrace();
+		}
 	}
 }

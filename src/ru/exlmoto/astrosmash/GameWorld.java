@@ -258,7 +258,7 @@ public class GameWorld implements IDeathListener {
 	}
 
 	protected void hyperSpace() {
-		this.m_ship.setX(AstroSmashMidlet.getAbsRandomInt() % (this.m_nScreenWidth - this.m_ship.getWidth()));
+		this.m_ship.setX(AstroSmashView.getAbsRandomInt() % (this.m_nScreenWidth - this.m_ship.getWidth()));
 	}
 
 	protected void tickEnemies(long paramLong) {
@@ -302,10 +302,10 @@ public class GameWorld implements IDeathListener {
 				Enemy localEnemy1 = this.m_enemyFactory.getRandomEnemy(this.m_nLevel, this.m_nScore);
 				int j;
 				if (localEnemy1.getEnemyTypeId() == 11) {
-					j = AstroSmashMidlet.getAbsRandomInt() % (this.m_nScreenHeight / 3);
+					j = AstroSmashView.getAbsRandomInt() % (this.m_nScreenHeight / 3);
 					localEnemy1.setPosition(0, j);
 				} else {
-					j = AstroSmashMidlet.getAbsRandomInt() % (this.m_nScreenWidth - localEnemy1.getWidth());
+					j = AstroSmashView.getAbsRandomInt() % (this.m_nScreenWidth - localEnemy1.getWidth());
 					localEnemy1.setPosition(j, 0);
 				}
 				switch (localEnemy1.getEnemyTypeId())
@@ -322,12 +322,12 @@ public class GameWorld implements IDeathListener {
 					((SwappableEnemy)localEnemy1).setSwapInterval(500);
 					break;
 				case 11: 
-					j = ENEMY_FALLTIMES[this.m_nLevel] + AstroSmashMidlet.getRandomInt() % ENEMY_FALLTIME_VARIANCES[this.m_nLevel];
+					j = ENEMY_FALLTIMES[this.m_nLevel] + AstroSmashView.getRandomInt() % ENEMY_FALLTIME_VARIANCES[this.m_nLevel];
 					localEnemy1.setVelocity(this.m_nScreenWidth, 0, j);
 					((Ufo)localEnemy1).setFireInterval(500);
 					break;
 				default: 
-					j = ENEMY_FALLTIMES[this.m_nLevel] + AstroSmashMidlet.getRandomInt() % ENEMY_FALLTIME_VARIANCES[this.m_nLevel];
+					j = ENEMY_FALLTIMES[this.m_nLevel] + AstroSmashView.getRandomInt() % ENEMY_FALLTIME_VARIANCES[this.m_nLevel];
 					localEnemy1.setVelocity(0, this.m_nScreenHeight, j);
 				}
 				this.m_vecFlyingEnemies.addElement(localEnemy1);

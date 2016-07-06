@@ -69,7 +69,7 @@ public class EnemyFactory {
 
 	public Enemy getRandomEnemy(int paramInt1, int paramInt2) {
 		int i = 1;
-		int j = AstroSmashMidlet.getAbsRandomInt() % TOTAL_ENEMY_PROBABILITIES[(paramInt1 - 1)];
+		int j = AstroSmashView.getAbsRandomInt() % TOTAL_ENEMY_PROBABILITIES[(paramInt1 - 1)];
 		int k = 0;
 		int m = paramInt1 - 1;
 		for (int n = 0; n < ENEMIES.length; n++) {

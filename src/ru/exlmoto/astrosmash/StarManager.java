@@ -40,8 +40,8 @@ public class StarManager {
 
 	public void generateStars() {
 		for (int i = 0; i < this.m_numStars; i++) {
-			this.m_xPos[i] = (AstroSmashMidlet.getAbsRandomInt() % this.m_width);
-			this.m_yPos[i] = (AstroSmashMidlet.getAbsRandomInt() % this.m_height);
+			this.m_xPos[i] = (AstroSmashView.getAbsRandomInt() % this.m_width);
+			this.m_yPos[i] = (AstroSmashView.getAbsRandomInt() % this.m_height);
 		}
 	}
 
