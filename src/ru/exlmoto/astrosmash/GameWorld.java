@@ -183,7 +183,7 @@ public class GameWorld implements IDeathListener {
 			this.m_munitionsFactory.putBullet(localCollidable);
 		}
 		this.m_backgroundManager.setGameLevel(this.m_nLevel);
-		this.m_nLives = 40;
+		this.m_nLives = 4;
 		this.m_backgroundManager.setLives(this.m_nLives);
 		this.m_nScore = 0;
 		this.m_nPeakScore = 0;
@@ -510,7 +510,7 @@ public class GameWorld implements IDeathListener {
 		if (i != 0) {
 			setLevel(this.m_nLevel);
 		}
-		setLevel(6);
+//		setLevel(6);
 	}
 
 	protected void updateScore(int paramInt) {

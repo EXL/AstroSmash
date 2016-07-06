@@ -47,7 +47,10 @@ public class AstroSmashVersion {
 	private static int MENU_DELTA_Y = 9;
 	public static int BLACKCOLOR = Color.BLACK;
 	public static int WHITECOLOR = Color.WHITE;
-	public static int GREENCOLOR = Color.GREEN;
+	public static int GREENCOLOR = Color.parseColor("#28B152");
+	public static int GREENCOLOR_DARK = Color.parseColor("#003130");
+	public static int DARKCOLOR = Color.parseColor("#091219");
+	public static int GRAYCOLOR = Color.parseColor("#7B9596");
 	public static String GREENSHIP_FILENAME = "/ship_green.png";
 	public static int GAMEPAUSEDCOLOR = Color.WHITE;
 	public static int SHUDDER_TIME = 500;

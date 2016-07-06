@@ -1,19 +1,19 @@
 package ru.exlmoto.astrosmash;
 
 import java.util.Random;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Paint.Cap;
 import android.graphics.Rect;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 @SuppressWarnings("unused")
-public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
+public class AstroSmashView extends SurfaceView
+implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 
 	public static final int INITIAL_KEY_DELAY = 250;
 	public static final int KEY_REPEAT_CYCLE = 75;
@@ -34,6 +34,7 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 
 	private int screenWidth;
 	private int screenHeight;
+	private int screenHeightPercent;
 
 	private Paint painter = null;
 	private Canvas bitmapCanvas = null;
@@ -91,12 +92,55 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 					painter.setAntiAlias(true);
 					painter.setFilterBitmap(true);
 				}
-				canvas.drawBitmap(gameScreen, 
-						new Rect(0, 0, gameScreen.getWidth(), gameScreen.getHeight()),
-						new Rect(0, 0, screenWidth, screenHeight),
-						painter);
+				if (false) { // TODO: Settings Flag
+					canvas.drawBitmap(gameScreen, 
+							new Rect(0, 0, gameScreen.getWidth(), gameScreen.getHeight()),
+							new Rect(0, 0, screenWidth, screenHeight),
+							painter);
+				} else {
+					canvas.drawBitmap(gameScreen, 
+							new Rect(0, 0, gameScreen.getWidth(), gameScreen.getHeight()),
+							new Rect(0, 0, screenWidth, screenHeight - screenHeightPercent),
+							painter);
+					drawTouchArrow(canvas, painter);
+				}
 			}
 		}
+	}
+
+	private int px(float dips) {
+		float dp = getResources().getDisplayMetrics().density;
+		return Math.round(dips * dp);
+	}
+
+	private void drawTouchArrow(Canvas canvas, Paint paint) {
+		Rect touchRect = new Rect(0, screenHeight - screenHeightPercent, screenWidth, screenHeight);
+		paint.setColor(AstroSmashVersion.GREENCOLOR_DARK);
+		canvas.drawRect(0, screenHeight - screenHeightPercent, screenWidth, screenHeight, paint);
+		paint.setStrokeCap(Cap.ROUND);
+		int gap = px(25);
+		for (int i = 0; i < 2; ++i) {
+			if (i == 0) {
+			paint.setColor(AstroSmashVersion.GRAYCOLOR);
+			paint.setStrokeWidth(px(5));
+			} else {
+				paint.setColor(AstroSmashVersion.DARKCOLOR);
+				paint.setStrokeWidth(px(1));
+			}
+			canvas.drawLine(gap, screenHeight - touchRect.height() / 2, screenWidth - gap, screenHeight - touchRect.height() / 2, paint);
+			canvas.drawLine(gap, screenHeight - touchRect.height() / 2, gap * 2, screenHeight - touchRect.height() / 4, paint);
+			canvas.drawLine(gap, screenHeight - touchRect.height() / 2, gap * 2, screenHeight - touchRect.height() / 4 * 3, paint);
+			canvas.drawLine(screenWidth - gap, screenHeight - touchRect.height() / 2, screenWidth - gap * 2, screenHeight - touchRect.height() / 4, paint);
+			canvas.drawLine(screenWidth - gap, screenHeight - touchRect.height() / 2, screenWidth - gap * 2, screenHeight - touchRect.height() / 4 * 3, paint);
+		}
+	}
+
+	public int getScreenHeightPercent() {
+		return screenHeightPercent;
+	}
+
+	public void setScreenHeightPercent(int screenHeightPercent) {
+		this.screenHeightPercent = screenHeightPercent;
 	}
 
 	public void resetStartTime() {
@@ -198,11 +242,16 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 		return super.onKeyDown(keyCode, event);
 	}
 
+	private int getPercentChunkHeight(int sideSize, int percent) {
+		return Math.round(sideSize * percent / 100);
+	}
+
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		AstroSmashActivity.toDebug("Surface created"); 
 		screenWidth = holder.getSurfaceFrame().width();
 		screenHeight = holder.getSurfaceFrame().height();
+		screenHeightPercent = getPercentChunkHeight(screenHeight, 15);
 		start();
 	}
 
@@ -227,6 +276,10 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 		}
 	}
 
+	public void setShipX(int xCoord) {
+		this.m_gameWorld.getShip().setX(xCoord);
+	}
+
 	protected void clearScreen(Canvas canvas) {
 		canvas.drawColor(AstroSmashVersion.WHITECOLOR);
 	}
@@ -246,6 +299,22 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 	public static int getRandomInt() {
 		m_random.setSeed(System.currentTimeMillis() + m_random.nextInt());
 		return m_random.nextInt();
+	}
+
+	public int getScreenWidth() {
+		return screenWidth;
+	}
+
+	public void setScreenWidth(int screenWidth) {
+		this.screenWidth = screenWidth;
+	}
+
+	public int getScreenHeight() {
+		return screenHeight;
+	}
+
+	public void setScreenHeight(int screenHeight) {
+		this.screenHeight = screenHeight;
 	}
 
 	@Override
