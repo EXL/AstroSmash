@@ -243,6 +243,7 @@ public class GameWorld implements IDeathListener {
 		paint.getTextBounds(paramString2, 0, paramString2.length(), bounds);
 		int r2 = bounds.width();
 
+		//		WTF?!
 		//		if (AstroSmashVersion.getPlatform() == 6) {
 		//			paint.setColor(AstroSmashVersion.BLACKCOLOR);
 		//		} else {
@@ -489,26 +490,26 @@ public class GameWorld implements IDeathListener {
 	}
 
 	protected void checkLevel() {
-		//		int i = 0;
-		//		if ((this.m_nLevel < 6) && (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)])) {
-		//			do
-		//			{
-		//				this.m_nLevel += 1;
-		//				i = 1;
-		//				if (this.m_nLevel >= 6) {
-		//					break;
-		//				}
-		//			} while (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)]);
-		//		} else if (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]) {
-		//			while ((this.m_nLevel > this.m_nInitialLevel) && (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]))
-		//			{
-		//				this.m_nLevel -= 1;
-		//				i = 1;
-		//			}
-		//		}
-		//		if (i != 0) {
-		//			setLevel(this.m_nLevel);
-		//		}
+		int i = 0;
+		if ((this.m_nLevel < 6) && (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)])) {
+			do
+			{
+				this.m_nLevel += 1;
+				i = 1;
+				if (this.m_nLevel >= 6) {
+					break;
+				}
+			} while (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)]);
+		} else if (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]) {
+			while ((this.m_nLevel > this.m_nInitialLevel) && (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]))
+			{
+				this.m_nLevel -= 1;
+				i = 1;
+			}
+		}
+		if (i != 0) {
+			setLevel(this.m_nLevel);
+		}
 		setLevel(6);
 	}
 

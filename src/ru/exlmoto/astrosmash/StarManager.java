@@ -7,8 +7,8 @@ import android.graphics.Paint;
 public class StarManager {
 
 	public static final int NUMBER_OF_STARS = 50;
-	public static final int BLACKCOLOR = 0;
-	public static final int WHITECOLOR = 16777215;
+	public static final int BLACKCOLOR = AstroSmashVersion.BLACKCOLOR;
+	public static final int WHITECOLOR = AstroSmashVersion.WHITECOLOR;
 	private int m_numStars;
 	private int m_width;
 	private int m_height;
@@ -21,8 +21,7 @@ public class StarManager {
 		this.m_numStars = paramInt3;
 		this.m_width = paramInt1;
 		this.m_height = paramInt2;
-		this.m_image = Bitmap.createBitmap(this.m_width, this.m_height, Bitmap.Config.ARGB_8888); // TODO: Check Config
-		// this.m_image = Image.createImage(this.m_width, this.m_height);
+		this.m_image = Bitmap.createBitmap(this.m_width, this.m_height, Bitmap.Config.ARGB_8888);
 		this.m_xPos = new int[this.m_numStars];
 		this.m_yPos = new int[this.m_numStars];
 		generateStars();
@@ -34,8 +33,6 @@ public class StarManager {
 	}
 
 	public void paint(Canvas canvas, Paint paint) {
-		// TODO: 20 ?
-		// paramGraphics.drawImage(this.m_image, 0, 0, 20);
 		canvas.drawBitmap(this.m_image, 0, 0, paint);
 	}
 

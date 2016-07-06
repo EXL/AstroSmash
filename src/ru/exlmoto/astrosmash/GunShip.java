@@ -8,14 +8,9 @@ public class GunShip extends Enemy {
 
 	public void paint(Canvas canvas, Paint paint) {
 		if ((true == getCollided()) && (1 == getHitReaction())) {
-			//Object localObject;
 			if (hasNextExplosionImage()) {
 				Bitmap localObject = getNextExplosionImage();
-				// TODO: 33 ?
-				// paramGraphics.drawImage((Image)localObject, getX(), getY(), 33);
-				// 308
-				// AstroSmashActivity.toDebug("Explosion: " + getX() + ":" + getY() + ":" + localObject.getHeight());
-				
+				// Gap fix
 				// 296:12
 				// 296:19
 				// 296:29

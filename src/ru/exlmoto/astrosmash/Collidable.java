@@ -78,6 +78,8 @@ public class Collidable extends Drawable {
 		//			return true;
 		//		}
 		//		return false;
+		
+		// Rects intersect
 		Rect rectIn = new Rect(getX(), getY(), getX() + getWidth(), getY() + getHeight());
 		Rect rectOut = new Rect(
 				paramCollidable.getX(), 

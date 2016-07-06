@@ -34,8 +34,6 @@ public class Drawable {
 	}
 
 	public void paint(Canvas canvas, Paint paint) {
-		// TODO: 20 ?
-		// paramGraphics.drawImage(this.m_image, this.m_xPosition, this.m_yPosition, 20);
 		canvas.drawBitmap(m_image, this.m_xPosition, this.m_yPosition, paint);
 	}
 

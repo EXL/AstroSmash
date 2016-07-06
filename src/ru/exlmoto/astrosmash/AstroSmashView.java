@@ -183,7 +183,6 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		AstroSmashActivity.toDebug("KeyCode: " + keyCode + "");
 		try {
 			int i = getGameAction(keyCode);
 			if (this.m_bRunning) {

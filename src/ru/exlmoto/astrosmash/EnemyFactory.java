@@ -46,7 +46,11 @@ public class EnemyFactory {
 			new EnemyData("/ufo.png", 100, 0, 1, null, 3, R.drawable.ufo, 0),
 			new EnemyData("/ufo_bullet.png", 10, 0, 1, null, 0, R.drawable.ufo_bullet, 0)
 	};
-	private static final int[] ENEMY_PROBABILITIES = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 200, 200, 300, 400, 500, 600, 200, 200, 300, 400, 500, 600, 50, 50, 80, 100, 200, 400, 0, 0, 80, 100, 200, 400, 0, 0, 0, 0, 0, 0 };
+	private static final int[] ENEMY_PROBABILITIES = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 
+			1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 
+			1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 
+			1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 200, 200, 300, 400, 500, 600, 
+			200, 200, 300, 400, 500, 600, 50, 50, 80, 100, 200, 400, 0, 0, 80, 100, 200, 400, 0, 0, 0, 0, 0, 0 };
 	private static int[] TOTAL_ENEMY_PROBABILITIES = new int[6];
 	private Stack<Enemy>[] m_enemyStacks;
 	private Bitmap[] m_images;
@@ -109,17 +113,14 @@ public class EnemyFactory {
 			this.m_swapImages = new Bitmap[ENEMIES.length];
 			this.m_xplosionImages = new Bitmap[EXPLOSION_IMAGES.length];
 			for (int i = 0; i < ENEMIES.length; i++) {
-				// this.m_images[i] = Image.createImage(ENEMIES[i].sImageFileName);
 				this.m_images[i] = BitmapFactory.decodeResource(activityContext.getResources(), ENEMIES[i].androidResID);
 				if (null != ENEMIES[i].sSwapImageName) {
-					// this.m_swapImages[i] = Image.createImage(ENEMIES[i].sSwapImageName);
 					this.m_swapImages[i] = BitmapFactory.decodeResource(activityContext.getResources(), ENEMIES[i].androidResSwapID);
 				} else {
 					this.m_swapImages[i] = null;
 				}
 			}
 			for (int j = 0; j < EXPLOSION_IMAGES.length; j++) {
-				// this.m_xplosionImages[j] = Image.createImage(EXPLOSION_IMAGES[j]);
 				this.m_xplosionImages[j] = BitmapFactory.decodeResource(activityContext.getResources(), EXPLOSION_IMAGES_AID[j]);
 			}
 		} catch (Exception localException) {
@@ -226,7 +227,9 @@ public class EnemyFactory {
 		int androidResID;
 		int androidResSwapID;
 
-		EnemyData(String paramString1, int paramInt1, int paramInt2, int paramInt3, String paramString2, int paramInt4, int androidResID, int androidResSwapID) {
+		EnemyData(String paramString1, int paramInt1, 
+				int paramInt2, int paramInt3, String paramString2, 
+				int paramInt4, int androidResID, int androidResSwapID) {
 			this.sImageFileName = paramString1;
 			this.nHitScore = paramInt1;
 			this.nGroundScore = paramInt2;
