@@ -41,7 +41,7 @@ public class InfoStrings {
 
 	public static void initializeInfo() {
 		// TODO: Android Locale
-		String str = System.getProperty("microedition.locale");
+		String str = "en";
 		if (str.startsWith("fr")) {
 			LANGUAGE_CURRENT = 1;
 			initializeFrench();

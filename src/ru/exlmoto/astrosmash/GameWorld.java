@@ -7,6 +7,7 @@ import java.util.Vector;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 
 @SuppressWarnings("unused")
 public class GameWorld implements IDeathListener {
@@ -149,9 +150,9 @@ public class GameWorld implements IDeathListener {
 			paintMessage(canvas, paint, InfoStrings.GAME_OVER_STRING, InfoStrings.PEAK_SCORE_STRING + ": " + this.m_nPeakScore);
 		}
 		// TODO: Check this.
-		if ((AstroSmashVersion.getDebugFlag()) && (AstroSmashVersion.getDebugFpsFlag())) {
-			drawFPS(canvas, paint);
-		}
+		//if ((AstroSmashVersion.getDebugFlag()) && (AstroSmashVersion.getDebugFpsFlag())) {
+		drawFPS(canvas, paint);
+		//}
 	}
 
 	public void pause(boolean paramBoolean) {
@@ -200,9 +201,9 @@ public class GameWorld implements IDeathListener {
 	protected void drawFPS(Canvas canvas, Paint paint) {
 		int i = this.m_perfMeter.getTimesPerSecond();
 		String str = Integer.toString(i);
-		paint.setColor(16777215);
+		paint.setColor(AstroSmashVersion.WHITECOLOR);
 		// TODO: 20 ?
-		canvas.drawText(str + " fps", 0, 0, paint);
+		canvas.drawText(str + " fps", 2, 20, paint);
 	}
 
 	protected void fireBullet() {
@@ -229,20 +230,24 @@ public class GameWorld implements IDeathListener {
 	}
 
 	protected void paintMessage(Canvas canvas, Paint paint, String paramString1, String paramString2) {
-		// TODO: Check Android Fonts
-		// Font localFont = paramGraphics.getFont();
-		// int i = localFont.getHeight();
-		int i = 33;
-		if (AstroSmashVersion.getPlatform() == 6) {
-			paint.setColor(AstroSmashVersion.BLACKCOLOR);
-		} else {
-			paint.setColor(AstroSmashVersion.WHITECOLOR);
-		}
-		// TODO: 33
-		canvas.drawText(paramString1, this.m_nScreenWidth / 2, this.m_nScreenHeight / 2, paint);
+		Rect bounds = new Rect();
+		paint.getTextBounds(paramString1, 0, paramString1.length(), bounds);
+		int i = bounds.height() + 5; // gap = 5 pixels
+		int r = bounds.width();
+		paint.getTextBounds(paramString2, 0, paramString2.length(), bounds);
+		int r2 = bounds.width();
+
+//		if (AstroSmashVersion.getPlatform() == 6) {
+//			paint.setColor(AstroSmashVersion.BLACKCOLOR);
+//		} else {
+//			paint.setColor(AstroSmashVersion.WHITECOLOR);
+//		}
+		paint.setColor(AstroSmashVersion.WHITECOLOR);
+		
+		// Draw message on center screen
+		canvas.drawText(paramString1, this.m_nScreenWidth / 2 - r / 2, this.m_nScreenHeight / 2, paint);
 		if ((paramString2 != null) && (!paramString2.equals(""))) {
-			// TODO: 33
-			canvas.drawText(paramString2, this.m_nScreenWidth / 2, this.m_nScreenHeight / 2 + i, paint);
+			canvas.drawText(paramString2, this.m_nScreenWidth / 2 - r2 / 2, this.m_nScreenHeight / 2 + i, paint);
 		}
 	}
 

@@ -3,8 +3,11 @@ package ru.exlmoto.astrosmash;
 import java.util.Random;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -32,22 +35,28 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 	private int screenWidth;
 	private int screenHeight;
 
-	private Paint painter;
-	private Canvas canvas;
+	private Paint painter = null;
+	private Canvas bitmapCanvas = null;
+	private Canvas globalCanvas = null;
+	private Bitmap gameScreen = null;
 
 	private static Random m_random;
-	
+
 	private SurfaceHolder surfaceHolder = null;
 
 	public AstroSmashView(Context context) {
 		super(context);
 
 		m_random = new Random(System.currentTimeMillis());
-		
+
+		InfoStrings.initializeInfo();
+		AstroSmashVersion.setScreenSizes(AstroSmashVersion.ANDROID_ORIGINAL_240x320);
+
 		surfaceHolder = getHolder();
-		
 		surfaceHolder.addCallback(this);
 
+		gameScreen = Bitmap.createBitmap(AstroSmashVersion.getWidth(), AstroSmashVersion.getHeight(), Bitmap.Config.ARGB_8888);
+		bitmapCanvas = new Canvas(gameScreen);
 		painter = new Paint();
 
 		m_gameWorld = new GameWorld(AstroSmashVersion.getWidth(), AstroSmashVersion.getHeight() - AstroSmashVersion.getCommandHeightPixels(), this, context);
@@ -64,12 +73,22 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 	}
 
 	public void render(Canvas canvas) {
-		if (canvas != null) {
+		if (canvas != null && bitmapCanvas != null) {
 			if (this.m_bFirstPaint) {
-				clearScreen(canvas);
+				clearScreen(bitmapCanvas);
 				this.m_bFirstPaint = false;
 			}
-			this.m_gameWorld.paint(canvas, painter);
+			this.m_gameWorld.paint(bitmapCanvas, painter);
+			if (gameScreen != null) {
+				if (true) { // TODO: Settings Flag
+					painter.setAntiAlias(true);
+					painter.setFilterBitmap(true);
+				}
+				canvas.drawBitmap(gameScreen, 
+						new Rect(0, 0, gameScreen.getWidth(), gameScreen.getHeight()),
+						new Rect(0, 0, screenWidth, screenHeight),
+						painter);
+			}
 		}
 	}
 
@@ -139,7 +158,7 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 		return 0;
 		// return super.getGameAction(paramInt);
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		AstroSmashActivity.toDebug("KeyCode: " + keyCode);
@@ -163,7 +182,6 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 		AstroSmashActivity.toDebug("Surface created"); 
 		screenWidth = holder.getSurfaceFrame().width();
 		screenHeight = holder.getSurfaceFrame().height();
-
 		start();
 	}
 
@@ -189,7 +207,7 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 	}
 
 	protected void clearScreen(Canvas canvas) {
-		canvas.drawColor(16777215);
+		canvas.drawColor(AstroSmashVersion.WHITECOLOR);
 	}
 
 	@Override
@@ -239,13 +257,13 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 				}
 				this.m_gameWorld.tick(l4);
 				try {
-					this.canvas = surfaceHolder.lockCanvas();
+					this.globalCanvas = surfaceHolder.lockCanvas();
 					synchronized (surfaceHolder) {
-						render(this.canvas);
+						render(this.globalCanvas);
 					}
 				} finally {
-					if (this.canvas != null) {
-						surfaceHolder.unlockCanvasAndPost(this.canvas);
+					if (this.globalCanvas != null) {
+						surfaceHolder.unlockCanvasAndPost(this.globalCanvas);
 					}
 				}
 				l2 = l3;

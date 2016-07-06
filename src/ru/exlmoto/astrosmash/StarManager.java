@@ -16,16 +16,17 @@ public class StarManager {
 	private int[] m_xPos;
 	private int[] m_yPos;
 
-	public StarManager(int paramInt1, int paramInt2, int paramInt3, int paramInt4) {
+	public StarManager(int paramInt1, int paramInt2, int paramInt3, int color) {
+		AstroSmashActivity.toDebug("Star Manager: " + paramInt1 + "x" + paramInt2);
 		this.m_numStars = paramInt3;
 		this.m_width = paramInt1;
 		this.m_height = paramInt2;
-		this.m_image = Bitmap.createBitmap(this.m_width, this.m_height, Bitmap.Config.RGB_565); // TODO: Check Config
+		this.m_image = Bitmap.createBitmap(this.m_width, this.m_height, Bitmap.Config.ARGB_8888); // TODO: Check Config
 		// this.m_image = Image.createImage(this.m_width, this.m_height);
 		this.m_xPos = new int[this.m_numStars];
 		this.m_yPos = new int[this.m_numStars];
 		generateStars();
-		generateStarImage(paramInt4);
+		generateStarImage(color);
 	}
 
 	public StarManager(int paramInt1, int paramInt2, int paramInt3) {
@@ -45,16 +46,13 @@ public class StarManager {
 		}
 	}
 
-	public void generateStarImage(int paramInt) {
+	public void generateStarImage(int color) {
 		Canvas canvas = new Canvas(this.m_image);
 		Paint paint = new Paint();
-		// paint.setColor(paramInt);
-		canvas.drawColor(paramInt);
-		// canvas.fillRect(0, 0, this.m_width, this.m_height);
-		paint.setColor(16777215);
+		canvas.drawColor(color);
+		paint.setColor(AstroSmashVersion.WHITECOLOR);
 		for (int i = 0; i < this.m_numStars; i++) {
-			// localGraphics.drawLine(this.m_xPos[i], this.m_yPos[i], this.m_xPos[i], this.m_yPos[i]);
-			canvas.drawLine(this.m_xPos[i], this.m_yPos[i], this.m_xPos[i], this.m_yPos[i], paint);
+			canvas.drawPoint(this.m_xPos[i], this.m_yPos[i], paint);
 		}
 	}
 

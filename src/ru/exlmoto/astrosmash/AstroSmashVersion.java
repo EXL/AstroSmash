@@ -1,5 +1,6 @@
 package ru.exlmoto.astrosmash;
 
+import android.graphics.Color;
 import android.util.DisplayMetrics;
 
 @SuppressWarnings("unused")
@@ -13,6 +14,17 @@ public class AstroSmashVersion {
 	public static final int PLATFORM_SANYO = 4;
 	public static final int PLATFORM_MOTOROLA_LG5350 = 5;
 	public static final int PLATFORM_MOTOROLA_720I = 6;
+	public static final int PLATFORM_MOTOROLA_176x220 = 7;
+	public static final int PLATFORM_MOTOROLA_240x320= 8;
+	public static final int PLATFORM_MOTOROLA_480x640= 9;
+	public static final int PLATFORM_MOTOROLA_96x51= 10;
+	public static final int ANDROID_ORIGINAL_120x146 = 120+146*1024;
+	public static final int ANDROID_ORIGINAL_176x220 = 176+220*1024;
+	public static final int ANDROID_ORIGINAL_240x320 = 240+320*1024;
+	public static final int ANDROID_ORIGINAL_480x640 = 480+640*1024;
+	public static final int ANDROID_ORIGINAL_96x51 = 96+51*1024;
+	private static int SCREEN_HEIGHT = 146;
+	private static int SCREEN_WIDGT = 120;
 	private static int platform = -1;
 	private static final int HEIGHT_MULTIPLIER = 1024;
 	private static String DEVICE = "Default Device";
@@ -33,26 +45,20 @@ public class AstroSmashVersion {
 	private static int MENU_FIRST_X = 20;
 	private static int MENU_FIRST_Y = 11;
 	private static int MENU_DELTA_Y = 9;
-	public static int BLACKCOLOR = 0;
-	public static int WHITECOLOR = 16777215;
-	public static int GREENCOLOR = 65280;
+	public static int BLACKCOLOR = Color.BLACK;
+	public static int WHITECOLOR = Color.WHITE;
+	public static int GREENCOLOR = Color.GREEN;
 	public static String GREENSHIP_FILENAME = "/ship_green.png";
-	public static int GAMEPAUSEDCOLOR = 16777215;
+	public static int GAMEPAUSEDCOLOR = Color.WHITE;
 	public static int SHUDDER_TIME = 500;
 	public static String CREDITS_UPC_CODE = "";
 
 	public static int getHeight() {
-		DisplayMetrics dispMetrics = new DisplayMetrics();
-		AstroSmashActivity.toDebug("Height (ASVersion): " + dispMetrics.heightPixels);
-		//return dispMetrics.heightPixels;
-		return 160;
+		return SCREEN_HEIGHT;
 	}
 
 	public static int getWidth() {
-		DisplayMetrics dispMetrics = new DisplayMetrics();
-		AstroSmashActivity.toDebug("Width (ASVersion): " + dispMetrics.widthPixels);
-		//return dispMetrics.widthPixels;
-		return 120;
+		return SCREEN_WIDGT;
 	}
 
 	public static int getPlatform() {
@@ -131,15 +137,41 @@ public class AstroSmashVersion {
 		return MENU_DELTA_Y;
 	}
 
+	public static void setScreenSizes(int android_original) {
+		switch (android_original) {
+		default:
+		case ANDROID_ORIGINAL_120x146:
+			SCREEN_WIDGT = 120;
+			SCREEN_HEIGHT = 146;
+			break;
+		case ANDROID_ORIGINAL_176x220:
+			SCREEN_WIDGT = 176;
+			SCREEN_HEIGHT = 220;
+			break;
+		case ANDROID_ORIGINAL_240x320:
+			SCREEN_WIDGT = 240;
+			SCREEN_HEIGHT = 320;
+			break;
+		case ANDROID_ORIGINAL_480x640:
+			SCREEN_WIDGT = 480;
+			SCREEN_HEIGHT = 640;
+			break;
+		case ANDROID_ORIGINAL_96x51:
+			SCREEN_WIDGT = 96;
+			SCREEN_HEIGHT = 51;
+			break;
+		}
+	}
+
 	static {
 		int i = getWidth();
 		int j = getHeight();
+		// switch (149624)
 		platform = -1;
-		//switch (i + j * 1024)
-		switch (149624)
+		switch (i + j * 1024)
 		{
 		case 48224: 
-		case 52320: 
+		case ANDROID_ORIGINAL_96x51:
 			platform = 0;
 			DEVICE = "Motorola 66i";
 			COMMAND_HEIGHT_PIXELS = 0;
@@ -151,7 +183,7 @@ public class AstroSmashVersion {
 			MENU_FIRST_X = 20;
 			MENU_FIRST_Y = 11;
 			MENU_DELTA_Y = 9;
-			GREENCOLOR = 16777215;
+			GREENCOLOR = Color.WHITE;
 			CREDITS_UPC_CODE = "7-19575-700030";
 			break;
 		case 85120: 
@@ -227,7 +259,7 @@ public class AstroSmashVersion {
 			CREDITS_UPC_CODE = "7-19575-800013";
 			break;
 		case 147576: 
-		case 149624: 
+		case ANDROID_ORIGINAL_120x146:
 			platform = 6;
 			DEVICE = "Motorola 720i";
 			COMMAND_HEIGHT_PIXELS = 0;
@@ -239,7 +271,7 @@ public class AstroSmashVersion {
 			MENU_FIRST_X = 10;
 			MENU_FIRST_Y = 21;
 			MENU_DELTA_Y = 30;
-			GAMEPAUSEDCOLOR = 0;
+			GAMEPAUSEDCOLOR = Color.BLACK;
 			CREDITS_UPC_CODE = "7-19575-780063 4";
 			break;
 		default: 
