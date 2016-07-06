@@ -63,6 +63,9 @@ public class AstroSmashView extends SurfaceView implements SurfaceHolder.Callbac
 		this.m_bFirstPaint = true;
 		// TODO: Debug ?
 
+		resetStartTime();
+		restartGame();
+
 		this.m_nStartTime = 0L;
 		this.m_nPauseTime = 0L;
 		this.m_nPausedTime = 0L;

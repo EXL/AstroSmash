@@ -1,5 +1,7 @@
 package ru.exlmoto.astrosmash;
 
+import android.graphics.Rect;
+
 public class Collidable extends Drawable {
 
 	protected int m_nVelocityX = 0;
@@ -54,22 +56,36 @@ public class Collidable extends Drawable {
 	}
 
 	public boolean intersects(Collidable paramCollidable, int paramInt1, int paramInt2) {
-		int i = getX();
-		int j = i + paramInt1 * getWidth();
-		int k = getY();
-		int m = k + paramInt2 * getHeight();
-		int n = paramCollidable.getX();
-		int i1 = n + paramCollidable.getWidth();
-		int i2 = paramCollidable.getY();
-		int i3 = i2 + paramCollidable.getHeight();
-		if (((n >= i) && (n < j)) || 
-				((i1 >= i) && (i1 < j)) || 
-				((i >= n) && (i < i1)) || 
-				((j >= n) && (j < i1) && 
-						(((i2 >= k) && (i2 < m)) || 
-								((i3 >= k) && (i3 < m)) || 
-								((k >= i2) && (k < i3)) || 
-								((m >= i2) && (m < i3))))) {
+		//		Incorrect decompiled code
+		//		int i = getX();
+		//		int j = i + paramInt1 * getWidth();
+		//		int k = getY();
+		//		int m = k + paramInt2 * getHeight();
+		//		int n = paramCollidable.getX();
+		//		int i1 = n + paramCollidable.getWidth();
+		//		int i2 = paramCollidable.getY();
+		//		int i3 = i2 + paramCollidable.getHeight();
+		//		if (((n >= i) && (n < j)) || 
+		//				((i1 >= i) && (i1 < j)) || 
+		//				((i >= n) && (i < i1)) || 
+		//				((j >= n) && (j < i1) && 
+		//						(((i2 >= k) && (i2 < m)) || 
+		//								((i3 >= k) && (i3 < m)) || 
+		//								((k >= i2) && (k < i3)) || 
+		//								((m >= i2) && (m < i3))))) {
+		//			setCollided(true);
+		//			paramCollidable.setCollided(true);
+		//			return true;
+		//		}
+		//		return false;
+		Rect rectIn = new Rect(getX(), getY(), getX() + getWidth(), getY() + getHeight());
+		Rect rectOut = new Rect(
+				paramCollidable.getX(), 
+				paramCollidable.getY(), 
+				paramCollidable.getX() + paramCollidable.getWidth(), 
+				paramCollidable.getY() + paramCollidable.getHeight());
+
+		if (rectIn.intersect(rectOut)) {
 			setCollided(true);
 			paramCollidable.setCollided(true);
 			return true;

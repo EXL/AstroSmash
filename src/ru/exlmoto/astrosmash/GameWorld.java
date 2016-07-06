@@ -12,6 +12,7 @@ import android.graphics.Rect;
 
 @SuppressWarnings("unused")
 public class GameWorld implements IDeathListener {
+
 	public static final int AUTOFIRE_DELAY_MS = 333;
 	public static final int BULLET_VELOCITY_TIME = 40;
 	public static final int INITIAL_LIVES = 4;
@@ -84,7 +85,7 @@ public class GameWorld implements IDeathListener {
 			this.m_enemyFactory = new EnemyFactory(this.m_nScreenWidth, this.m_nScreenHeight, this, activityContext);
 		}
 		this.m_ship = this.m_enemyFactory.createShip(i, this.m_groundHeight);
-		this.m_nLives = 40;
+		this.m_nLives = 4;
 		if (this.m_EnemiesToRecycleStack == null) {
 			this.m_EnemiesToRecycleStack = new Stack<Enemy>();
 		}
@@ -182,7 +183,7 @@ public class GameWorld implements IDeathListener {
 			this.m_munitionsFactory.putBullet(localCollidable);
 		}
 		this.m_backgroundManager.setGameLevel(this.m_nLevel);
-		this.m_nLives = 4;
+		this.m_nLives = 40;
 		this.m_backgroundManager.setLives(this.m_nLives);
 		this.m_nScore = 0;
 		this.m_nPeakScore = 0;
@@ -242,13 +243,13 @@ public class GameWorld implements IDeathListener {
 		paint.getTextBounds(paramString2, 0, paramString2.length(), bounds);
 		int r2 = bounds.width();
 
-//		if (AstroSmashVersion.getPlatform() == 6) {
-//			paint.setColor(AstroSmashVersion.BLACKCOLOR);
-//		} else {
-//			paint.setColor(AstroSmashVersion.WHITECOLOR);
-//		}
+		//		if (AstroSmashVersion.getPlatform() == 6) {
+		//			paint.setColor(AstroSmashVersion.BLACKCOLOR);
+		//		} else {
+		//			paint.setColor(AstroSmashVersion.WHITECOLOR);
+		//		}
 		paint.setColor(AstroSmashVersion.WHITECOLOR);
-		
+
 		// Draw message on center screen
 		canvas.drawText(paramString1, this.m_nScreenWidth / 2 - r / 2, this.m_nScreenHeight / 2, paint);
 		if ((paramString2 != null) && (!paramString2.equals(""))) {
@@ -349,7 +350,6 @@ public class GameWorld implements IDeathListener {
 	}
 
 	public void fireUfoBullet(int paramInt1, int paramInt2) {
-		AstroSmashActivity.toDebug("Ufo bullet: " + paramInt1 + ":" + paramInt2);
 		Enemy localEnemy = this.m_enemyFactory.getEnemy(12);
 		localEnemy.setPosition(paramInt1, paramInt2);
 		int i = ENEMY_FALLTIMES[this.m_nLevel] / 2;
@@ -387,11 +387,10 @@ public class GameWorld implements IDeathListener {
 	}
 
 	protected void shipDestroyed() {
-		Object localObject;
 		try {
 			for (int i = 0; i < this.m_vecFlyingEnemies.size(); i++) {
-				localObject = (Enemy)this.m_vecFlyingEnemies.elementAt(i);
-				this.m_EnemiesToRecycleStack.push((Enemy)localObject);
+				Enemy enemy = this.m_vecFlyingEnemies.elementAt(i);
+				this.m_EnemiesToRecycleStack.push(enemy);
 			}
 		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException1) {
 			localArrayIndexOutOfBoundsException1.printStackTrace();
@@ -399,16 +398,15 @@ public class GameWorld implements IDeathListener {
 		sendWaitingEnemiesToFactory();
 		try {
 			for (int j = 0; j < this.m_vecFlyingBullets.size(); j++) {
-				localObject = (Collidable)this.m_vecFlyingBullets.elementAt(j);
-				this.m_BulletsToRecycleStack.push((Collidable)localObject);
+				Collidable collidable = this.m_vecFlyingBullets.elementAt(j);
+				this.m_BulletsToRecycleStack.push(collidable);
 			}
 		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException2) {
 			localArrayIndexOutOfBoundsException2.printStackTrace();
 		}
 		this.m_vecFlyingBullets.removeAllElements();
-		while (!this.m_BulletsToRecycleStack.empty())
-		{
-			Collidable localCollidable = (Collidable)this.m_BulletsToRecycleStack.pop();
+		while (!this.m_BulletsToRecycleStack.empty()) {
+			Collidable localCollidable = this.m_BulletsToRecycleStack.pop();
 			this.m_munitionsFactory.putBullet(localCollidable);
 		}
 		this.m_nLives -= 1;
@@ -425,17 +423,12 @@ public class GameWorld implements IDeathListener {
 		switch (i)
 		{
 		case 1: 
-			if (paramEnemy.getEnemyTypeId() != -2)
-			{
+			if (paramEnemy.getEnemyTypeId() != -2) {
 				sendDeadEnemyToHell(paramEnemy);
-			}
-			else if (this.m_nLives >= 0)
-			{
+			} else if (this.m_nLives >= 0) {
 				paramEnemy.reset();
 				paramEnemy.setX(this.m_nScreenWidth / 2);
-			}
-			else if (!this.m_bGameOver)
-			{
+			} else if (!this.m_bGameOver) {
 				this.m_bGameOver = true;
 				this.m_gameWorldListener.gameIsOver();
 			}
@@ -496,26 +489,26 @@ public class GameWorld implements IDeathListener {
 	}
 
 	protected void checkLevel() {
-//		int i = 0;
-//		if ((this.m_nLevel < 6) && (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)])) {
-//			do
-//			{
-//				this.m_nLevel += 1;
-//				i = 1;
-//				if (this.m_nLevel >= 6) {
-//					break;
-//				}
-//			} while (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)]);
-//		} else if (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]) {
-//			while ((this.m_nLevel > this.m_nInitialLevel) && (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]))
-//			{
-//				this.m_nLevel -= 1;
-//				i = 1;
-//			}
-//		}
-//		if (i != 0) {
-//			setLevel(this.m_nLevel);
-//		}
+		//		int i = 0;
+		//		if ((this.m_nLevel < 6) && (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)])) {
+		//			do
+		//			{
+		//				this.m_nLevel += 1;
+		//				i = 1;
+		//				if (this.m_nLevel >= 6) {
+		//					break;
+		//				}
+		//			} while (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)]);
+		//		} else if (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]) {
+		//			while ((this.m_nLevel > this.m_nInitialLevel) && (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]))
+		//			{
+		//				this.m_nLevel -= 1;
+		//				i = 1;
+		//			}
+		//		}
+		//		if (i != 0) {
+		//			setLevel(this.m_nLevel);
+		//		}
 		setLevel(6);
 	}
 
