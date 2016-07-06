@@ -128,6 +128,7 @@ public class EnemyFactory {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void generateEnemies() {
 		this.m_enemyStacks = new Stack[ENEMIES.length];
 		for (int i = 0; i < ENEMIES.length; i++) {
@@ -197,9 +198,7 @@ public class EnemyFactory {
 			localGunShip.setHitReaction(1);
 			localGunShip.setDeathListener(this.m_deathListener);
 			localGunShip.setExplosionImages(arrayOfImage2);
-		}
-		catch (Exception localException)
-		{
+		} catch (Exception localException) {
 			System.out.println(localException.getMessage());
 			localException.printStackTrace();
 		}
