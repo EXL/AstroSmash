@@ -7,7 +7,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-
+import ru.exlmoto.astrosmash.AstroSmashLauncher.AstroSmashSettings;
 import ru.exlmoto.astrosmash.AstroSmashView;
 
 @SuppressWarnings("unused")
@@ -154,10 +154,9 @@ implements IDeathListener {
 		} else if (this.m_bGameOver) {
 			paintMessage(canvas, paint, InfoStrings.GAME_OVER_STRING, InfoStrings.PEAK_SCORE_STRING + ": " + this.m_nPeakScore);
 		}
-		// TODO: Check this.
-		//if ((AstroSmashVersion.getDebugFlag()) && (AstroSmashVersion.getDebugFpsFlag())) {
-		drawFPS(canvas, paint);
-		//}
+		if (AstroSmashSettings.drawFps) {
+			drawFPS(canvas, paint);
+		}
 	}
 
 	public void pause(boolean paramBoolean) {
@@ -169,7 +168,7 @@ implements IDeathListener {
 		this.m_BulletsToRecycleStack.removeAllElements();
 		this.m_nPeakScore = 0;
 		this.m_backgroundManager.setPeakScore(0);
-		this.m_bAutoFire = true;
+		this.m_bAutoFire = AstroSmashSettings.autoFire;
 		int j;
 		for (int i = this.m_vecFlyingEnemies.size(); i > 0; i = this.m_vecFlyingEnemies.size()) {
 			j = i - 1;

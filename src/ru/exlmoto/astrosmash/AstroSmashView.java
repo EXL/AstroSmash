@@ -10,7 +10,7 @@ import android.graphics.Rect;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
+import ru.exlmoto.astrosmash.AstroSmashLauncher.AstroSmashSettings;
 import ru.exlmoto.astrosmash.AstroSmashEngine.GameWorld;
 import ru.exlmoto.astrosmash.AstroSmashEngine.InfoStrings;
 import ru.exlmoto.astrosmash.AstroSmashEngine.Version;
@@ -75,7 +75,22 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		m_random = new Random(System.currentTimeMillis());
 
 		InfoStrings.initializeInfo();
-		Version.setScreenSizes(Version.ANDROID_ORIGINAL_240x320);
+		switch (AstroSmashSettings.graphicsScale) {
+		case AstroSmashLauncher.SCALE_120P:
+			Version.setScreenSizes(Version.ANDROID_ORIGINAL_120x146);
+			break;
+		case AstroSmashLauncher.SCALE_176P:
+			Version.setScreenSizes(Version.ANDROID_ORIGINAL_176x220);
+			break;
+		case AstroSmashLauncher.SCALE_240P:
+			Version.setScreenSizes(Version.ANDROID_ORIGINAL_240x320);
+			break;
+		case AstroSmashLauncher.SCALE_480P:
+			Version.setScreenSizes(Version.ANDROID_ORIGINAL_480x640);
+			break;
+		default:
+			break;
+		}
 
 		surfaceHolder = getHolder();
 		surfaceHolder.addCallback(this);
@@ -111,20 +126,20 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 			}
 			this.m_gameWorld.paint(bitmapCanvas, painter);
 			if (gameScreen != null) {
-				if (true) { // TODO: Settings Flag
+				if (AstroSmashSettings.antialiasing) {
 					painter.setFilterBitmap(true);
 				}
-				if (false) { // TODO: Settings Flag
-					canvas.drawBitmap(gameScreen, 
-							bitmapRect,
-							screenRect,
-							painter);
-				} else {
+				if (AstroSmashSettings.showTouchRect) {
 					canvas.drawBitmap(gameScreen, 
 							bitmapRect,
 							screenRectPercent,
 							painter);
 					drawTouchArrow(canvas, painter);
+				} else {
+					canvas.drawBitmap(gameScreen, 
+							bitmapRect,
+							screenRect,
+							painter);
 				}
 			}
 		}

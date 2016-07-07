@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-
+import ru.exlmoto.astrosmash.AstroSmashLauncher.AstroSmashSettings;
 import ru.exlmoto.astrosmash.AstroSmashView;
 
 public class StarManager {
@@ -71,7 +71,7 @@ public class StarManager {
 	public void generateStarImage(int color) {
 		bitmapCanvas.drawColor(color);
 		for (int i = 0; i < this.m_numStars; i++) {
-			if (false) { // TODO: Settings
+			if (AstroSmashSettings.colorizeStars) { // TODO: Settings
 				bitmapPaint.setColor(getRandomStarColor());
 			} else {
 				bitmapPaint.setColor(Version.WHITECOLOR);
