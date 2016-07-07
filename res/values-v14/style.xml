@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DialogBaseTheme" parent="@android:style/Theme.DeviceDefault.Dialog.MinWidth">
+        <!-- API 14 theme customizations can go here. -->
+    </style>
+
+</resources>

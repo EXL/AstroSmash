@@ -11,8 +11,10 @@ import ru.exlmoto.astrosmash.AstroSmashEngine.Version;
 public class AstroSmashActivity extends Activity {
 
 	public static final String ASTRO_SMASH_TAG = "AstroSmash";
+	public static final int RESTART_GAME_NO = 0;
+	public static final int RESTART_GAME_YES = 1;
 
-	private AstroSmashView astroSmashView;
+	private static AstroSmashView astroSmashView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,10 @@ public class AstroSmashActivity extends Activity {
 
 		astroSmashView = new AstroSmashView(this);
 		setContentView(astroSmashView);
+	}
+
+	public static AstroSmashView getAstroSmashView() {
+		return astroSmashView;
 	}
 
 	public static void toDebug(String message) {
@@ -40,6 +46,12 @@ public class AstroSmashActivity extends Activity {
 		}
 		int action = event.getActionMasked();
 		switch(action) {
+		case MotionEvent.ACTION_DOWN:
+			if (!astroSmashView.isM_bRunning()) {
+				AstroSmashActivity.toDebug("Restart Game");
+				astroSmashView.checkHiScores(RESTART_GAME_YES);
+			}
+			break;
 		case MotionEvent.ACTION_MOVE:
 			if (event.getY(touchId) > astroSmashView.getScreenRectChunkProcent()) {
 				astroSmashView.setShipX(convertCoordX(event.getX(touchId)));

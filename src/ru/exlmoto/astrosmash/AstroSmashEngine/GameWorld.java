@@ -183,7 +183,7 @@ implements IDeathListener {
 			this.m_munitionsFactory.putBullet(localCollidable);
 		}
 		this.m_backgroundManager.setGameLevel(this.m_nLevel);
-		this.m_nLives = 40;
+		this.m_nLives = 4;
 		this.m_backgroundManager.setLives(this.m_nLives);
 		this.m_nScore = 0;
 		this.m_nPeakScore = 0;
@@ -503,7 +503,8 @@ implements IDeathListener {
 		if (i != 0) {
 			setLevel(this.m_nLevel);
 		}
-		setLevel(MAX_LEVEL);
+		// For Debug
+		//		setLevel(MAX_LEVEL);
 	}
 
 	protected void updateScore(int paramInt) {

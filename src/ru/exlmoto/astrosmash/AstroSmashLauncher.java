@@ -18,9 +18,9 @@ public class AstroSmashLauncher extends Activity {
 	public static final int SCALE_240P = 2;
 	public static final int SCALE_480P = 3;
 
-	private static final int PLAYERS = 10;
+	public static final int HISCORE_PLAYERS = 10;
 
-	private SharedPreferences settingsStorage = null;
+	public static SharedPreferences settingsStorage = null;
 
 	public static class AstroSmashSettings {
 
@@ -52,8 +52,8 @@ public class AstroSmashLauncher extends Activity {
 	private RadioButton radioButton240 = null;
 	private RadioButton radioButton480 = null;
 
-	private TextView[] playerNamesView;
-	private TextView[] playerScoresView;
+	private static TextView[] playerNamesView;
+	private static TextView[] playerScoresView;
 
 	public void fillSettingsByLayout() {
 		AstroSmashSettings.autoFire = autoFireCheckBox.isChecked();
@@ -101,7 +101,14 @@ public class AstroSmashLauncher extends Activity {
 			break;
 		}
 
-		for (int i = 0; i < PLAYERS; ++i) {
+		for (int i = 0; i < HISCORE_PLAYERS; ++i) {
+			playerNamesView[i].setText(AstroSmashSettings.playerNames[i]);
+			playerScoresView[i].setText(Integer.toString(AstroSmashSettings.playerScores[i]));
+		}
+	}
+
+	public static void updateGameTable() {
+		for (int i = 0; i < HISCORE_PLAYERS; ++i) {
 			playerNamesView[i].setText(AstroSmashSettings.playerNames[i]);
 			playerScoresView[i].setText(Integer.toString(AstroSmashSettings.playerScores[i]));
 		}
@@ -118,13 +125,13 @@ public class AstroSmashLauncher extends Activity {
 
 		AstroSmashSettings.graphicsScale = settingsStorage.getInt("graphicsScale", SCALE_240P);
 
-		for (int i = 0; i < PLAYERS; ++i) {
+		for (int i = 0; i < HISCORE_PLAYERS; ++i) {
 			AstroSmashSettings.playerNames[i] = settingsStorage.getString("player" + i, AstroSmashSettings.playerNames[i]);
 			AstroSmashSettings.playerScores[i] = settingsStorage.getInt("score" + i, AstroSmashSettings.playerScores[i]);
 		}
 	}
 
-	public void writeSettings() {
+	private void writeSettings() {
 		AstroSmashActivity.toDebug("Write Settings!");
 
 		fillSettingsByLayout();
@@ -140,11 +147,6 @@ public class AstroSmashLauncher extends Activity {
 		editor.putBoolean("drawFps", AstroSmashSettings.drawFps);
 
 		editor.putInt("graphicsScale", AstroSmashSettings.graphicsScale);
-
-		for (int i = 0; i < PLAYERS; ++i) {
-			editor.putString("player" + i, AstroSmashSettings.playerNames[i]);
-			editor.putInt("score" + i, AstroSmashSettings.playerScores[i]);
-		}
 
 		editor.commit();
 	}
@@ -163,8 +165,8 @@ public class AstroSmashLauncher extends Activity {
 		radioButton240 = (RadioButton) findViewById(R.id.radioButton240);
 		radioButton480 = (RadioButton) findViewById(R.id.radioButton480);
 
-		playerNamesView = new TextView[PLAYERS];
-		playerScoresView = new TextView[PLAYERS];
+		playerNamesView = new TextView[HISCORE_PLAYERS];
+		playerScoresView = new TextView[HISCORE_PLAYERS];
 		playerNamesView[0] = (TextView) findViewById(R.id.PlayerName1);
 		playerScoresView[0] = (TextView) findViewById(R.id.PlayerScore1);
 		playerNamesView[1] = (TextView) findViewById(R.id.PlayerName2);

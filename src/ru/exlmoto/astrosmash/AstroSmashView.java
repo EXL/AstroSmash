@@ -2,6 +2,8 @@ package ru.exlmoto.astrosmash;
 
 import java.util.Random;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -69,8 +71,12 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 
 	private SurfaceHolder surfaceHolder = null;
 
+	private AstroSmashActivity astroSmashActivity = null;
+
 	public AstroSmashView(Context context) {
 		super(context);
+
+		astroSmashActivity = (AstroSmashActivity) context;
 
 		m_random = new Random(System.currentTimeMillis());
 
@@ -102,8 +108,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		m_gameWorld = new GameWorld(Version.getWidth(), Version.getHeight() - Version.getCommandHeightPixels(), this, context);
 		this.m_bFirstPaint = true;
 
-		resetStartTime();
-		restartGame();
+		restartGame(true);
 
 		this.m_nStartTime = 0L;
 		this.m_nPauseTime = 0L;
@@ -170,6 +175,10 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		}
 	}
 
+	public boolean isM_bRunning() {
+		return m_bRunning;
+	}
+
 	public int getScreenHeightPercent() {
 		return screenHeightPercent;
 	}
@@ -217,9 +226,14 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		return this.m_gameWorld.getPeakScore();
 	}
 
-	public void restartGame() {
+	public void restartGame(boolean constructor) {
+		resetStartTime();
 		this.m_gameWorld.reset();
 		this.m_bFirstPaint = true;
+		if (!constructor) {
+			init();
+			start();
+		}
 	}
 
 	public int getGameAction(int paramInt) {
@@ -321,6 +335,8 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
+		AstroSmashActivity.toDebug("Surface destroyed");
+		checkHiScores(AstroSmashActivity.RESTART_GAME_NO);
 		boolean shutdown = false;
 		this.m_bRunning = false;
 		while (!shutdown) {
@@ -333,6 +349,33 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 				AstroSmashActivity.toDebug("Error joining to Game Thread");
 			}
 		}
+	}
+
+	public int getScorePosition(int score) {
+		for (int i = 0; i < AstroSmashLauncher.HISCORE_PLAYERS; i++) {
+			if (score > AstroSmashSettings.playerScores[i]) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public void addScore(int score, int restartGame) {
+		int i = getScorePosition(score);
+		if (i == -1) {
+			return;
+		}
+		Intent intent = new Intent(this.getContext(), AstroSmashHighScoreDialog.class);
+		intent.putExtra("peakScore", score);
+		intent.putExtra("indexScore", i);
+		intent.putExtra("restartGame", restartGame);
+		astroSmashActivity.startActivity(intent);
+	}
+
+	public void checkHiScores(int restartGame) {
+		int peakScore = m_gameWorld.getPeakScore();
+		AstroSmashActivity.toDebug("HiScore is: " + peakScore);
+		addScore(peakScore, restartGame);
 	}
 
 	public void setShipX(int xCoord) {
