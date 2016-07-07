@@ -36,11 +36,10 @@ public class AstroSmashActivity extends Activity {
 		if (touchId < 0) {
 			return false;
 		}
-
 		int action = event.getActionMasked();
 		switch(action) {
 		case MotionEvent.ACTION_MOVE:
-			if (event.getY(touchId) > astroSmashView.getScreenHeight() - astroSmashView.getScreenHeightPercent()) {
+			if (event.getY(touchId) > astroSmashView.getScreenRectChunkProcent()) {
 				astroSmashView.setShipX(convertCoordX(event.getX(touchId)));
 			} else {
 				astroSmashView.fire();

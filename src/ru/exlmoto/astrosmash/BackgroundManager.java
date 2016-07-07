@@ -48,6 +48,9 @@ public class BackgroundManager {
 
 	private Context activityContext = null;
 
+	private Canvas bitmapCanvas = null;
+	private Paint bitmapPaint = null;
+
 	public BackgroundManager(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5, Context context) {
 		AstroSmashActivity.toDebug("Background Manager: " + paramInt1 + ":" + paramInt2);
 		this.activityContext = context;
@@ -70,6 +73,9 @@ public class BackgroundManager {
 		this.m_xImage = BitmapFactory.decodeResource(activityContext.getResources(), R.drawable.nox);
 		this.m_greenShip = BitmapFactory.decodeResource(activityContext.getResources(), R.drawable.ship_green);
 		this.m_minusImage = BitmapFactory.decodeResource(activityContext.getResources(), R.drawable.minus);
+
+		bitmapCanvas = new Canvas(this.m_image);
+		bitmapPaint = new Paint();
 	}
 
 	public void paint(Canvas canvas, Paint paint) {
@@ -106,35 +112,32 @@ public class BackgroundManager {
 	}
 
 	protected void regenerateBackground() {
-		Canvas canvas = new Canvas(this.m_image);
-		Paint paint = new Paint();
-		paint.reset();
 		int i = getGroundLevel();
 
 		// Fill background by black color
-		canvas.drawColor(AstroSmashVersion.BLACKCOLOR);
+		bitmapCanvas.drawColor(AstroSmashVersion.BLACKCOLOR);
 
 		// Draw stars on background
-		canvas.drawBitmap(this.m_starManager.getStarImage(), 0, 0, paint);
+		bitmapCanvas.drawBitmap(this.m_starManager.getStarImage(), 0, 0, bitmapPaint);
 
 		// Draw mountains (with fix)
 		if (this.m_screenWidth > this.m_mountain.getHeight()) {
 			for (int k = 0; k < this.m_screenWidth; k+=120) {
-				canvas.drawBitmap(this.m_mountain, k, i - AstroSmashVersion.getMountainFootHeight() - this.m_mountain.getHeight(), paint);
+				bitmapCanvas.drawBitmap(this.m_mountain, k, i - AstroSmashVersion.getMountainFootHeight() - this.m_mountain.getHeight(), bitmapPaint);
 			}
 		} else {
-			canvas.drawBitmap(this.m_mountain, 0, i - AstroSmashVersion.getMountainFootHeight() - this.m_mountain.getHeight(), paint);
+			bitmapCanvas.drawBitmap(this.m_mountain, 0, i - AstroSmashVersion.getMountainFootHeight() - this.m_mountain.getHeight(), bitmapPaint);
 		}
 
 		// Set green color and draw ground line
-		paint.setColor(AstroSmashVersion.GREENCOLOR);
-		canvas.drawRect(0, i, this.m_screenWidth, i + AstroSmashVersion.getGroundThickness(), paint);
+		bitmapPaint.setColor(AstroSmashVersion.GREENCOLOR);
+		bitmapCanvas.drawRect(0, i, this.m_screenWidth, i + AstroSmashVersion.getGroundThickness(), bitmapPaint);
 
 		// Draw status screen rect
-		canvas.drawBitmap(this.m_xImage, this.m_screenWidth - AstroSmashVersion.getStringRightPadding() - this.m_xImage.getWidth(), this.m_screenHeight - 1 - this.m_xImage.getHeight(), paint);
-		paintNumber(canvas, paint, this.m_nLevel, this.m_screenWidth - AstroSmashVersion.getStringRightPadding() - this.m_xImage.getWidth(), this.m_screenHeight - 1);
-		drawLives(canvas, paint, this.m_screenWidth / 2, this.m_screenHeight - 1);
-		paintNumber(canvas, paint, this.m_nScore, this.m_screenWidth / 2 - AstroSmashVersion.getStringRightPadding(), this.m_screenHeight - 1);
+		bitmapCanvas.drawBitmap(this.m_xImage, this.m_screenWidth - AstroSmashVersion.getStringRightPadding() - this.m_xImage.getWidth(), this.m_screenHeight - 1 - this.m_xImage.getHeight(), bitmapPaint);
+		paintNumber(bitmapCanvas, bitmapPaint, this.m_nLevel, this.m_screenWidth - AstroSmashVersion.getStringRightPadding() - this.m_xImage.getWidth(), this.m_screenHeight - 1);
+		drawLives(bitmapCanvas, bitmapPaint, this.m_screenWidth / 2, this.m_screenHeight - 1);
+		paintNumber(bitmapCanvas, bitmapPaint, this.m_nScore, this.m_screenWidth / 2 - AstroSmashVersion.getStringRightPadding(), this.m_screenHeight - 1);
 	}
 
 	protected int paintNumber(Canvas canvas, Paint paint, int paramInt1, int paramInt2, int paramInt3) {

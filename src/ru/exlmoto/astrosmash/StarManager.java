@@ -11,12 +11,27 @@ public class StarManager {
 	public static final int NUMBER_OF_STARS = 50;
 	public static final int BLACKCOLOR = AstroSmashVersion.BLACKCOLOR;
 	public static final int WHITECOLOR = AstroSmashVersion.WHITECOLOR;
+	int[] colorArray = {
+			Color.parseColor("#9AAFFF"),
+			Color.parseColor("#CAD7FF"),
+			Color.parseColor("#F8F7FF"),
+			Color.parseColor("#F8F7FF"),
+			Color.parseColor("#F8F7FF"),
+			Color.parseColor("#F8F7FF"),
+			Color.parseColor("#F8F7FF"),
+			Color.parseColor("#FFF2A1"),
+			Color.parseColor("#FFE46F"),
+			Color.parseColor("#FFA040")
+	};
 	private int m_numStars;
 	private int m_width;
 	private int m_height;
 	private Bitmap m_image;
 	private int[] m_xPos;
 	private int[] m_yPos;
+
+	private Canvas bitmapCanvas = null;
+	private Paint bitmapPaint = null;
 
 	public StarManager(int paramInt1, int paramInt2, int paramInt3, int color) {
 		AstroSmashActivity.toDebug("Star Manager: " + paramInt1 + "x" + paramInt2);
@@ -26,6 +41,10 @@ public class StarManager {
 		this.m_image = Bitmap.createBitmap(this.m_width, this.m_height, Bitmap.Config.ARGB_8888);
 		this.m_xPos = new int[this.m_numStars];
 		this.m_yPos = new int[this.m_numStars];
+
+		bitmapCanvas = new Canvas(this.m_image);
+		bitmapPaint = new Paint();
+
 		generateStars();
 		generateStarImage(color);
 	}
@@ -46,32 +65,18 @@ public class StarManager {
 	}
 
 	private int getRandomStarColor() {
-		int[] colorArray = {
-				Color.parseColor("#9AAFFF"),
-				Color.parseColor("#CAD7FF"),
-				Color.parseColor("#F8F7FF"),
-				Color.parseColor("#F8F7FF"),
-				Color.parseColor("#F8F7FF"),
-				Color.parseColor("#F8F7FF"),
-				Color.parseColor("#F8F7FF"),
-				Color.parseColor("#FFF2A1"),
-				Color.parseColor("#FFE46F"),
-				Color.parseColor("#FFA040")
-		};
 		return colorArray[AstroSmashView.getRandomIntBetween(0, colorArray.length)];
 	}
 
 	public void generateStarImage(int color) {
-		Canvas canvas = new Canvas(this.m_image);
-		Paint paint = new Paint();
-		canvas.drawColor(color);
+		bitmapCanvas.drawColor(color);
 		for (int i = 0; i < this.m_numStars; i++) {
 			if (false) { // TODO: Settings
-				paint.setColor(getRandomStarColor());
+				bitmapPaint.setColor(getRandomStarColor());
 			} else {
-				paint.setColor(AstroSmashVersion.WHITECOLOR);
+				bitmapPaint.setColor(AstroSmashVersion.WHITECOLOR);
 			}
-			canvas.drawPoint(this.m_xPos[i], this.m_yPos[i], paint);
+			bitmapCanvas.drawPoint(this.m_xPos[i], this.m_yPos[i], bitmapPaint);
 		}
 	}
 

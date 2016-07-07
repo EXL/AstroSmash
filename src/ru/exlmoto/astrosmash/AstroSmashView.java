@@ -41,6 +41,25 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 	private Canvas globalCanvas = null;
 	private Bitmap gameScreen = null;
 
+	private Rect touchRect = null;
+	private Rect bitmapRect = null;
+	private Rect screenRect = null;
+	private Rect screenRectPercent = null;
+
+	private int px1 = 0;
+	private int px5 = 0;
+	private int px25 = 0;
+	private int px25double = 0;
+
+	private int arrow_Y0 = 0;
+	private int arrow_Y1 = 0;
+	private int arrow_Y2 = 0;
+
+	private int arrow_X0 = 0;
+	private int arrow_X1 = 0;
+
+	private int screenRectChunkProcent = 0;
+
 	private static Random m_random;
 
 	private SurfaceHolder surfaceHolder = null;
@@ -62,7 +81,6 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 
 		m_gameWorld = new GameWorld(AstroSmashVersion.getWidth(), AstroSmashVersion.getHeight() - AstroSmashVersion.getCommandHeightPixels(), this, context);
 		this.m_bFirstPaint = true;
-		// TODO: Debug ?
 
 		resetStartTime();
 		restartGame();
@@ -89,18 +107,17 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 			this.m_gameWorld.paint(bitmapCanvas, painter);
 			if (gameScreen != null) {
 				if (true) { // TODO: Settings Flag
-					painter.setAntiAlias(true);
 					painter.setFilterBitmap(true);
 				}
 				if (false) { // TODO: Settings Flag
 					canvas.drawBitmap(gameScreen, 
-							new Rect(0, 0, gameScreen.getWidth(), gameScreen.getHeight()),
-							new Rect(0, 0, screenWidth, screenHeight),
+							bitmapRect,
+							screenRect,
 							painter);
 				} else {
 					canvas.drawBitmap(gameScreen, 
-							new Rect(0, 0, gameScreen.getWidth(), gameScreen.getHeight()),
-							new Rect(0, 0, screenWidth, screenHeight - screenHeightPercent),
+							bitmapRect,
+							screenRectPercent,
 							painter);
 					drawTouchArrow(canvas, painter);
 				}
@@ -114,24 +131,22 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 	}
 
 	private void drawTouchArrow(Canvas canvas, Paint paint) {
-		Rect touchRect = new Rect(0, screenHeight - screenHeightPercent, screenWidth, screenHeight);
 		paint.setColor(AstroSmashVersion.GREENCOLOR_DARK);
-		canvas.drawRect(0, screenHeight - screenHeightPercent, screenWidth, screenHeight, paint);
+		canvas.drawRect(0, screenRectChunkProcent, screenWidth, screenHeight, paint);
 		paint.setStrokeCap(Cap.ROUND);
-		int gap = px(25);
 		for (int i = 0; i < 2; ++i) {
 			if (i == 0) {
 				paint.setColor(AstroSmashVersion.GRAYCOLOR);
-				paint.setStrokeWidth(px(5));
+				paint.setStrokeWidth(px5);
 			} else {
 				paint.setColor(AstroSmashVersion.DARKCOLOR);
-				paint.setStrokeWidth(px(1));
+				paint.setStrokeWidth(px1);
 			}
-			canvas.drawLine(gap, screenHeight - touchRect.height() / 2, screenWidth - gap, screenHeight - touchRect.height() / 2, paint);
-			canvas.drawLine(gap, screenHeight - touchRect.height() / 2, gap * 2, screenHeight - touchRect.height() / 4, paint);
-			canvas.drawLine(gap, screenHeight - touchRect.height() / 2, gap * 2, screenHeight - touchRect.height() / 4 * 3, paint);
-			canvas.drawLine(screenWidth - gap, screenHeight - touchRect.height() / 2, screenWidth - gap * 2, screenHeight - touchRect.height() / 4, paint);
-			canvas.drawLine(screenWidth - gap, screenHeight - touchRect.height() / 2, screenWidth - gap * 2, screenHeight - touchRect.height() / 4 * 3, paint);
+			canvas.drawLine(px25, arrow_Y0, arrow_X0, arrow_Y0, paint);
+			canvas.drawLine(px25, arrow_Y0, px25double, arrow_Y1, paint);
+			canvas.drawLine(px25, arrow_Y0, px25double, arrow_Y2, paint);
+			canvas.drawLine(arrow_X0, arrow_Y0, arrow_X1, arrow_Y1, paint);
+			canvas.drawLine(arrow_X0, arrow_Y0, arrow_X1, arrow_Y2, paint);
 		}
 	}
 
@@ -246,12 +261,37 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		return Math.round(sideSize * percent / 100);
 	}
 
+	private void init() {
+		screenHeightPercent = getPercentChunkHeight(screenHeight, 15);
+
+		touchRect = new Rect(0, screenHeight - screenHeightPercent, screenWidth, screenHeight);
+		bitmapRect = new Rect(0, 0, gameScreen.getWidth(), gameScreen.getHeight());
+		screenRect = new Rect(0, 0, screenWidth, screenHeight);
+		screenRectPercent = new Rect(0, 0, screenWidth, screenHeight - screenHeightPercent);
+
+		px1 = px(1);
+		px5 = px(5);
+		px25 = px(25);
+		px25double = px25 * 2;
+
+		arrow_Y0 = screenHeight - touchRect.height() / 2;
+		arrow_Y1 = screenHeight - touchRect.height() / 4;
+		arrow_Y2 = screenHeight - touchRect.height() / 4 * 3;
+
+		arrow_X0 = screenWidth - px25;
+		arrow_X1 = screenWidth - px25double;
+
+		screenRectChunkProcent = screenHeight - screenHeightPercent;
+	}
+
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		AstroSmashActivity.toDebug("Surface created"); 
 		screenWidth = holder.getSurfaceFrame().width();
 		screenHeight = holder.getSurfaceFrame().height();
-		screenHeightPercent = getPercentChunkHeight(screenHeight, 15);
+
+		init();
+
 		start();
 	}
 
@@ -313,42 +353,38 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		return screenWidth;
 	}
 
-	public void setScreenWidth(int screenWidth) {
-		this.screenWidth = screenWidth;
-	}
-
 	public int getScreenHeight() {
 		return screenHeight;
 	}
 
-	public void setScreenHeight(int screenHeight) {
-		this.screenHeight = screenHeight;
+	public int getScreenRectChunkProcent() {
+		return screenRectChunkProcent;
 	}
 
 	@Override
 	public void run() {
 		try {
-			long l1 = System.currentTimeMillis();
+			// long l1 = System.currentTimeMillis();
 			long l2 = System.currentTimeMillis();
 			long l5 = l2;
 			this.m_nLastMemoryUsageTime = 0L;
 			while (this.m_bRunning) {
 				long l3 = System.currentTimeMillis();
 				long l4 = l3 - l2;
-				if (AstroSmashVersion.getDebugFlag()) {
-					if ((AstroSmashVersion.getDebugMemoryFlag()) && (l3 - this.m_nLastMemoryUsageTime > AstroSmashVersion.getDebugMemoryInterval())) {
-						// AstroSmashMidlet.printMemoryUsage("AstrosmashScreen.run (" + (l3 - l1) / 1000L + " secs)");
-						this.m_nLastMemoryUsageTime = l3;
-					}
-					if (this.m_currentThread != Thread.currentThread()) {
-						this.m_currentThread = Thread.currentThread();
-						this.m_nThreadSwitches += 1;
-						System.out.println("AstrosmashScreen.run: Game thread switch (" + this.m_nThreadSwitches + " total)");
-					}
-				}
-				if ((AstroSmashVersion.getDemoFlag()) && (l3 - this.m_nStartTime - this.m_nPausedTime >= AstroSmashVersion.getDemoDuration() * 1000)) {
-					this.m_gameWorld.suspendEnemies();
-				}
+				//				if (AstroSmashVersion.getDebugFlag()) {
+				//					if ((AstroSmashVersion.getDebugMemoryFlag()) && (l3 - this.m_nLastMemoryUsageTime > AstroSmashVersion.getDebugMemoryInterval())) {
+				//						// AstroSmashMidlet.printMemoryUsage("AstrosmashScreen.run (" + (l3 - l1) / 1000L + " secs)");
+				//						this.m_nLastMemoryUsageTime = l3;
+				//					}
+				//					if (this.m_currentThread != Thread.currentThread()) {
+				//						this.m_currentThread = Thread.currentThread();
+				//						this.m_nThreadSwitches += 1;
+				//						System.out.println("AstrosmashScreen.run: Game thread switch (" + this.m_nThreadSwitches + " total)");
+				//					}
+				//				}
+				//				if ((AstroSmashVersion.getDemoFlag()) && (l3 - this.m_nStartTime - this.m_nPausedTime >= AstroSmashVersion.getDemoDuration() * 1000)) {
+				//					this.m_gameWorld.suspendEnemies();
+				//				}
 				if ((this.m_bKeyHeldDown) && (l3 - this.m_initialHoldDownTime > 250L) && (l3 - l5 > 75L)) {
 					l5 = l3;
 					this.m_gameWorld.handleAction(this.m_heldDownGameAction);
