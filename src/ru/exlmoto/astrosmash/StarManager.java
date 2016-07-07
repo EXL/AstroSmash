@@ -2,8 +2,10 @@ package ru.exlmoto.astrosmash;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
+@SuppressWarnings("unused")
 public class StarManager {
 
 	public static final int NUMBER_OF_STARS = 50;
@@ -43,12 +45,32 @@ public class StarManager {
 		}
 	}
 
+	private int getRandomStarColor() {
+		int[] colorArray = {
+				Color.parseColor("#9AAFFF"),
+				Color.parseColor("#CAD7FF"),
+				Color.parseColor("#F8F7FF"),
+				Color.parseColor("#F8F7FF"),
+				Color.parseColor("#F8F7FF"),
+				Color.parseColor("#F8F7FF"),
+				Color.parseColor("#F8F7FF"),
+				Color.parseColor("#FFF2A1"),
+				Color.parseColor("#FFE46F"),
+				Color.parseColor("#FFA040")
+		};
+		return colorArray[AstroSmashView.getRandomIntBetween(0, colorArray.length)];
+	}
+
 	public void generateStarImage(int color) {
 		Canvas canvas = new Canvas(this.m_image);
 		Paint paint = new Paint();
 		canvas.drawColor(color);
-		paint.setColor(AstroSmashVersion.WHITECOLOR);
 		for (int i = 0; i < this.m_numStars; i++) {
+			if (false) { // TODO: Settings
+				paint.setColor(getRandomStarColor());
+			} else {
+				paint.setColor(AstroSmashVersion.WHITECOLOR);
+			}
 			canvas.drawPoint(this.m_xPos[i], this.m_yPos[i], paint);
 		}
 	}

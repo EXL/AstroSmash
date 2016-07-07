@@ -300,6 +300,10 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		return Math.abs(m_random.nextInt());
 	}
 
+	public static int getRandomIntBetween(int min, int max) {
+		return (int) ((Math.random() * (max - min)) + min);
+	}
+
 	public static int getRandomInt() {
 		m_random.setSeed(System.currentTimeMillis() + m_random.nextInt());
 		return m_random.nextInt();
