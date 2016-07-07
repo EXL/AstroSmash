@@ -110,13 +110,13 @@ public class BackgroundManager {
 		Paint paint = new Paint();
 		paint.reset();
 		int i = getGroundLevel();
-		
+
 		// Fill background by black color
 		canvas.drawColor(AstroSmashVersion.BLACKCOLOR);
-		
+
 		// Draw stars on background
 		canvas.drawBitmap(this.m_starManager.getStarImage(), 0, 0, paint);
-		
+
 		// Draw mountains (with fix)
 		if (this.m_screenWidth > this.m_mountain.getHeight()) {
 			for (int k = 0; k < this.m_screenWidth; k+=120) {
@@ -125,11 +125,11 @@ public class BackgroundManager {
 		} else {
 			canvas.drawBitmap(this.m_mountain, 0, i - AstroSmashVersion.getMountainFootHeight() - this.m_mountain.getHeight(), paint);
 		}
-		
+
 		// Set green color and draw ground line
 		paint.setColor(AstroSmashVersion.GREENCOLOR);
 		canvas.drawRect(0, i, this.m_screenWidth, i + AstroSmashVersion.getGroundThickness(), paint);
-		
+
 		// Draw status screen rect
 		canvas.drawBitmap(this.m_xImage, this.m_screenWidth - AstroSmashVersion.getStringRightPadding() - this.m_xImage.getWidth(), this.m_screenHeight - 1 - this.m_xImage.getHeight(), paint);
 		paintNumber(canvas, paint, this.m_nLevel, this.m_screenWidth - AstroSmashVersion.getStringRightPadding() - this.m_xImage.getWidth(), this.m_screenHeight - 1);
@@ -143,7 +143,7 @@ public class BackgroundManager {
 		k = paramInt1 < 0 ? 1 : 0;
 		paramInt1 = Math.abs(paramInt1);
 		if (0 == paramInt1) {
-			canvas.drawBitmap(this.m_numberFonts[0], paramInt2 - this.m_numberFonts[0].getWidth(), paramInt3 - - this.m_numberFonts[0].getHeight(), paint);
+			canvas.drawBitmap(this.m_numberFonts[0], paramInt2 - this.m_numberFonts[0].getWidth(), paramInt3 - this.m_numberFonts[0].getHeight(), paint);
 			j = this.m_numberFonts[0].getWidth();
 		} else {
 			while (paramInt1 > 0) {

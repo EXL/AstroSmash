@@ -68,7 +68,7 @@ public class Enemy extends Collidable {
 			if (this.m_currentExplosionImage < this.m_xPlosionImages.length) {
 				Bitmap localImage = this.m_xPlosionImages[this.m_currentExplosionImage];
 				// Draw exploding images
-				canvas.drawBitmap(localImage, getX() - localImage.getWidth() / 5, getY() - localImage.getHeight() / 2 + 2, paint);
+				canvas.drawBitmap(localImage, getX() + localImage.getWidth() / 3, getY() - localImage.getHeight() / 2 + 2, paint);
 				this.m_currentExplosionImage += 1;
 			}
 			if (this.m_currentExplosionImage >= this.m_xPlosionImages.length) {
