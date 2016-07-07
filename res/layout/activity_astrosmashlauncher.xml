@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/mariginLayout"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/mariginLayout"
+            android:contentDescription="@string/CoverString"
+            android:src="@drawable/covers" />
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/gameButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/RunButton" />
+
+            <Button
+                android:id="@+id/aboutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/AboutButton" />
+        </TableRow>
+
+        <TextView
+            android:id="@+id/settings_label"
+            style="?android:attr/listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/SettingsLabel" />
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/checkBoxAutoFire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/AutoFire" />
+
+            <CheckBox
+                android:id="@+id/checkBoxSound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Sound" />
+        </TableRow>
+
+        <CheckBox
+            android:id="@+id/checkBoxVibro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Vibro" />
+
+        <CheckBox
+            android:id="@+id/checkBoxAntialiasing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Antialiasing" />
+
+        <CheckBox
+            android:id="@+id/checkBoxTouchRect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/TouchRect" />
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/checkBoxColorStars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ColorStars" />
+
+            <CheckBox
+                android:id="@+id/checkBoxFPS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/FPS" />
+        </TableRow>
+
+        <TextView
+            android:id="@+id/graphics_label"
+            style="?android:attr/listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/GraphicsLabel" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radioButton120"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Radio120" />
+
+            <RadioButton
+                android:id="@+id/radioButton176"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Radio176" />
+
+            <RadioButton
+                android:id="@+id/radioButton240"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Radio240" />
+
+            <RadioButton
+                android:id="@+id/radioButton480"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Radio480" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/hiscore_label"
+            style="?android:attr/listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/HiScoreTable" />
+
+        <TableLayout
+            android:id="@+id/RHE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/mariginLayout"
+            android:layout_marginTop="@dimen/mariginLayout" >
+
+            <TableRow android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/PlayerName1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Player1"
+                    android:textSize="@dimen/textSize" />
+
+                <TextView
+                    android:id="@+id/PlayerScore1"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/Score1"
+                    android:textSize="@dimen/textSize" />
+            </TableRow>
+
+            <TableRow android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/PlayerName2"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Player2"
+                    android:textSize="@dimen/textSize" />
+
+                <TextView
+                    android:id="@+id/PlayerScore2"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/Score2"
+                    android:textSize="@dimen/textSize" />
+            </TableRow>
+
+            <TableRow android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/PlayerName3"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Player3"
+                    android:textSize="@dimen/textSize" />
+
+                <TextView
+                    android:id="@+id/PlayerScore3"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/Score3"
+                    android:textSize="@dimen/textSize" />
+            </TableRow>
+
+            <TableRow android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/PlayerName4"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Player4"
+                    android:textSize="@dimen/textSize" />
+
+                <TextView
+                    android:id="@+id/PlayerScore4"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/Score4"
+                    android:textSize="@dimen/textSize" />
+            </TableRow>
+
+            <TableRow android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/PlayerName5"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Player5"
+                    android:textSize="@dimen/textSize" />
+
+                <TextView
+                    android:id="@+id/PlayerScore5"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/Score5"
+                    android:textSize="@dimen/textSize" />
+            </TableRow>
+
+            <TableRow android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/PlayerName6"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Player6"
+                    android:textSize="@dimen/textSize" />
+
+                <TextView
+                    android:id="@+id/PlayerScore6"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/Score6"
+                    android:textSize="@dimen/textSize" />
+            </TableRow>
+
+            <TableRow android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/PlayerName7"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Player7"
+                    android:textSize="@dimen/textSize" />
+
+                <TextView
+                    android:id="@+id/PlayerScore7"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/Score7"
+                    android:textSize="@dimen/textSize" />
+            </TableRow>
+
+            <TableRow android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/PlayerName8"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Player8"
+                    android:textSize="@dimen/textSize" />
+
+                <TextView
+                    android:id="@+id/PlayerScore8"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/Score8"
+                    android:textSize="@dimen/textSize" />
+            </TableRow>
+
+            <TableRow android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/PlayerName9"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Player9"
+                    android:textSize="@dimen/textSize" />
+
+                <TextView
+                    android:id="@+id/PlayerScore9"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/Score9"
+                    android:textSize="@dimen/textSize" />
+            </TableRow>
+
+            <TableRow android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/PlayerName10"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Player10"
+                    android:textSize="@dimen/textSize" />
+
+                <TextView
+                    android:id="@+id/PlayerScore10"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/Score10"
+                    android:textSize="@dimen/textSize" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+</ScrollView>

@@ -2,5 +2,42 @@
 <resources>
 
     <string name="app_name">AstroSmash</string>
+    <string name="CoverString">AstroSmash Covers</string>
+    <string name="RunButton">Run AstroSmash!</string>
+    <string name="SettingsLabel">Settings</string>
+    <string name="AboutButton">About...</string>
+    <string name="Radio120">120p</string>
+    <string name="Radio176">176p</string>
+    <string name="Radio240">240p</string>
+    <string name="Radio480">480p</string>
+    <string name="AutoFire">Auto Fire</string>
+    <string name="Sound">Sound</string>
+    <string name="Vibro">Vibration Haptics</string>
+    <string name="Antialiasing">Antialiasing</string>
+    <string name="TouchRect">Show Touch Rect</string>
+    <string name="ColorStars">Colorize Stars</string>
+    <string name="FPS">Draw FPS</string>
+    <string name="GraphicsLabel">Graphics Scale</string>
+    <string name="HiScoreTable">High Score Table</string>
+    <string name="Player1">Player 1</string>
+    <string name="Score1">0</string>
+    <string name="Player2">Player 2</string>
+    <string name="Score2">0</string>
+    <string name="Player3">Player 3</string>
+    <string name="Score3">0</string>
+    <string name="Player4">Player 4</string>
+    <string name="Score4">0</string>
+    <string name="Player5">Player 5</string>
+    <string name="Score5">0</string>
+    <string name="Player6">Player 6</string>
+    <string name="Score6">0</string>
+    <string name="Player7">Player 7</string>
+    <string name="Score7">0</string>
+    <string name="Player8">Player 8</string>
+    <string name="Score8">0</string>
+    <string name="Player9">Player 9</string>
+    <string name="Score9">0</string>
+    <string name="Player10">Player 0</string>
+    <string name="Score10">0</string>
 
 </resources>
