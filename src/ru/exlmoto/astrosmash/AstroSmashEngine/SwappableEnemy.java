@@ -1,4 +1,4 @@
-package ru.exlmoto.astrosmash;
+package ru.exlmoto.astrosmash.AstroSmashEngine;
 
 import android.graphics.Bitmap;
 

@@ -1,17 +1,18 @@
-package ru.exlmoto.astrosmash;
+package ru.exlmoto.astrosmash.AstroSmashEngine;
 
-import java.io.PrintStream;
 import java.util.Stack;
 import java.util.Vector;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import ru.exlmoto.astrosmash.AstroSmashView;
+
 @SuppressWarnings("unused")
-public class GameWorld implements IDeathListener {
+public class GameWorld 
+implements IDeathListener {
 
 	public static final int AUTOFIRE_DELAY_MS = 333;
 	public static final int BULLET_VELOCITY_TIME = 40;
@@ -48,7 +49,7 @@ public class GameWorld implements IDeathListener {
 	private boolean m_bGameOver = false;
 	private boolean m_bGamePaused = false;
 	private IGameWorldListener m_gameWorldListener = null;
-	private int m_nInitialLevel = AstroSmashVersion.getDemoFlag() ? 2 : 1;
+	private int m_nInitialLevel = Version.getDemoFlag() ? 2 : 1;
 	private volatile int m_nLevel;
 	private volatile int m_nLives;
 	private volatile int m_nScore;
@@ -74,7 +75,7 @@ public class GameWorld implements IDeathListener {
 		if (this.m_perfMeter == null) {
 			this.m_perfMeter = new PerformanceMeter();
 		}
-		this.m_nShipMoveDistance = AstroSmashVersion.getShipMoveX();
+		this.m_nShipMoveDistance = Version.getShipMoveX();
 		int i = this.m_nScreenWidth / 2;
 		if (this.m_munitionsFactory == null) {
 			this.m_munitionsFactory = new MunitionsFactory(-this.m_nShipMoveDistance, 40L, activityContext);
@@ -121,8 +122,7 @@ public class GameWorld implements IDeathListener {
 	public void handleAction(int paramInt) {
 		if ((!this.m_ship.getCollided()) && (!this.m_bGameOver)) {
 			int i;
-			switch (paramInt)
-			{
+			switch (paramInt) {
 			case 2: 
 				i = Math.max(this.m_ship.getX() - this.m_nShipMoveDistance, 0);
 				this.m_ship.setX(i);
@@ -171,15 +171,13 @@ public class GameWorld implements IDeathListener {
 		this.m_backgroundManager.setPeakScore(0);
 		this.m_bAutoFire = true;
 		int j;
-		for (int i = this.m_vecFlyingEnemies.size(); i > 0; i = this.m_vecFlyingEnemies.size())
-		{
+		for (int i = this.m_vecFlyingEnemies.size(); i > 0; i = this.m_vecFlyingEnemies.size()) {
 			j = i - 1;
 			Enemy localEnemy = (Enemy)this.m_vecFlyingEnemies.elementAt(j);
 			this.m_vecFlyingEnemies.removeElementAt(j);
 			this.m_enemyFactory.putEnemy(localEnemy);
 		}
-		for (int i = this.m_vecFlyingBullets.size(); i > 0; i = this.m_vecFlyingBullets.size())
-		{
+		for (int i = this.m_vecFlyingBullets.size(); i > 0; i = this.m_vecFlyingBullets.size()) {
 			j = i - 1;
 			Collidable localCollidable = (Collidable)this.m_vecFlyingBullets.elementAt(j);
 			this.m_vecFlyingBullets.removeElementAt(j);
@@ -208,13 +206,13 @@ public class GameWorld implements IDeathListener {
 		String str = Integer.toString(i);
 		str += " fps";
 		paint.getTextBounds(str, 0, str.length(), textBounds);
-		paint.setColor(AstroSmashVersion.WHITECOLOR);
+		paint.setColor(Version.WHITECOLOR);
 		final int gap = 2;
 		int j = textBounds.height() + gap;
 		canvas.drawText(str, gap, j, paint);
 	}
 
-	protected void fireBullet() {
+	public void fireBullet() {
 		Collidable localCollidable = this.m_munitionsFactory.getBullet();
 		if (localCollidable != null) {
 			localCollidable.setPosition(this.m_ship.getCenterX() - localCollidable.getWidth() / 2, this.m_ship.getY() - localCollidable.getHeight());
@@ -250,7 +248,7 @@ public class GameWorld implements IDeathListener {
 		//		} else {
 		//			paint.setColor(AstroSmashVersion.WHITECOLOR);
 		//		}
-		paint.setColor(AstroSmashVersion.WHITECOLOR);
+		paint.setColor(Version.WHITECOLOR);
 
 		// Draw message on center screen
 		canvas.drawText(paramString1, this.m_nScreenWidth / 2 - r / 2, this.m_nScreenHeight / 2, paint);
@@ -321,23 +319,22 @@ public class GameWorld implements IDeathListener {
 					j = AstroSmashView.getAbsRandomInt() % (this.m_nScreenWidth - localEnemy1.getWidth());
 					localEnemy1.setPosition(j, 0);
 				}
-				switch (localEnemy1.getEnemyTypeId())
-				{
+				switch (localEnemy1.getEnemyTypeId()) {
 				case 8: 
 				case 9: 
 					j = ENEMY_FALLTIMES[this.m_nLevel];
 					localEnemy1.setVelocity(0, this.m_nScreenHeight, j);
-					((SwappableEnemy)localEnemy1).setSwapInterval(500);
+					((SwappableEnemy)localEnemy1).setSwapInterval(SWAP_INTERVAL);
 					break;
 				case 10: 
 					j = ENEMY_FALLTIMES[this.m_nLevel] / 2;
 					localEnemy1.setVelocity(0, this.m_nScreenHeight, j);
-					((SwappableEnemy)localEnemy1).setSwapInterval(500);
+					((SwappableEnemy)localEnemy1).setSwapInterval(SWAP_INTERVAL);
 					break;
 				case 11: 
 					j = ENEMY_FALLTIMES[this.m_nLevel] + AstroSmashView.getRandomInt() % ENEMY_FALLTIME_VARIANCES[this.m_nLevel];
 					localEnemy1.setVelocity(this.m_nScreenWidth, 0, j);
-					((Ufo)localEnemy1).setFireInterval(500);
+					((Ufo)localEnemy1).setFireInterval(UFO_FIRE_INTERVAL);
 					break;
 				default: 
 					j = ENEMY_FALLTIMES[this.m_nLevel] + AstroSmashView.getRandomInt() % ENEMY_FALLTIME_VARIANCES[this.m_nLevel];
@@ -368,7 +365,7 @@ public class GameWorld implements IDeathListener {
 	}
 
 	protected void sendDeadEnemyToHell(Enemy paramEnemy) {
-		boolean bool = this.m_vecFlyingEnemies.removeElement(paramEnemy);
+		this.m_vecFlyingEnemies.removeElement(paramEnemy);
 		this.m_enemyFactory.putEnemy(paramEnemy);
 	}
 
@@ -422,8 +419,7 @@ public class GameWorld implements IDeathListener {
 
 	public void doneExploding(Enemy paramEnemy) {
 		int i = paramEnemy.getHitReaction();
-		switch (i)
-		{
+		switch (i) {
 		case 1: 
 			if (paramEnemy.getEnemyTypeId() != -2) {
 				sendDeadEnemyToHell(paramEnemy);
@@ -454,8 +450,7 @@ public class GameWorld implements IDeathListener {
 	protected void handleOnHitSeparate(Enemy paramEnemy) {
 		int n = paramEnemy.getEnemyTypeId();
 		int m;
-		switch (n)
-		{
+		switch (n) {
 		case 1: 
 			m = 5;
 			break;
@@ -492,18 +487,16 @@ public class GameWorld implements IDeathListener {
 
 	protected void checkLevel() {
 		int i = 0;
-		if ((this.m_nLevel < 6) && (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)])) {
-			do
-			{
+		if ((this.m_nLevel < MAX_LEVEL) && (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)])) {
+			do {
 				this.m_nLevel += 1;
 				i = 1;
-				if (this.m_nLevel >= 6) {
+				if (this.m_nLevel >= MAX_LEVEL) {
 					break;
 				}
 			} while (this.m_nScore >= MIN_SCORES_OF_LEVEL[(this.m_nLevel + 1)]);
 		} else if (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]) {
-			while ((this.m_nLevel > this.m_nInitialLevel) && (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel]))
-			{
+			while ((this.m_nLevel > this.m_nInitialLevel) && (this.m_nScore < MIN_SCORES_OF_LEVEL[this.m_nLevel])) {
 				this.m_nLevel -= 1;
 				i = 1;
 			}
@@ -511,7 +504,7 @@ public class GameWorld implements IDeathListener {
 		if (i != 0) {
 			setLevel(this.m_nLevel);
 		}
-		setLevel(6);
+		setLevel(MAX_LEVEL);
 	}
 
 	protected void updateScore(int paramInt) {

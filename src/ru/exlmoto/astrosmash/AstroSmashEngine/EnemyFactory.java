@@ -1,10 +1,13 @@
-package ru.exlmoto.astrosmash;
+package ru.exlmoto.astrosmash.AstroSmashEngine;
 
 import java.util.Stack;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import ru.exlmoto.astrosmash.R;
+import ru.exlmoto.astrosmash.AstroSmashView;
 
 @SuppressWarnings("unused")
 public class EnemyFactory {
@@ -108,25 +111,25 @@ public class EnemyFactory {
 	}
 
 	protected void loadImages() {
-		try {
-			this.m_images = new Bitmap[ENEMIES.length];
-			this.m_swapImages = new Bitmap[ENEMIES.length];
-			this.m_xplosionImages = new Bitmap[EXPLOSION_IMAGES.length];
-			for (int i = 0; i < ENEMIES.length; i++) {
-				this.m_images[i] = BitmapFactory.decodeResource(activityContext.getResources(), ENEMIES[i].androidResID);
-				if (null != ENEMIES[i].sSwapImageName) {
-					this.m_swapImages[i] = BitmapFactory.decodeResource(activityContext.getResources(), ENEMIES[i].androidResSwapID);
-				} else {
-					this.m_swapImages[i] = null;
-				}
+		//		try {
+		this.m_images = new Bitmap[ENEMIES.length];
+		this.m_swapImages = new Bitmap[ENEMIES.length];
+		this.m_xplosionImages = new Bitmap[EXPLOSION_IMAGES.length];
+		for (int i = 0; i < ENEMIES.length; i++) {
+			this.m_images[i] = BitmapFactory.decodeResource(activityContext.getResources(), ENEMIES[i].androidResID);
+			if (null != ENEMIES[i].sSwapImageName) {
+				this.m_swapImages[i] = BitmapFactory.decodeResource(activityContext.getResources(), ENEMIES[i].androidResSwapID);
+			} else {
+				this.m_swapImages[i] = null;
 			}
-			for (int j = 0; j < EXPLOSION_IMAGES.length; j++) {
-				this.m_xplosionImages[j] = BitmapFactory.decodeResource(activityContext.getResources(), EXPLOSION_IMAGES_AID[j]);
-			}
-		} catch (Exception localException) {
-			System.out.println(localException.getMessage());
-			localException.printStackTrace();
 		}
+		for (int j = 0; j < EXPLOSION_IMAGES.length; j++) {
+			this.m_xplosionImages[j] = BitmapFactory.decodeResource(activityContext.getResources(), EXPLOSION_IMAGES_AID[j]);
+		}
+		//		} catch (Exception localException) {
+		//			System.out.println(localException.getMessage());
+		//			localException.printStackTrace();
+		//		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -143,8 +146,7 @@ public class EnemyFactory {
 
 	protected Enemy createEnemy(int paramInt) {
 		Object localObject;
-		switch (paramInt)
-		{
+		switch (paramInt) {
 		case 8: 
 		case 9: 
 			localObject = new SwappableEnemy();
@@ -174,35 +176,35 @@ public class EnemyFactory {
 
 	public Enemy createShip(int paramInt1, int paramInt2) {
 		GunShip localGunShip = null;
-		try {
-			Bitmap[] arrayOfImage1 = {
-					BitmapFactory.decodeResource(activityContext.getResources(), R.drawable.ship_explode1),
-					BitmapFactory.decodeResource(activityContext.getResources(), R.drawable.ship_explode2),
-					BitmapFactory.decodeResource(activityContext.getResources(), R.drawable.ship_explode3)
-			};
-			Bitmap[] arrayOfImage2 = {
-					arrayOfImage1[0],
-					arrayOfImage1[0],
-					arrayOfImage1[0],
-					arrayOfImage1[1],
-					arrayOfImage1[1],
-					arrayOfImage1[1],
-					arrayOfImage1[2],
-					arrayOfImage1[2],
-					arrayOfImage1[2]
-			};
-			localGunShip = new GunShip();
-			Bitmap localImage = BitmapFactory.decodeResource(activityContext.getResources(), R.drawable.ship_small);
-			localGunShip.setImage(localImage);
-			localGunShip.setPosition(paramInt1, paramInt2 - localGunShip.getHeight());
-			localGunShip.setEnemyTypeId(-2);
-			localGunShip.setHitReaction(1);
-			localGunShip.setDeathListener(this.m_deathListener);
-			localGunShip.setExplosionImages(arrayOfImage2);
-		} catch (Exception localException) {
-			System.out.println(localException.getMessage());
-			localException.printStackTrace();
-		}
+		//		try {
+		Bitmap[] arrayOfImage1 = {
+				BitmapFactory.decodeResource(activityContext.getResources(), R.drawable.ship_explode1),
+				BitmapFactory.decodeResource(activityContext.getResources(), R.drawable.ship_explode2),
+				BitmapFactory.decodeResource(activityContext.getResources(), R.drawable.ship_explode3)
+		};
+		Bitmap[] arrayOfImage2 = {
+				arrayOfImage1[0],
+				arrayOfImage1[0],
+				arrayOfImage1[0],
+				arrayOfImage1[1],
+				arrayOfImage1[1],
+				arrayOfImage1[1],
+				arrayOfImage1[2],
+				arrayOfImage1[2],
+				arrayOfImage1[2]
+		};
+		localGunShip = new GunShip();
+		Bitmap localImage = BitmapFactory.decodeResource(activityContext.getResources(), R.drawable.ship_small);
+		localGunShip.setImage(localImage);
+		localGunShip.setPosition(paramInt1, paramInt2 - localGunShip.getHeight());
+		localGunShip.setEnemyTypeId(-2);
+		localGunShip.setHitReaction(1);
+		localGunShip.setDeathListener(this.m_deathListener);
+		localGunShip.setExplosionImages(arrayOfImage2);
+		//		} catch (Exception localException) {
+		//			System.out.println(localException.getMessage());
+		//			localException.printStackTrace();
+		//		}
 		return localGunShip;
 	}
 

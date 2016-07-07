@@ -1,4 +1,4 @@
-package ru.exlmoto.astrosmash;
+package ru.exlmoto.astrosmash.AstroSmashEngine;
 
 public class InfoStrings {
 
@@ -55,8 +55,7 @@ public class InfoStrings {
 	}
 
 	public static String getHelp() {
-		switch (LANGUAGE_CURRENT)
-		{
+		switch (LANGUAGE_CURRENT) {
 		case 0: 
 			return getHelpEnglish();
 		case 1: 
@@ -68,8 +67,7 @@ public class InfoStrings {
 	}
 
 	public static String getCredits1() {
-		switch (LANGUAGE_CURRENT)
-		{
+		switch (LANGUAGE_CURRENT) {
 		case 0: 
 			return getCredits1English();
 		case 1: 
@@ -81,8 +79,7 @@ public class InfoStrings {
 	}
 
 	public static String getCredits2() {
-		switch (LANGUAGE_CURRENT)
-		{
+		switch (LANGUAGE_CURRENT) {
 		case 0: 
 			return getCredits2English();
 		case 1: 
@@ -94,8 +91,7 @@ public class InfoStrings {
 	}
 
 	public static String getCredits3() {
-		switch (LANGUAGE_CURRENT)
-		{
+		switch (LANGUAGE_CURRENT) {
 		case 0: 
 			return getCredits3English();
 		case 1: 
@@ -180,7 +176,7 @@ public class InfoStrings {
 
 	public static String getCredits3Chinese() {
 		StringBuffer localStringBuffer = new StringBuffer("Astrosmash & Intellivision are trademarks of Intellivision Productions, Inc. Astrosmash game (C) 1981 Intellivision Productions, Inc. Used under exclusive license. Developed by Lavastorm, Inc. Game Implementation & Software (C) 2002 THQ Inc. THQ and logo are (R) of THQ Inc. All Rights Reserved.\n");
-		localStringBuffer.append(AstroSmashVersion.CREDITS_UPC_CODE + "\n");
+		localStringBuffer.append(Version.CREDITS_UPC_CODE + "\n");
 		return localStringBuffer.toString();
 	}
 
@@ -257,7 +253,7 @@ public class InfoStrings {
 
 	public static String getCredits3English() {
 		StringBuffer localStringBuffer = new StringBuffer("Astrosmash & Intellivision are trademarks of Intellivision Productions, Inc. Astrosmash game (C) 1981 Intellivision Productions, Inc. Used under exclusive license. Developed by Lavastorm, Inc. Game Implementation & Software (C) 2002 THQ Inc. THQ and logo are (R) of THQ Inc. All Rights Reserved.\n");
-		localStringBuffer.append(AstroSmashVersion.CREDITS_UPC_CODE + "\n");
+		localStringBuffer.append(Version.CREDITS_UPC_CODE + "\n");
 		return localStringBuffer.toString();
 	}
 
@@ -334,7 +330,7 @@ public class InfoStrings {
 
 	public static String getCredits3French() {
 		StringBuffer localStringBuffer = new StringBuffer("ASTROSMASH & INTELLIVISION ARE TRADEMARKS OF INTELLIVISION PRODUCTIONS, INC.\nASTROSMASH GAME © 1981 INTELLIVISION PRODUCTIONS, INC.\nUSED UNDER EXCLUSIVE LICENSE. DEVELOPED BY LAVASTORM, INC. GAME IMPLEMENTATION & SOFTWARE © 2001 THQ INC. THQ AND LOGO ARE ® OF THQ INC.  ALL RIGHTS RESERVED.\n");
-		localStringBuffer.append(AstroSmashVersion.CREDITS_UPC_CODE + "\n");
+		localStringBuffer.append(Version.CREDITS_UPC_CODE + "\n");
 		return localStringBuffer.toString();
 	}
 }

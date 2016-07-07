@@ -11,6 +11,11 @@ import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import ru.exlmoto.astrosmash.AstroSmashEngine.GameWorld;
+import ru.exlmoto.astrosmash.AstroSmashEngine.InfoStrings;
+import ru.exlmoto.astrosmash.AstroSmashEngine.Version;
+import ru.exlmoto.astrosmash.AstroSmashEngine.IGameWorldListener;
+
 @SuppressWarnings("unused")
 public class AstroSmashView extends SurfaceView
 implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
@@ -70,16 +75,16 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		m_random = new Random(System.currentTimeMillis());
 
 		InfoStrings.initializeInfo();
-		AstroSmashVersion.setScreenSizes(AstroSmashVersion.ANDROID_ORIGINAL_240x320);
+		Version.setScreenSizes(Version.ANDROID_ORIGINAL_240x320);
 
 		surfaceHolder = getHolder();
 		surfaceHolder.addCallback(this);
 
-		gameScreen = Bitmap.createBitmap(AstroSmashVersion.getWidth(), AstroSmashVersion.getHeight(), Bitmap.Config.ARGB_8888);
+		gameScreen = Bitmap.createBitmap(Version.getWidth(), Version.getHeight(), Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(gameScreen);
 		painter = new Paint();
 
-		m_gameWorld = new GameWorld(AstroSmashVersion.getWidth(), AstroSmashVersion.getHeight() - AstroSmashVersion.getCommandHeightPixels(), this, context);
+		m_gameWorld = new GameWorld(Version.getWidth(), Version.getHeight() - Version.getCommandHeightPixels(), this, context);
 		this.m_bFirstPaint = true;
 
 		resetStartTime();
@@ -131,15 +136,15 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 	}
 
 	private void drawTouchArrow(Canvas canvas, Paint paint) {
-		paint.setColor(AstroSmashVersion.GREENCOLOR_DARK);
+		paint.setColor(Version.GREENCOLOR_DARK);
 		canvas.drawRect(0, screenRectChunkProcent, screenWidth, screenHeight, paint);
 		paint.setStrokeCap(Cap.ROUND);
 		for (int i = 0; i < 2; ++i) {
 			if (i == 0) {
-				paint.setColor(AstroSmashVersion.GRAYCOLOR);
+				paint.setColor(Version.GRAYCOLOR);
 				paint.setStrokeWidth(px5);
 			} else {
-				paint.setColor(AstroSmashVersion.DARKCOLOR);
+				paint.setColor(Version.DARKCOLOR);
 				paint.setStrokeWidth(px1);
 			}
 			canvas.drawLine(px25, arrow_Y0, arrow_X0, arrow_Y0, paint);
@@ -170,7 +175,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		this.m_gameWorld.pause(true);
 		//		repaint();
 		//		serviceRepaints();
-		if (AstroSmashVersion.getDemoFlag()) {
+		if (Version.getDemoFlag()) {
 			this.m_nPauseTime = System.currentTimeMillis();
 		}
 	}
@@ -181,7 +186,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 	}
 
 	public void start() {
-		if (AstroSmashVersion.getDemoFlag()) {
+		if (Version.getDemoFlag()) {
 			if (this.m_nPauseTime > 0L) {
 				this.m_nPausedTime += System.currentTimeMillis() - this.m_nPauseTime;
 			}
@@ -203,8 +208,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 	}
 
 	public int getGameAction(int paramInt) {
-		switch (paramInt)
-		{
+		switch (paramInt) {
 		case KeyEvent.KEYCODE_DPAD_CENTER: 
 		case KeyEvent.KEYCODE_SPACE:
 		case KeyEvent.KEYCODE_ENTER:
@@ -325,7 +329,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 	}
 
 	protected void clearScreen(Canvas canvas) {
-		canvas.drawColor(AstroSmashVersion.WHITECOLOR);
+		canvas.drawColor(Version.WHITECOLOR);
 	}
 
 	@Override

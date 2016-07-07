@@ -1,10 +1,10 @@
-package ru.exlmoto.astrosmash;
+package ru.exlmoto.astrosmash.AstroSmashEngine;
 
 import android.graphics.Color;
-import android.util.DisplayMetrics;
+import ru.exlmoto.astrosmash.AstroSmashActivity;
 
 @SuppressWarnings("unused")
-public class AstroSmashVersion {
+public class Version {
 
 	public static final int PLATFORM_UNKNOWN = -1;
 	public static final int PLATFORM_MOTOROLA_66I = 0;
@@ -169,10 +169,8 @@ public class AstroSmashVersion {
 	static {
 		int i = getWidth();
 		int j = getHeight();
-		// switch (149624)
 		platform = -1;
-		switch (i + j * 1024)
-		{
+		switch (i + j * 1024) {
 		case 48224: 
 		case ANDROID_ORIGINAL_96x51:
 			platform = 0;

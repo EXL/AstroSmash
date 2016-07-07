@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Window;
 
+import ru.exlmoto.astrosmash.AstroSmashEngine.Version;
+
 public class AstroSmashActivity extends Activity {
 
 	public static final String ASTRO_SMASH_TAG = "AstroSmash";
@@ -27,7 +29,7 @@ public class AstroSmashActivity extends Activity {
 	}
 
 	private int convertCoordX(float xCoord) {
-		return Math.round(xCoord * AstroSmashVersion.getWidth() / astroSmashView.getScreenWidth());
+		return Math.round(xCoord * Version.getWidth() / astroSmashView.getScreenWidth());
 	}
 
 	@Override

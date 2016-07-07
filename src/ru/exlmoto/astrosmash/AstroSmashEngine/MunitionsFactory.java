@@ -1,10 +1,12 @@
-package ru.exlmoto.astrosmash;
+package ru.exlmoto.astrosmash.AstroSmashEngine;
 
 import java.util.Stack;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import ru.exlmoto.astrosmash.R;
 
 public class MunitionsFactory {
 

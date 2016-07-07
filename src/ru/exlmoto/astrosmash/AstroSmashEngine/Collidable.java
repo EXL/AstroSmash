@@ -1,4 +1,4 @@
-package ru.exlmoto.astrosmash;
+package ru.exlmoto.astrosmash.AstroSmashEngine;
 
 import android.graphics.Rect;
 
@@ -79,7 +79,7 @@ public class Collidable extends Drawable {
 		//		}
 		//		return false;
 		
-		// Rects intersect
+		// Rectangles intersect
 		Rect rectIn = new Rect(getX(), getY(), getX() + getWidth(), getY() + getHeight());
 		Rect rectOut = new Rect(
 				paramCollidable.getX(), 
