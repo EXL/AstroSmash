@@ -121,8 +121,8 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		int gap = px(25);
 		for (int i = 0; i < 2; ++i) {
 			if (i == 0) {
-			paint.setColor(AstroSmashVersion.GRAYCOLOR);
-			paint.setStrokeWidth(px(5));
+				paint.setColor(AstroSmashVersion.GRAYCOLOR);
+				paint.setStrokeWidth(px(5));
 			} else {
 				paint.setColor(AstroSmashVersion.DARKCOLOR);
 				paint.setStrokeWidth(px(1));
@@ -278,6 +278,10 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 
 	public void setShipX(int xCoord) {
 		this.m_gameWorld.getShip().setX(xCoord);
+	}
+
+	public void fire() {
+		this.m_gameWorld.fireBullet();
 	}
 
 	protected void clearScreen(Canvas canvas) {
