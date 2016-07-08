@@ -192,15 +192,9 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		this.m_nPausedTime = 0L;
 	}
 
-	public void pause() {
-		this.m_bRunning = false;
-		this.m_gameThread = null;
-		this.m_gameWorld.pause(true);
-		//		repaint();
-		//		serviceRepaints();
-		if (Version.getDemoFlag()) {
-			this.m_nPauseTime = System.currentTimeMillis();
-		}
+	public void pause(boolean paused) {
+		AstroSmashActivity.toDebug("Paused: " + paused);
+		this.m_gameWorld.pause(paused);
 	}
 
 	public void exit() {

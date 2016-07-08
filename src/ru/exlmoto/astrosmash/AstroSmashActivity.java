@@ -23,6 +23,8 @@ public class AstroSmashActivity extends Activity {
 	private static AstroSmashView astroSmashView = null;
 	private static Vibrator vibrator = null;
 
+	private boolean paused = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,12 +70,16 @@ public class AstroSmashActivity extends Activity {
 				if (astroSmashView.checkHiScores(RESTART_GAME_YES) == -1) {
 					astroSmashView.restartGame(false);
 				}
+			} else if (event.getY(touchId) < astroSmashView.getScreenHeightPercent()) {
+				paused = !paused;
+				astroSmashView.pause(paused);
 			}
 			break;
 		case MotionEvent.ACTION_MOVE:
 			if (event.getY(touchId) > astroSmashView.getScreenRectChunkProcent()) {
 				astroSmashView.setShipX(convertCoordX(event.getX(touchId)));
-			} else {
+			} else if (event.getY(touchId) < astroSmashView.getScreenRectChunkProcent() && 
+					event.getY(touchId) > astroSmashView.getScreenHeightPercent()) {
 				astroSmashView.fire();
 			}
 			break;

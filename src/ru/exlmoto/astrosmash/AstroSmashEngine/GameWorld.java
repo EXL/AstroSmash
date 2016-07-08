@@ -104,16 +104,18 @@ implements IDeathListener {
 	}
 
 	public void tick(long paramLong) {
-		if ((!this.m_ship.getCollided()) && (!this.m_bGameOver)) {
-			tickBullets(paramLong);
-			tickEnemies(paramLong);
-			if ((this.m_bAutoFire) && (this.m_nTimeSinceLastFire > 333L)) {
-				fireBullet();
-				this.m_nTimeSinceLastFire = 0L;
-			} else {
-				this.m_nTimeSinceLastFire += paramLong;
+		if (!this.m_bGamePaused) {
+			if ((!this.m_ship.getCollided()) && (!this.m_bGameOver)) {
+				tickBullets(paramLong);
+				tickEnemies(paramLong);
+				if ((this.m_bAutoFire) && (this.m_nTimeSinceLastFire > 333L)) {
+					fireBullet();
+					this.m_nTimeSinceLastFire = 0L;
+				} else {
+					this.m_nTimeSinceLastFire += paramLong;
+				}
+				checkLevel();
 			}
-			checkLevel();
 		}
 	}
 
@@ -152,7 +154,7 @@ implements IDeathListener {
 		paintFlyingBullets(canvas, paint);
 		paintEnemies(canvas, paint);
 		if (this.m_bGamePaused) {
-			paintMessage(canvas, paint, InfoStrings.GAME_PAUSED_STRING, null);
+			paintMessage(canvas, paint, InfoStrings.GAME_PAUSED_STRING, "");
 		} else if (this.m_bGameOver) {
 			paintMessage(canvas, paint, InfoStrings.GAME_OVER_STRING, InfoStrings.PEAK_SCORE_STRING + ": " + this.m_nPeakScore);
 		}
