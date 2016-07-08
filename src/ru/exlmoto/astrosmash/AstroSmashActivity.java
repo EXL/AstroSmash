@@ -76,11 +76,13 @@ public class AstroSmashActivity extends Activity {
 			}
 			break;
 		case MotionEvent.ACTION_MOVE:
-			if (event.getY(touchId) > astroSmashView.getScreenRectChunkProcent()) {
-				astroSmashView.setShipX(convertCoordX(event.getX(touchId)));
-			} else if (event.getY(touchId) < astroSmashView.getScreenRectChunkProcent() && 
-					event.getY(touchId) > astroSmashView.getScreenHeightPercent()) {
-				astroSmashView.fire();
+			if (!paused) {
+				if (event.getY(touchId) > astroSmashView.getScreenRectChunkProcent()) {
+					astroSmashView.setShipX(convertCoordX(event.getX(touchId)));
+				} else if (event.getY(touchId) < astroSmashView.getScreenRectChunkProcent() &&
+						event.getY(touchId) > astroSmashView.getScreenHeightPercent()) {
+					astroSmashView.fire();
+				}
 			}
 			break;
 		}

@@ -14,7 +14,6 @@ public class InfoStrings {
 
 	public static void initializeInfo() {
 		String str = Locale.getDefault().toString();
-		str = "ru";
 		if (str.startsWith("ru")) {
 			LANGUAGE_CURRENT = 1;
 			initializeRussian();
