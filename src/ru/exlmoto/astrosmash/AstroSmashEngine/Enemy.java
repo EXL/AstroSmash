@@ -10,7 +10,7 @@ public class Enemy extends Collidable {
 	private int m_groundScore = 0;
 	private int m_enemyTypeId = -1;
 	private int m_hitReaction = 0;
-	private Bitmap[] m_xPlosionImages = new Bitmap[0]; // TODO: Zero length array?
+	private Bitmap[] m_xPlosionImages = new Bitmap[0];
 	private int m_currentExplosionImage = 0;
 	private IDeathListener m_deathListener = null;
 

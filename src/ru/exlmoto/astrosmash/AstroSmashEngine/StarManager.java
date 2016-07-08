@@ -71,7 +71,7 @@ public class StarManager {
 	public void generateStarImage(int color) {
 		bitmapCanvas.drawColor(color);
 		for (int i = 0; i < this.m_numStars; i++) {
-			if (AstroSmashSettings.colorizeStars) { // TODO: Settings
+			if (AstroSmashSettings.colorizeStars) {
 				bitmapPaint.setColor(getRandomStarColor());
 			} else {
 				bitmapPaint.setColor(Version.WHITECOLOR);

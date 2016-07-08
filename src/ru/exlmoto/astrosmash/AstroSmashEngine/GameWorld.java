@@ -218,6 +218,7 @@ implements IDeathListener {
 	public void fireBullet() {
 		Collidable localCollidable = this.m_munitionsFactory.getBullet();
 		if (localCollidable != null) {
+			AstroSmashActivity.playSound(AstroSmashActivity.SOUND_SHOT);
 			localCollidable.setPosition(this.m_ship.getCenterX() - localCollidable.getWidth() / 2, this.m_ship.getY() - localCollidable.getHeight());
 			this.m_vecFlyingBullets.addElement(localCollidable);
 		}
@@ -287,14 +288,12 @@ implements IDeathListener {
 				this.m_EnemiesToRecycleStack.push(localEnemy2);
 				if ((localEnemy2.getEnemyTypeId() == 8) || (localEnemy2.getEnemyTypeId() == 9)) {
 					this.m_ship.setCollided(true);
-					AstroSmashActivity.doVibrate(AstroSmashActivity.VIBRATE_LONG);
 					shipDestroyed();
 					updateScore(-100);
 					break;
 				}
 			} else {
 				if (this.m_ship.intersects(localEnemy2)) {
-					AstroSmashActivity.doVibrate(AstroSmashActivity.VIBRATE_LONG);
 					shipDestroyed();
 					updateScore(-100);
 					break;
@@ -303,6 +302,7 @@ implements IDeathListener {
 					Collidable localCollidable = (Collidable)this.m_vecFlyingBullets.elementAt(k);
 					if (localCollidable.intersects(localEnemy2, 1, 2)) {
 						AstroSmashActivity.doVibrate(AstroSmashActivity.VIBRATE_SHORT);
+						AstroSmashActivity.playSound(AstroSmashActivity.SOUND_HIT);
 						updateScore(localEnemy2.getHitScore());
 						sendBulletToHell(localCollidable);
 						break;
@@ -367,6 +367,7 @@ implements IDeathListener {
 			k = (int)(l * j / 1024L);
 		}
 		localEnemy.setVelocity(k, j, i);
+		AstroSmashActivity.playSound(AstroSmashActivity.SOUND_UFO);
 		this.m_vecFlyingEnemies.addElement(localEnemy);
 	}
 
@@ -392,6 +393,8 @@ implements IDeathListener {
 	}
 
 	protected void shipDestroyed() {
+		AstroSmashActivity.doVibrate(AstroSmashActivity.VIBRATE_LONG);
+		AstroSmashActivity.playSound(AstroSmashActivity.SOUND_SHIP);
 		//		try {
 		for (int i = 0; i < this.m_vecFlyingEnemies.size(); i++) {
 			Enemy enemy = this.m_vecFlyingEnemies.elementAt(i);
