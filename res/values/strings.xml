@@ -5,7 +5,7 @@
     <string name="CoverString">AstroSmash Covers</string>
     <string name="RunButton">Run AstroSmash!</string>
     <string name="SettingsLabel">Settings</string>
-    <string name="AboutButton">About...</string>
+    <string name="AboutButton">About Game</string>
     <string name="Radio120">120p</string>
     <string name="Radio176">176p</string>
     <string name="Radio240">240p</string>
@@ -45,5 +45,14 @@
     <string name="HiScoreTextHint">You get high score! Please enter your name:</string>
     <string name="GameOver">: Game Over!</string>
     <string name="Score">"Score: "</string>
+    <string name="Credits3">Credits 3</string>
+    <string name="Credits2">Credits 2</string>
+    <string name="Credits1">Credits 1</string>
+    <string name="CreditsHelp">Help</string>
+    <string name="ButtonHelp">Help Game</string>
+    <string name="AboutHelpLabel">About &amp; Help</string>
+    <string name="Version">v1.0</string>
+    <string name="IconDesc">Icon AstroSmash</string>
+    <string name="AboutString">Porting to Android OS:\n© 2016 Serg "EXL" Koles\n\nSource Code:\nhttp://github.com/EXL/AstroSmash\n\nArticle About Porting:\nhttp://exlmoto.ru/astrosmash-droid\n\nThanks to Danil Medvedev for idea and support.</string>
 
 </resources>

@@ -17,22 +17,11 @@
             android:contentDescription="@string/CoverString"
             android:src="@drawable/covers" />
 
-        <TableRow
+        <Button
+            android:id="@+id/gameButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <Button
-                android:id="@+id/gameButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/RunButton" />
-
-            <Button
-                android:id="@+id/aboutButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/AboutButton" />
-        </TableRow>
+            android:layout_height="wrap_content"
+            android:text="@string/RunButton" />
 
         <TextView
             android:id="@+id/settings_label"
@@ -130,6 +119,31 @@
                 android:layout_height="wrap_content"
                 android:text="@string/Radio480" />
         </RadioGroup>
+
+        <TextView
+            android:id="@+id/abouthelp_label"
+            style="?android:attr/listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/AboutHelpLabel" />
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mariginLayout" >
+
+            <Button
+                android:id="@+id/aboutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/AboutButton" />
+
+            <Button
+                android:id="@+id/buttonHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ButtonHelp" />
+        </TableRow>
 
         <TextView
             android:id="@+id/hiscore_label"

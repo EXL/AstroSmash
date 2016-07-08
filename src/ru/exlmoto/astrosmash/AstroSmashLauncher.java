@@ -1,6 +1,7 @@
 package ru.exlmoto.astrosmash;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
+import ru.exlmoto.astrosmash.AstroSmashEngine.InfoStrings;
 
 public class AstroSmashLauncher extends Activity {
 
@@ -38,6 +41,9 @@ public class AstroSmashLauncher extends Activity {
 				"a1batross", "mvb06", "NoPH8", "PUSYA", "Neko-mata" };
 		public static final int[] playerScores = { 100000, 70000, 60000, 50000, 40000, 30000, 20000, 10000, 5000, 1000 };
 	}
+
+	private Dialog aboutDialog = null;
+	private Dialog helpDialog = null;
 
 	private CheckBox autoFireCheckBox = null;
 	private CheckBox soundCheckBox = null;
@@ -189,6 +195,67 @@ public class AstroSmashLauncher extends Activity {
 		playerScoresView[9] = (TextView) findViewById(R.id.PlayerScore10);
 	}
 
+	private void showHelpDialog() {
+		this.runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				helpDialog.setContentView(R.layout.dialog_help);
+				helpDialog.setCancelable(true);
+				helpDialog.setTitle(R.string.app_name);
+
+				TextView helpText = (TextView) helpDialog.findViewById(R.id.textViewHelp);
+				TextView creditsText1 = (TextView) helpDialog.findViewById(R.id.textViewCredits1);
+				TextView creditsText2 = (TextView) helpDialog.findViewById(R.id.textViewCredits2);
+				TextView creditsText3 = (TextView) helpDialog.findViewById(R.id.textViewCredits3);
+				helpText.setText(InfoStrings.getHelp());
+				creditsText1.setText(InfoStrings.getCredits1());
+				creditsText2.setText(InfoStrings.getCredits2());
+				creditsText3.setText(InfoStrings.getCredits3());
+
+				Button buttonHelpOk = (Button) helpDialog.findViewById(R.id.buttonHelpOk);
+				buttonHelpOk.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View buttonView) {
+						if (helpDialog != null) {
+							helpDialog.cancel();
+						}
+					}
+
+				});
+
+				helpDialog.show();
+			}
+		});
+	}
+
+	private void showAboutDialog() {
+		this.runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				aboutDialog.setContentView(R.layout.dialog_about);
+				aboutDialog.setCancelable(true);
+				aboutDialog.setTitle(R.string.app_name);
+
+				Button buttonAboutOk = (Button) aboutDialog.findViewById(R.id.buttonAboutOk);
+				buttonAboutOk.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View buttonView) {
+						if (aboutDialog != null) {
+							aboutDialog.cancel();
+						}
+					}
+
+				});
+
+				aboutDialog.show();
+			}
+		});
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -205,6 +272,11 @@ public class AstroSmashLauncher extends Activity {
 			readSettings();
 		}
 
+		aboutDialog = new Dialog(this);
+		helpDialog = new Dialog(this);
+
+		InfoStrings.initializeInfo();
+
 		initWidgets();
 
 		fillLayoutBySettings();
@@ -220,11 +292,33 @@ public class AstroSmashLauncher extends Activity {
 				startActivity(intent);
 			}
 		});
+
+		Button aboutButton = (Button) findViewById(R.id.aboutButton);
+		aboutButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				showAboutDialog();
+			}
+		});
+
+		Button helpButton = (Button) findViewById(R.id.buttonHelp);
+		helpButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				showHelpDialog();
+			}
+		});
 	}
 
 	@Override
 	protected void onDestroy() {
 		writeSettings();
+
+		aboutDialog.dismiss();
+		helpDialog.dismiss();
+
 		super.onDestroy();
 	}
 }

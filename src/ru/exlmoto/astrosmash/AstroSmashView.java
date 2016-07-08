@@ -80,7 +80,6 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 
 		m_random = new Random(System.currentTimeMillis());
 
-		InfoStrings.initializeInfo();
 		switch (AstroSmashSettings.graphicsScale) {
 		case AstroSmashLauncher.SCALE_120P:
 			Version.setScreenSizes(Version.ANDROID_ORIGINAL_120x146);
