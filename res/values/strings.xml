@@ -41,8 +41,9 @@
     <string name="Score10">0</string>
     <string name="StringOK">OK</string>
     <string name="StringCancel">Cancel</string>
-    <string name="HintString">Player</string>
-    <string name="HiScoreTextHint">You get High Score! Please Enter your name:</string>
+    <string name="HintString">Player Name</string>
+    <string name="HiScoreTextHint">You get high score! Please enter your name:</string>
     <string name="GameOver">: Game Over!</string>
+    <string name="Score">"Score: "</string>
 
 </resources>

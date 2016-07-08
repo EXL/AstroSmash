@@ -49,7 +49,9 @@ public class AstroSmashActivity extends Activity {
 		case MotionEvent.ACTION_DOWN:
 			if (!astroSmashView.isM_bRunning()) {
 				AstroSmashActivity.toDebug("Restart Game");
-				astroSmashView.checkHiScores(RESTART_GAME_YES);
+				if (astroSmashView.checkHiScores(RESTART_GAME_YES) == -1) {
+					astroSmashView.restartGame(false);
+				}
 			}
 			break;
 		case MotionEvent.ACTION_MOVE:

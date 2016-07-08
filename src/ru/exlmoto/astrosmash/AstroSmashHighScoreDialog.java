@@ -1,6 +1,5 @@
 package ru.exlmoto.astrosmash;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +7,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import ru.exlmoto.astrosmash.AstroSmashLauncher.AstroSmashSettings;
 
 public class AstroSmashHighScoreDialog extends Activity {
@@ -20,8 +21,8 @@ public class AstroSmashHighScoreDialog extends Activity {
 	private Button buttonCancel = null;
 
 	private EditText playerName = null;
+	private TextView scoreView = null;
 
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,7 +36,8 @@ public class AstroSmashHighScoreDialog extends Activity {
 		setTitle(getResources().getText(R.string.app_name).toString() +
 				getResources().getText(R.string.GameOver).toString());
 
-		setFinishOnTouchOutside(false);
+		scoreView = (TextView) findViewById(R.id.textViewScore);
+		scoreView.setText(getResources().getText(R.string.Score).toString() + score);
 
 		playerName = (EditText) findViewById(R.id.editTextPlayerName);
 
@@ -44,12 +46,15 @@ public class AstroSmashHighScoreDialog extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				insertScore(playerName.getText().toString(), score, index);
-				if (restart == AstroSmashActivity.RESTART_GAME_YES) {
-					if (AstroSmashActivity.getAstroSmashView() != null) {
-						AstroSmashActivity.getAstroSmashView().restartGame(false);
-					}
+				String name = playerName.getText().toString();
+				name = name.trim();
+				if (name.equals("")) {
+					name = "Player";
 				}
+				if (name.length() > 11) {
+					name = name.subSequence(0, 11).toString();
+				}
+				insertScore(name, score, index);
 				finish();
 			}
 		});
@@ -59,11 +64,6 @@ public class AstroSmashHighScoreDialog extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				if (restart == AstroSmashActivity.RESTART_GAME_YES) {
-					if (AstroSmashActivity.getAstroSmashView() != null) {
-						AstroSmashActivity.getAstroSmashView().restartGame(false);
-					}
-				}
 				finish();
 			}
 		});
@@ -103,5 +103,15 @@ public class AstroSmashHighScoreDialog extends Activity {
 		} else {
 			AstroSmashActivity.toDebug("Error: settingsStorage is null!");
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		if (restart == AstroSmashActivity.RESTART_GAME_YES) {
+			if (AstroSmashActivity.getAstroSmashView() != null) {
+				AstroSmashActivity.getAstroSmashView().restartGame(false);
+			}
+		}
+		super.onDestroy();
 	}
 }

@@ -360,22 +360,23 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		return -1;
 	}
 
-	public void addScore(int score, int restartGame) {
+	public int addScore(int score, int restartGame) {
 		int i = getScorePosition(score);
 		if (i == -1) {
-			return;
+			return i;
 		}
 		Intent intent = new Intent(this.getContext(), AstroSmashHighScoreDialog.class);
 		intent.putExtra("peakScore", score);
 		intent.putExtra("indexScore", i);
 		intent.putExtra("restartGame", restartGame);
 		astroSmashActivity.startActivity(intent);
+		return i;
 	}
 
-	public void checkHiScores(int restartGame) {
+	public int checkHiScores(int restartGame) {
 		int peakScore = m_gameWorld.getPeakScore();
 		AstroSmashActivity.toDebug("HiScore is: " + peakScore);
-		addScore(peakScore, restartGame);
+		return addScore(peakScore, restartGame);
 	}
 
 	public void setShipX(int xCoord) {
