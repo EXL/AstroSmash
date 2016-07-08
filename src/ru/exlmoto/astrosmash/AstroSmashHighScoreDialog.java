@@ -1,7 +1,10 @@
 package ru.exlmoto.astrosmash;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,6 +43,11 @@ public class AstroSmashHighScoreDialog extends Activity {
 		scoreView.setText(getResources().getText(R.string.Score).toString() + score);
 
 		playerName = (EditText) findViewById(R.id.editTextPlayerName);
+		String modelName = Build.MANUFACTURER.subSequence(0, 3).toString();
+		modelName = modelName.toUpperCase(Locale.getDefault());
+		modelName += "-" + Build.MODEL;
+		AstroSmashActivity.toDebug(modelName);
+		playerName.setText(modelName);
 
 		buttonOk = (Button) findViewById(R.id.buttonOk);
 		buttonOk.setOnClickListener(new OnClickListener() {
