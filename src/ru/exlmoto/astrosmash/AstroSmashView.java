@@ -240,11 +240,12 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		case KeyEvent.KEYCODE_DPAD_CENTER: 
 		case KeyEvent.KEYCODE_SPACE:
 		case KeyEvent.KEYCODE_ENTER:
+		case KeyEvent.KEYCODE_5:
 			return 9; // Fire
-		case KeyEvent.KEYCODE_DPAD_DOWN:
-		case KeyEvent.KEYCODE_S:
-		case KeyEvent.KEYCODE_2:
-			return 1; // Autofire
+		case KeyEvent.KEYCODE_DPAD_UP:
+		case KeyEvent.KEYCODE_W:
+		case KeyEvent.KEYCODE_8:
+			return 1; // Auto Fire
 		case KeyEvent.KEYCODE_DPAD_LEFT:
 		case KeyEvent.KEYCODE_A:
 		case KeyEvent.KEYCODE_4:
@@ -253,13 +254,13 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		case KeyEvent.KEYCODE_D:
 		case KeyEvent.KEYCODE_6:
 			return 5; // Right
-		case KeyEvent.KEYCODE_DPAD_UP:
-		case KeyEvent.KEYCODE_W:
-		case KeyEvent.KEYCODE_8:
+		case KeyEvent.KEYCODE_DPAD_DOWN:
+		case KeyEvent.KEYCODE_S:
+		case KeyEvent.KEYCODE_2:
 			return 6; // Hyper
 		case KeyEvent.KEYCODE_Q:
 		case KeyEvent.KEYCODE_E:
-		case KeyEvent.KEYCODE_5: 
+		case KeyEvent.KEYCODE_7:
 			return 10; // Unknown
 		}
 		return 0;
