@@ -1,11 +1,14 @@
 package ru.exlmoto.astrosmash;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Window;
+import android.os.Vibrator;
 
+import ru.exlmoto.astrosmash.AstroSmashLauncher.AstroSmashSettings;
 import ru.exlmoto.astrosmash.AstroSmashEngine.Version;
 
 public class AstroSmashActivity extends Activity {
@@ -14,7 +17,11 @@ public class AstroSmashActivity extends Activity {
 	public static final int RESTART_GAME_NO = 0;
 	public static final int RESTART_GAME_YES = 1;
 
-	private static AstroSmashView astroSmashView;
+	public static final int VIBRATE_SHORT = 20;
+	public static final int VIBRATE_LONG = 70;
+
+	private static AstroSmashView astroSmashView = null;
+	private static Vibrator vibrator = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +30,9 @@ public class AstroSmashActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		astroSmashView = new AstroSmashView(this);
+
+		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
 		setContentView(astroSmashView);
 	}
 
@@ -32,6 +42,12 @@ public class AstroSmashActivity extends Activity {
 
 	public static void toDebug(String message) {
 		Log.d(ASTRO_SMASH_TAG, message);
+	}
+
+	public static void doVibrate(int duration) {
+		if (AstroSmashSettings.vibro) {
+			vibrator.vibrate(duration);
+		}
 	}
 
 	private int convertCoordX(float xCoord) {

@@ -7,6 +7,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+
+import ru.exlmoto.astrosmash.AstroSmashActivity;
 import ru.exlmoto.astrosmash.AstroSmashLauncher.AstroSmashSettings;
 import ru.exlmoto.astrosmash.AstroSmashView;
 
@@ -283,12 +285,14 @@ implements IDeathListener {
 				this.m_EnemiesToRecycleStack.push(localEnemy2);
 				if ((localEnemy2.getEnemyTypeId() == 8) || (localEnemy2.getEnemyTypeId() == 9)) {
 					this.m_ship.setCollided(true);
+					AstroSmashActivity.doVibrate(AstroSmashActivity.VIBRATE_LONG);
 					shipDestroyed();
 					updateScore(-100);
 					break;
 				}
 			} else {
 				if (this.m_ship.intersects(localEnemy2)) {
+					AstroSmashActivity.doVibrate(AstroSmashActivity.VIBRATE_LONG);
 					shipDestroyed();
 					updateScore(-100);
 					break;
@@ -296,6 +300,7 @@ implements IDeathListener {
 				for (int k = 0; k < this.m_vecFlyingBullets.size(); k++) {
 					Collidable localCollidable = (Collidable)this.m_vecFlyingBullets.elementAt(k);
 					if (localCollidable.intersects(localEnemy2, 1, 2)) {
+						AstroSmashActivity.doVibrate(AstroSmashActivity.VIBRATE_SHORT);
 						updateScore(localEnemy2.getHitScore());
 						sendBulletToHell(localCollidable);
 						break;

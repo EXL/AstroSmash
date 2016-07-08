@@ -1,9 +1,9 @@
 package ru.exlmoto.astrosmash;
 
 import java.util.Random;
+
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -12,9 +12,9 @@ import android.graphics.Rect;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
 import ru.exlmoto.astrosmash.AstroSmashLauncher.AstroSmashSettings;
 import ru.exlmoto.astrosmash.AstroSmashEngine.GameWorld;
-import ru.exlmoto.astrosmash.AstroSmashEngine.InfoStrings;
 import ru.exlmoto.astrosmash.AstroSmashEngine.Version;
 import ru.exlmoto.astrosmash.AstroSmashEngine.IGameWorldListener;
 
