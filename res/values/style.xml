@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="DialogBaseTheme" parent="android:Theme.Black"></style>
+    <style name="DialogBaseTheme" parent="@android:style/Theme.Dialog"></style>
 
     <!-- Dialog theme. -->
     <style name="DialogTheme" parent="DialogBaseTheme"></style>
