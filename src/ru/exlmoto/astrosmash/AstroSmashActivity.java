@@ -17,7 +17,7 @@ public class AstroSmashActivity extends Activity {
 
 	private static AstroSmashView astroSmashView = null;
 
-	private boolean paused = false;
+	public static boolean paused = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,10 @@ public class AstroSmashActivity extends Activity {
 			if (!astroSmashView.isM_bRunning()) {
 				AstroSmashActivity.toDebug("Restart Game");
 				if (astroSmashView.checkHiScores(RESTART_GAME_YES) == -1) {
-					astroSmashView.restartGame(false);
+					if (astroSmashView.isGameOver()) {
+						astroSmashView.SetisGameOver(false);
+						astroSmashView.restartGame(false);
+					}
 				}
 			} else if (event.getY(touchId) < astroSmashView.getScreenHeightPercent()) {
 				paused = !paused;
@@ -77,5 +80,12 @@ public class AstroSmashActivity extends Activity {
 			break;
 		}
 		return true;
+	}
+
+	@Override
+	public void onBackPressed() {
+		paused = false;
+		astroSmashView.checkHiScores(AstroSmashActivity.RESTART_GAME_NO);
+		super.onBackPressed();
 	}
 }

@@ -25,6 +25,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 	public static final int INITIAL_KEY_DELAY = 250;
 	public static final int KEY_REPEAT_CYCLE = 75;
 	private boolean m_bRunning = true;
+	private boolean isGameOver = false;
 	private Thread m_gameThread = null;
 	private GameWorld m_gameWorld = null;
 	private volatile boolean m_bKeyHeldDown = false;
@@ -178,6 +179,14 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		return m_bRunning;
 	}
 
+	public boolean isGameOver() {
+		return isGameOver;
+	}
+
+	public void SetisGameOver(boolean gameOver) {
+		isGameOver = gameOver;
+	}
+
 	public int getScreenHeightPercent() {
 		return screenHeightPercent;
 	}
@@ -320,6 +329,14 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		init();
 
 		start();
+
+		if (AstroSmashActivity.paused) {
+			pause(true);
+		}
+
+		if (isGameOver) {
+			gameIsOver();
+		}
 	}
 
 	@Override
@@ -330,7 +347,6 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		AstroSmashActivity.toDebug("Surface destroyed");
-		checkHiScores(AstroSmashActivity.RESTART_GAME_NO);
 		boolean shutdown = false;
 		this.m_bRunning = false;
 		while (!shutdown) {
@@ -387,6 +403,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 
 	@Override
 	public void gameIsOver() {
+		isGameOver = true;
 		AstroSmashActivity.toDebug("Game Over!");
 		AstroSmashLauncher.playGameOverSound();
 		this.m_bRunning = false;
