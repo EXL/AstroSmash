@@ -183,6 +183,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		paint.setColor(Version.GREENCOLOR_DARK);
 		canvas.drawRect(0, screenRectChunkProcent, screenWidth, screenHeight, paint);
 		paint.setStrokeCap(Cap.ROUND);
+		paint.setAntiAlias(true);
 		for (int i = 0; i < 2; ++i) {
 			if (i == 0) {
 				paint.setColor(Version.GRAYCOLOR);
