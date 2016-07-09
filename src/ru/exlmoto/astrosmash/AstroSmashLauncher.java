@@ -2,9 +2,14 @@ package ru.exlmoto.astrosmash;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.media.ToneGenerator;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,6 +27,14 @@ public class AstroSmashLauncher extends Activity {
 	public static final int SCALE_480P = 3;
 
 	public static final int HISCORE_PLAYERS = 10;
+
+	public static final int VIBRATE_SHORT = 20;
+	public static final int VIBRATE_LONG = 70;
+
+	public static int SOUND_HIT;
+	public static int SOUND_UFO;
+	public static int SOUND_SHIP;
+	public static int SOUND_SHOT;
 
 	public static SharedPreferences settingsStorage = null;
 
@@ -60,6 +73,10 @@ public class AstroSmashLauncher extends Activity {
 
 	private static TextView[] playerNamesView;
 	private static TextView[] playerScoresView;
+
+	private static Vibrator vibrator = null;
+	private static SoundPool soundPool = null;
+	private static ToneGenerator toneGenerator = null;
 
 	public void fillSettingsByLayout() {
 		AstroSmashSettings.autoFire = autoFireCheckBox.isChecked();
@@ -256,6 +273,7 @@ public class AstroSmashLauncher extends Activity {
 		});
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -270,6 +288,18 @@ public class AstroSmashLauncher extends Activity {
 		} else {
 			// Read settings from Shared Preferences
 			readSettings();
+		}
+
+		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+		if (AstroSmashSettings.sound) {
+			soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+			toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
+
+			SOUND_HIT = soundPool.load(this, R.raw.s_hit, 1);
+			SOUND_UFO = soundPool.load(this, R.raw.s_ufo, 1);
+			SOUND_SHIP = soundPool.load(this, R.raw.s_ship, 1);
+			SOUND_SHOT = soundPool.load(this, R.raw.s_shot, 1);
 		}
 
 		aboutDialog = new Dialog(this);
@@ -310,6 +340,40 @@ public class AstroSmashLauncher extends Activity {
 				showHelpDialog();
 			}
 		});
+	}
+
+	public static void doVibrate(int duration) {
+		if (AstroSmashSettings.vibro) {
+			vibrator.vibrate(duration);
+		}
+	}
+
+	public static void playSound(int soundID) {
+		if (AstroSmashSettings.sound && (soundID != 0)) {
+			final int SOUND_ID = soundID;
+
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					soundPool.play(SOUND_ID, 1.0f, 1.0f, 0, 0, 1.0f);
+				}
+
+			}).start();
+		}
+	}
+
+	public static void playGameOverSound() {
+		if (AstroSmashSettings.sound) {
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					toneGenerator.startTone(ToneGenerator.TONE_CDMA_PRESSHOLDKEY_LITE);
+				}
+
+			}).start();
+		}
 	}
 
 	@Override

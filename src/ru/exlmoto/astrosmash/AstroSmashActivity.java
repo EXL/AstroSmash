@@ -1,18 +1,11 @@
 package ru.exlmoto.astrosmash;
 
-import java.io.IOException;
-
 import android.app.Activity;
-import android.content.Context;
 import android.media.AudioManager;
-import android.media.SoundPool;
-import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Window;
-import android.os.Vibrator;
-
 import ru.exlmoto.astrosmash.AstroSmashLauncher.AstroSmashSettings;
 import ru.exlmoto.astrosmash.AstroSmashEngine.Version;
 
@@ -22,22 +15,10 @@ public class AstroSmashActivity extends Activity {
 	public static final int RESTART_GAME_NO = 0;
 	public static final int RESTART_GAME_YES = 1;
 
-	public static final int VIBRATE_SHORT = 20;
-	public static final int VIBRATE_LONG = 70;
-
 	private static AstroSmashView astroSmashView = null;
-	private static Vibrator vibrator = null;
-	private static SoundPool soundPool = null;
-	private static ToneGenerator toneGenerator = null;
-
-	public static int SOUND_HIT;
-	public static int SOUND_UFO;
-	public static int SOUND_SHIP;
-	public static int SOUND_SHOT;
 
 	private boolean paused = false;
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,20 +27,10 @@ public class AstroSmashActivity extends Activity {
 
 		astroSmashView = new AstroSmashView(this);
 
-		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-
 		if (AstroSmashSettings.sound) {
-			soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
-			toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
-
-			SOUND_HIT = soundPool.load(this, R.raw.s_hit, 1);
-			SOUND_UFO = soundPool.load(this, R.raw.s_ufo, 1);
-			SOUND_SHIP = soundPool.load(this, R.raw.s_ship, 1);
-			SOUND_SHOT = soundPool.load(this, R.raw.s_shot, 1);
+			setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		}
 
-		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		setContentView(astroSmashView);
 	}
 
@@ -69,40 +40,6 @@ public class AstroSmashActivity extends Activity {
 
 	public static void toDebug(String message) {
 		Log.d(ASTRO_SMASH_TAG, message);
-	}
-
-	public static void doVibrate(int duration) {
-		if (AstroSmashSettings.vibro) {
-			vibrator.vibrate(duration);
-		}
-	}
-
-	public static void playSound(int soundID) {
-		if (AstroSmashSettings.sound && (soundID != 0)) {
-			final int SOUND_ID = soundID;
-
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					soundPool.play(SOUND_ID, 1.0f, 1.0f, 0, 0, 1.0f);
-				}
-
-			}).start();
-		}
-	}
-
-	public static void playGameOverSound() {
-		if (AstroSmashSettings.sound) {
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					toneGenerator.startTone(ToneGenerator.TONE_CDMA_PRESSHOLDKEY_LITE);
-				}
-
-			}).start();
-		}
 	}
 
 	private int convertCoordX(float xCoord) {

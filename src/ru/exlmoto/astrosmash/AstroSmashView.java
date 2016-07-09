@@ -388,7 +388,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 	@Override
 	public void gameIsOver() {
 		AstroSmashActivity.toDebug("Game Over!");
-		AstroSmashActivity.playGameOverSound();
+		AstroSmashLauncher.playGameOverSound();
 		this.m_bRunning = false;
 		this.m_gameThread = null;
 	}

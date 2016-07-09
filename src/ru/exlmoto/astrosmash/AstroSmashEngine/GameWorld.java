@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import ru.exlmoto.astrosmash.AstroSmashActivity;
+import ru.exlmoto.astrosmash.AstroSmashLauncher;
 import ru.exlmoto.astrosmash.AstroSmashLauncher.AstroSmashSettings;
 import ru.exlmoto.astrosmash.AstroSmashView;
 
@@ -218,7 +219,7 @@ implements IDeathListener {
 	public void fireBullet() {
 		Collidable localCollidable = this.m_munitionsFactory.getBullet();
 		if (localCollidable != null) {
-			AstroSmashActivity.playSound(AstroSmashActivity.SOUND_SHOT);
+			AstroSmashLauncher.playSound(AstroSmashLauncher.SOUND_SHOT);
 			localCollidable.setPosition(this.m_ship.getCenterX() - localCollidable.getWidth() / 2, this.m_ship.getY() - localCollidable.getHeight());
 			this.m_vecFlyingBullets.addElement(localCollidable);
 		}
@@ -301,8 +302,8 @@ implements IDeathListener {
 				for (int k = 0; k < this.m_vecFlyingBullets.size(); k++) {
 					Collidable localCollidable = (Collidable)this.m_vecFlyingBullets.elementAt(k);
 					if (localCollidable.intersects(localEnemy2, 1, 2)) {
-						AstroSmashActivity.doVibrate(AstroSmashActivity.VIBRATE_SHORT);
-						AstroSmashActivity.playSound(AstroSmashActivity.SOUND_HIT);
+						AstroSmashLauncher.doVibrate(AstroSmashLauncher.VIBRATE_SHORT);
+						AstroSmashLauncher.playSound(AstroSmashLauncher.SOUND_HIT);
 						updateScore(localEnemy2.getHitScore());
 						sendBulletToHell(localCollidable);
 						break;
@@ -367,7 +368,7 @@ implements IDeathListener {
 			k = (int)(l * j / 1024L);
 		}
 		localEnemy.setVelocity(k, j, i);
-		AstroSmashActivity.playSound(AstroSmashActivity.SOUND_UFO);
+		AstroSmashLauncher.playSound(AstroSmashLauncher.SOUND_UFO);
 		this.m_vecFlyingEnemies.addElement(localEnemy);
 	}
 
@@ -393,8 +394,8 @@ implements IDeathListener {
 	}
 
 	protected void shipDestroyed() {
-		AstroSmashActivity.doVibrate(AstroSmashActivity.VIBRATE_LONG);
-		AstroSmashActivity.playSound(AstroSmashActivity.SOUND_SHIP);
+		AstroSmashLauncher.doVibrate(AstroSmashLauncher.VIBRATE_LONG);
+		AstroSmashLauncher.playSound(AstroSmashLauncher.SOUND_SHIP);
 		//		try {
 		for (int i = 0; i < this.m_vecFlyingEnemies.size(); i++) {
 			Enemy enemy = this.m_vecFlyingEnemies.elementAt(i);
