@@ -1,0 +1,5 @@
+Use following command:
+
+$ ffmpeg -i in.ogg -c:a libvorbis -ar 44100 out.ogg
+
+For converting ogg file to default 44100 Hz frequency and suppress "AUDIO_OUTPUT_FLAG_FAST denied by client" warning.
