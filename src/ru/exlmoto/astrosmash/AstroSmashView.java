@@ -134,13 +134,13 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 					painter.setFilterBitmap(true);
 				}
 				if (AstroSmashSettings.showTouchRect) {
-					canvas.drawBitmap(gameScreen, 
+					canvas.drawBitmap(gameScreen,
 							bitmapRect,
 							screenRectPercent,
 							painter);
 					drawTouchArrow(canvas, painter);
 				} else {
-					canvas.drawBitmap(gameScreen, 
+					canvas.drawBitmap(gameScreen,
 							bitmapRect,
 							screenRect,
 							painter);
@@ -231,7 +231,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 
 	public int getGameAction(int paramInt) {
 		switch (paramInt) {
-		case KeyEvent.KEYCODE_DPAD_CENTER: 
+		case KeyEvent.KEYCODE_DPAD_CENTER:
 		case KeyEvent.KEYCODE_SPACE:
 		case KeyEvent.KEYCODE_ENTER:
 		case KeyEvent.KEYCODE_5:
@@ -313,7 +313,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		AstroSmashActivity.toDebug("Surface created"); 
+		AstroSmashActivity.toDebug("Surface created");
 		screenWidth = holder.getSurfaceFrame().width();
 		screenHeight = holder.getSurfaceFrame().height();
 

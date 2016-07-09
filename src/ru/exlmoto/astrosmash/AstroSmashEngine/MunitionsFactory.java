@@ -18,7 +18,7 @@ public class MunitionsFactory {
 	private Bitmap m_bulletImage;
 	private int m_nInitialYVelocity = -5;
 	private long m_nInitialVelocityTime = 500L;
-	
+
 	private Context activityContext = null;
 
 	public MunitionsFactory(int whileInt, int shipMoveDistance, long initialVelocityTime, Context context) {

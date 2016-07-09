@@ -2,7 +2,7 @@
 <resources>
 
     <style name="DialogBaseTheme" parent="@android:style/Theme.DeviceDefault.Dialog.MinWidth">
-        <!-- API 14 theme customizations can go here. -->
+    <!-- API 14 theme customizations can go here. -->
     </style>
 
 </resources>

@@ -1,6 +1,7 @@
 package ru.exlmoto.astrosmash.AstroSmashEngine;
 
 import android.graphics.Color;
+
 import ru.exlmoto.astrosmash.AstroSmashActivity;
 
 @SuppressWarnings("unused")
@@ -171,7 +172,7 @@ public class Version {
 		int j = getHeight();
 		platform = -1;
 		switch (i + j * 1024) {
-		case 48224: 
+		case 48224:
 		case ANDROID_ORIGINAL_96x51:
 			platform = 0;
 			DEVICE = "Motorola 66i";
@@ -187,8 +188,8 @@ public class Version {
 			GREENCOLOR = Color.WHITE;
 			CREDITS_UPC_CODE = "7-19575-700030";
 			break;
-		case 85120: 
-		case 91264: 
+		case 85120:
+		case 91264:
 			platform = 1;
 			DEVICE = "Motorola 280i";
 			COMMAND_HEIGHT_PIXELS = 0;
@@ -203,7 +204,7 @@ public class Version {
 			MENU_DELTA_Y = 14;
 			CREDITS_UPC_CODE = "7-19575-700016";
 			break;
-		case 133248: 
+		case 133248:
 			platform = 2;
 			DEVICE = "Motorola Rainbow";
 			COMMAND_HEIGHT_PIXELS = 0;
@@ -217,7 +218,7 @@ public class Version {
 			MENU_DELTA_Y = 12;
 			CREDITS_UPC_CODE = "7-19575-780032";
 			break;
-		case 103552: 
+		case 103552:
 			platform = 3;
 			DEVICE = "Motorola NFUII";
 			COMMAND_HEIGHT_PIXELS = 0;
@@ -231,7 +232,7 @@ public class Version {
 			MENU_DELTA_Y = 12;
 			CREDITS_UPC_CODE = "7-19575-780025";
 			break;
-		case 96376: 
+		case 96376:
 			platform = 4;
 			DEVICE = "Sanyo";
 			COMMAND_HEIGHT_PIXELS = 0;
@@ -245,7 +246,7 @@ public class Version {
 			MENU_DELTA_Y = 12;
 			CREDITS_UPC_CODE = "7-19575-790017";
 			break;
-		case 101496: 
+		case 101496:
 			platform = 5;
 			DEVICE = "LG 5350";
 			COMMAND_HEIGHT_PIXELS = 0;
@@ -259,7 +260,7 @@ public class Version {
 			MENU_DELTA_Y = 12;
 			CREDITS_UPC_CODE = "7-19575-800013";
 			break;
-		case 147576: 
+		case 147576:
 		case ANDROID_ORIGINAL_120x146:
 			platform = 6;
 			DEVICE = "Motorola 720i";
@@ -275,7 +276,7 @@ public class Version {
 			GAMEPAUSEDCOLOR = Color.BLACK;
 			CREDITS_UPC_CODE = "7-19575-780063 4";
 			break;
-		default: 
+		default:
 			platform = -1;
 		}
 		AstroSmashActivity.toDebug("Platform (ASVersion): " + platform);

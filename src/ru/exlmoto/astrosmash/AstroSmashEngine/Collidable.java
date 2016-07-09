@@ -65,26 +65,26 @@ public class Collidable extends Drawable {
 		//		int i1 = n + paramCollidable.getWidth();
 		//		int i2 = paramCollidable.getY();
 		//		int i3 = i2 + paramCollidable.getHeight();
-		//		if (((n >= i) && (n < j)) || 
-		//				((i1 >= i) && (i1 < j)) || 
-		//				((i >= n) && (i < i1)) || 
-		//				((j >= n) && (j < i1) && 
-		//						(((i2 >= k) && (i2 < m)) || 
-		//								((i3 >= k) && (i3 < m)) || 
-		//								((k >= i2) && (k < i3)) || 
+		//		if (((n >= i) && (n < j)) ||
+		//				((i1 >= i) && (i1 < j)) ||
+		//				((i >= n) && (i < i1)) ||
+		//				((j >= n) && (j < i1) &&
+		//						(((i2 >= k) && (i2 < m)) ||
+		//								((i3 >= k) && (i3 < m)) ||
+		//								((k >= i2) && (k < i3)) ||
 		//								((m >= i2) && (m < i3))))) {
 		//			setCollided(true);
 		//			paramCollidable.setCollided(true);
 		//			return true;
 		//		}
 		//		return false;
-		
+
 		// Rectangles intersect
 		Rect rectIn = new Rect(getX(), getY(), getX() + getWidth(), getY() + getHeight());
 		Rect rectOut = new Rect(
-				paramCollidable.getX(), 
-				paramCollidable.getY(), 
-				paramCollidable.getX() + paramCollidable.getWidth(), 
+				paramCollidable.getX(),
+				paramCollidable.getY(),
+				paramCollidable.getX() + paramCollidable.getWidth(),
 				paramCollidable.getY() + paramCollidable.getHeight());
 
 		if (rectIn.intersect(rectOut)) {

@@ -13,7 +13,7 @@ import ru.exlmoto.astrosmash.AstroSmashLauncher.AstroSmashSettings;
 import ru.exlmoto.astrosmash.AstroSmashView;
 
 @SuppressWarnings("unused")
-public class GameWorld 
+public class GameWorld
 implements IDeathListener {
 
 	public static final int AUTOFIRE_DELAY_MS = 333;
@@ -127,21 +127,21 @@ implements IDeathListener {
 		if ((!this.m_ship.getCollided()) && (!this.m_bGameOver)) {
 			int i;
 			switch (paramInt) {
-			case 2: 
+			case 2:
 				i = Math.max(this.m_ship.getX() - this.m_nShipMoveDistance, 0);
 				this.m_ship.setX(i);
 				break;
-			case 5: 
+			case 5:
 				i = Math.min(this.m_ship.getX() + this.m_nShipMoveDistance, this.m_nScreenWidth - this.m_ship.getWidth());
 				this.m_ship.setX(i);
 				break;
-			case 1: 
+			case 1:
 				this.m_bAutoFire = (!this.m_bAutoFire);
 				break;
-			case 6: 
+			case 6:
 				hyperSpace();
 				break;
-			case 9: 
+			case 9:
 				fireBullet();
 				break;
 			}
@@ -326,23 +326,23 @@ implements IDeathListener {
 					localEnemy1.setPosition(j, 0);
 				}
 				switch (localEnemy1.getEnemyTypeId()) {
-				case 8: 
-				case 9: 
+				case 8:
+				case 9:
 					j = ENEMY_FALLTIMES[this.m_nLevel];
 					localEnemy1.setVelocity(0, this.m_nScreenHeight, j);
 					((SwappableEnemy)localEnemy1).setSwapInterval(SWAP_INTERVAL);
 					break;
-				case 10: 
+				case 10:
 					j = ENEMY_FALLTIMES[this.m_nLevel] / 2;
 					localEnemy1.setVelocity(0, this.m_nScreenHeight, j);
 					((SwappableEnemy)localEnemy1).setSwapInterval(SWAP_INTERVAL);
 					break;
-				case 11: 
+				case 11:
 					j = ENEMY_FALLTIMES[this.m_nLevel] + AstroSmashView.getRandomInt() % ENEMY_FALLTIME_VARIANCES[this.m_nLevel];
 					localEnemy1.setVelocity(this.m_nScreenWidth, 0, j);
 					((Ufo)localEnemy1).setFireInterval(UFO_FIRE_INTERVAL);
 					break;
-				default: 
+				default:
 					j = ENEMY_FALLTIMES[this.m_nLevel] + AstroSmashView.getRandomInt() % ENEMY_FALLTIME_VARIANCES[this.m_nLevel];
 					localEnemy1.setVelocity(0, this.m_nScreenHeight, j);
 				}
@@ -429,7 +429,7 @@ implements IDeathListener {
 	public void doneExploding(Enemy paramEnemy) {
 		int i = paramEnemy.getHitReaction();
 		switch (i) {
-		case 1: 
+		case 1:
 			if (paramEnemy.getEnemyTypeId() != -2) {
 				sendDeadEnemyToHell(paramEnemy);
 			} else if (this.m_nLives >= 0) {
@@ -440,11 +440,11 @@ implements IDeathListener {
 				this.m_gameWorldListener.gameIsOver();
 			}
 			break;
-		case 2: 
+		case 2:
 			handleOnHitSeparate(paramEnemy);
 			break;
-		case 0: 
-		default: 
+		case 0:
+		default:
 			sendDeadEnemyToHell(paramEnemy);
 		}
 	}
@@ -460,19 +460,19 @@ implements IDeathListener {
 		int n = paramEnemy.getEnemyTypeId();
 		int m;
 		switch (n) {
-		case 1: 
+		case 1:
 			m = 5;
 			break;
-		case 0: 
+		case 0:
 			m = 4;
 			break;
-		case 2: 
+		case 2:
 			m = 6;
 			break;
-		case 3: 
+		case 3:
 			m = 7;
 			break;
-		default: 
+		default:
 			m = 5;
 		}
 		int i = paramEnemy.getX();

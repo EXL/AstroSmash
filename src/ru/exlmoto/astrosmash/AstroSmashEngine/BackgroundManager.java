@@ -14,7 +14,7 @@ public class BackgroundManager {
 
 	public static final String MOUNTAINIMAGE = "/mountains.png";
 	private static final int MAXLIFEDISPLAY = 4;
-	private static final String[] NUMBERFONT_FILENAMES = { "/no0.png", "/no1.png", "/no2.png", "/no3.png", 
+	private static final String[] NUMBERFONT_FILENAMES = { "/no0.png", "/no1.png", "/no2.png", "/no3.png",
 			"/no4.png", "/no5.png", "/no6.png", "/no7.png", "/no8.png", "/no9.png" };
 	private static final int[] NUMBERFONT_FILENAMES_AID = {
 			R.drawable.no0,

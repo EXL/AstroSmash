@@ -34,7 +34,7 @@ public class EnemyFactory {
 	public static final int PULSER_ID = 10;
 	public static final int UFO_ID = 11;
 	public static final int UFO_BULLET_ID = 12;
-	private static final EnemyData[] ENEMIES = { 
+	private static final EnemyData[] ENEMIES = {
 			new EnemyData("/rock1.png", 10, -5, 2, null, 0, R.drawable.rock1, 0),
 			new EnemyData("/rock2.png", 10, -5, 2, null, 0, R.drawable.rock2, 0),
 			new EnemyData("/rock3.png", 10, -5, 2, null, 0, R.drawable.rock3, 0),
@@ -49,10 +49,10 @@ public class EnemyFactory {
 			new EnemyData("/ufo.png", 100, 0, 1, null, 3, R.drawable.ufo, 0),
 			new EnemyData("/ufo_bullet.png", 10, 0, 1, null, 0, R.drawable.ufo_bullet, 0)
 	};
-	private static final int[] ENEMY_PROBABILITIES = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 
-			1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 
-			1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 
-			1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 200, 200, 300, 400, 500, 600, 
+	private static final int[] ENEMY_PROBABILITIES = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
+			1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
+			1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
+			1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 200, 200, 300, 400, 500, 600,
 			200, 200, 300, 400, 500, 600, 50, 50, 80, 100, 200, 400, 0, 0, 80, 100, 200, 400, 0, 0, 0, 0, 0, 0 };
 	private static int[] TOTAL_ENEMY_PROBABILITIES = new int[6];
 	private Stack<Enemy>[] m_enemyStacks;
@@ -147,19 +147,19 @@ public class EnemyFactory {
 	protected Enemy createEnemy(int paramInt) {
 		Object localObject;
 		switch (paramInt) {
-		case 8: 
-		case 9: 
+		case 8:
+		case 9:
 			localObject = new SwappableEnemy();
 			((SwappableEnemy)localObject).setSwapImage(this.m_swapImages[paramInt]);
 			break;
-		case 10: 
+		case 10:
 			localObject = new Pulser();
 			((Pulser)localObject).setSwapImage(this.m_swapImages[paramInt]);
 			break;
-		case 11: 
+		case 11:
 			localObject = new Ufo();
 			break;
-		default: 
+		default:
 			localObject = new Enemy();
 		}
 		((Enemy)localObject).setEnemyTypeId(paramInt);
@@ -229,8 +229,8 @@ public class EnemyFactory {
 		int androidResID;
 		int androidResSwapID;
 
-		EnemyData(String paramString1, int paramInt1, 
-				int paramInt2, int paramInt3, String paramString2, 
+		EnemyData(String paramString1, int paramInt1,
+				int paramInt2, int paramInt3, String paramString2,
 				int paramInt4, int androidResID, int androidResSwapID) {
 			this.sImageFileName = paramString1;
 			this.nHitScore = paramInt1;

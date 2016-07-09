@@ -25,9 +25,9 @@ public class InfoStrings {
 
 	public static String getHelp() {
 		switch (LANGUAGE_CURRENT) {
-		case 0: 
+		case 0:
 			return getHelpEnglish();
-		case 1: 
+		case 1:
 			return getHelpRussian();
 		}
 		return getHelpEnglish();
@@ -35,9 +35,9 @@ public class InfoStrings {
 
 	public static String getCredits1() {
 		switch (LANGUAGE_CURRENT) {
-		case 0: 
+		case 0:
 			return getCredits1English();
-		case 1: 
+		case 1:
 			return getCredits1Russian();
 		}
 		return getCredits1English();
@@ -45,9 +45,9 @@ public class InfoStrings {
 
 	public static String getCredits2() {
 		switch (LANGUAGE_CURRENT) {
-		case 0: 
+		case 0:
 			return getCredits2English();
-		case 1: 
+		case 1:
 			return getCredits2Russian();
 		}
 		return getCredits2English();
@@ -55,9 +55,9 @@ public class InfoStrings {
 
 	public static String getCredits3() {
 		switch (LANGUAGE_CURRENT) {
-		case 0: 
+		case 0:
 			return getCredits3English();
-		case 1: 
+		case 1:
 			return getCredits3Russian();
 		}
 		return getCredits3English();
