@@ -1,0 +1,45 @@
+commit 7587ef8c63327d862513f810f4a21eb1323bd3a1
+Author: EXL <exlmotodev@gmail.com>
+Date:   Sat Jul 2 12:22:15 2016 +0000
+
+    Fix type errors
+
+diff --git a/src/com/lavastorm/HiscoreFile.java b/src/com/lavastorm/HiscoreFile.java
+index 6aef4d0..c9a9a27 100644
+--- a/src/com/lavastorm/HiscoreFile.java
++++ b/src/com/lavastorm/HiscoreFile.java
+@@ -193,7 +193,7 @@ public class HiscoreFile
+     if (i == -1) {
+       return -1;
+     }
+-    Object localObject = this.m_names[i];
++    String localObject = this.m_names[i];
+     String str = null;
+     int j = this.m_scores[i];
+     int k = 0;
+diff --git a/src/com/lavastorm/astrosmash/GameWorld.java b/src/com/lavastorm/astrosmash/GameWorld.java
+index 951d8f3..8157006 100644
+--- a/src/com/lavastorm/astrosmash/GameWorld.java
++++ b/src/com/lavastorm/astrosmash/GameWorld.java
+@@ -178,7 +178,7 @@ public class GameWorld
+       this.m_vecFlyingEnemies.removeElementAt(j);
+       this.m_enemyFactory.putEnemy(localEnemy);
+     }
+-    for (i = this.m_vecFlyingBullets.size(); i > 0; i = this.m_vecFlyingBullets.size())
++    for (int i = this.m_vecFlyingBullets.size(); i > 0; i = this.m_vecFlyingBullets.size())
+     {
+       j = i - 1;
+       Collidable localCollidable = (Collidable)this.m_vecFlyingBullets.elementAt(j);
+diff --git a/src/com/lavastorm/astrosmash/HiScoreDisplay.java b/src/com/lavastorm/astrosmash/HiScoreDisplay.java
+index d111bda..9206854 100644
+--- a/src/com/lavastorm/astrosmash/HiScoreDisplay.java
++++ b/src/com/lavastorm/astrosmash/HiScoreDisplay.java
+@@ -130,7 +130,7 @@ public class HiScoreDisplay
+     localGraphics.setColor(AstrosmashVersion.BLACKCOLOR);
+     for (int k = 0; k < 5; k++)
+     {
+-      localObject = "";
++      String localObject = "";
+       if (this.m_highlightPosition == k) {
+         localObject = ">";
+       }
