@@ -10,14 +10,14 @@ import ru.exlmoto.astrosmash.R;
 
 public class MunitionsFactory {
 
-	public static final int INITIAL_BULLETS = 1;
+	public static final int INITIAL_BULLETS = 2;
 	public static final int INITIAL_Y_VELOCITY = -5;
 	public static final int INITIAL_VELOCITY_TIME = 500;
 	public static final String BULLET_IMAGE = "/bullet.png";
 	private Stack<Collidable> m_stackBullets = new Stack<Collidable>();
 	private Bitmap m_bulletImage;
-	private int m_nInitialYVelocity = -5;
-	private long m_nInitialVelocityTime = 500L;
+	private int m_nInitialYVelocity = INITIAL_Y_VELOCITY;
+	private long m_nInitialVelocityTime = INITIAL_VELOCITY_TIME;
 
 	private Context activityContext = null;
 
@@ -35,13 +35,12 @@ public class MunitionsFactory {
 	}
 
 	public MunitionsFactory(int shipMoveDistance, long initialVelocityTime, Context context) {
-		this(1, shipMoveDistance, initialVelocityTime, context);
+		this(INITIAL_BULLETS, shipMoveDistance, initialVelocityTime, context);
 	}
 
 	public Collidable getBullet() {
 		Collidable localCollidable = null;
-		if (!this.m_stackBullets.isEmpty())
-		{
+		if (!this.m_stackBullets.isEmpty()) {
 			localCollidable = (Collidable)this.m_stackBullets.pop();
 			localCollidable.setCollided(false);
 		}

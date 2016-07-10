@@ -8,12 +8,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import ru.exlmoto.astrosmash.AstroSmashActivity;
 import ru.exlmoto.astrosmash.AstroSmashLauncher;
 import ru.exlmoto.astrosmash.AstroSmashLauncher.AstroSmashSettings;
 import ru.exlmoto.astrosmash.AstroSmashView;
 
-@SuppressWarnings("unused")
 public class GameWorld
 implements IDeathListener {
 
@@ -81,7 +79,7 @@ implements IDeathListener {
 		this.m_nShipMoveDistance = Version.getShipMoveX();
 		int i = this.m_nScreenWidth / 2;
 		if (this.m_munitionsFactory == null) {
-			this.m_munitionsFactory = new MunitionsFactory(-this.m_nShipMoveDistance, 40L, activityContext);
+			this.m_munitionsFactory = new MunitionsFactory(-this.m_nShipMoveDistance, BULLET_VELOCITY_TIME, activityContext);
 		}
 		this.m_bAutoFire = true;
 		if (this.m_backgroundManager == null) {
@@ -334,7 +332,7 @@ implements IDeathListener {
 					((SwappableEnemy)localEnemy1).setSwapInterval(SWAP_INTERVAL);
 					break;
 				case 10:
-					j = ENEMY_FALLTIMES[this.m_nLevel] / 2;
+					j = ENEMY_FALLTIMES[this.m_nLevel] / PULSER_FALLTIME_FACTOR;
 					localEnemy1.setVelocity(0, this.m_nScreenHeight, j);
 					((SwappableEnemy)localEnemy1).setSwapInterval(SWAP_INTERVAL);
 					break;
@@ -358,7 +356,7 @@ implements IDeathListener {
 	public void fireUfoBullet(int paramInt1, int paramInt2) {
 		Enemy localEnemy = this.m_enemyFactory.getEnemy(12);
 		localEnemy.setPosition(paramInt1, paramInt2);
-		int i = ENEMY_FALLTIMES[this.m_nLevel] / 2;
+		int i = ENEMY_FALLTIMES[this.m_nLevel] / UFO_BULLET_FALLTIME_FACTOR;
 		int j = this.m_nScreenHeight;
 		int k = 0;
 		int m = this.m_ship.getCenterY() - paramInt2;
