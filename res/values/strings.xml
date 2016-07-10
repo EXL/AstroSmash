@@ -53,6 +53,6 @@
     <string name="AboutHelpLabel">About &amp; Help</string>
     <string name="Version">v1.0</string>
     <string name="IconDesc">Icon AstroSmash</string>
-    <string name="AboutString">Porting to Android OS:\n© 2016 Serg "EXL" Koles\n\nSource Code:\nhttp://github.com/EXL/AstroSmash\n\nArticle About Porting:\nhttp://exlmoto.ru/astrosmash-droid\n\nThanks to Danil Medvedev for idea and support.</string>
+    <string name="AboutString">Porting from Java ME (J2ME) MIDlet to Android OS application with using SurfaceView Canvas drawing:\n© 2016 S. \"EXL\" KLS\nemail: exl@bk.ru\nemail: exlmotodev@gmail.com\n\nSource Code:\nhttp://github.com/EXL/AstroSmash\n\nArticle About Porting AstroSmash:\nhttp://exlmoto.ru/astrosmash-droid\n\nThanks to:\nDanil Medvedev for idea and support.</string>
 
 </resources>
