@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AstroSmash</string>
+    <string name="CoverString">Обложки AstroSmash</string>
+    <string name="RunButton">Запустить AstroSmash!</string>
+    <string name="SettingsLabel">Настройки</string>
+    <string name="AboutButton">Об игре</string>
+    <string name="Radio120">120p</string>
+    <string name="Radio176">176p</string>
+    <string name="Radio240">240p</string>
+    <string name="Radio480">480p</string>
+    <string name="AutoFire">Автоматический огонь</string>
+    <string name="Sound">Звук</string>
+    <string name="Vibro">Виброотдача</string>
+    <string name="Antialiasing">Сглаживание</string>
+    <string name="TouchRect">Прямоугольник для управления</string>
+    <string name="ColorStars">Цветные звёзды</string>
+    <string name="FPS">Отрисовка FPS</string>
+    <string name="GraphicsLabel">Масштаб графики</string>
+    <string name="HiScoreTable">Таблица рекордов</string>
+    <string name="Player1">Игрок 1</string>
+    <string name="Score1">0</string>
+    <string name="Player2">Игрок 2</string>
+    <string name="Score2">0</string>
+    <string name="Player3">Игрок 3</string>
+    <string name="Score3">0</string>
+    <string name="Player4">Игрок 4</string>
+    <string name="Score4">0</string>
+    <string name="Player5">Игрок 5</string>
+    <string name="Score5">0</string>
+    <string name="Player6">Игрок 6</string>
+    <string name="Score6">0</string>
+    <string name="Player7">Игрок 7</string>
+    <string name="Score7">0</string>
+    <string name="Player8">Игрок 8</string>
+    <string name="Score8">0</string>
+    <string name="Player9">Игрок 9</string>
+    <string name="Score9">0</string>
+    <string name="Player10">Игрок 10</string>
+    <string name="Score10">0</string>
+    <string name="StringOK">ОК</string>
+    <string name="StringCancel">Отмена</string>
+    <string name="HintString">Имя игрока</string>
+    <string name="HiScoreTextHint">Вы получили рекордное количество очков, пожалуйста введите ваше имя:</string>
+    <string name="GameOver">: Конец игры!</string>
+    <string name="Score">"Очки: "</string>
+    <string name="Credits3">Авторы 3</string>
+    <string name="Credits2">Авторы 2</string>
+    <string name="Credits1">Авторы 1</string>
+    <string name="CreditsHelp">Помощь</string>
+    <string name="ButtonHelp">Помощь</string>
+    <string name="AboutHelpLabel">Справка и помощь</string>
+    <string name="Version">v1.0</string>
+    <string name="IconDesc">Иконка AstroSmash</string>
+    <string name="AboutString">Портирование с Java ME (J2ME) MIDlet на Android OS с использованием отрисовки с помощью SurfaceView Canvas:\n© 2016 S. \"EXL\" KLS\nemail: exl@bk.ru\nemail: exlmotodev@gmail.com\n\nИсходный код:\nhttp://github.com/EXL/AstroSmash\n\nСтатья про портирование AstroSmash:\nhttp://exlmoto.ru/astrosmash-droid\n\nБлагодарности:\nДанилу Медведеву за идею и поддержку.</string>
+
+</resources>
