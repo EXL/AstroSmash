@@ -10,7 +10,7 @@ import ru.exlmoto.astrosmash.R;
 
 public class MunitionsFactory {
 
-	public static int initial_bullets = 1;
+	public static final int INITIAL_BULLETS = 1;
 	public static final int INITIAL_Y_VELOCITY = -5;
 	public static final int INITIAL_VELOCITY_TIME = 500;
 	public static final String BULLET_IMAGE = "/bullet.png";
@@ -27,7 +27,7 @@ public class MunitionsFactory {
 		this.m_nInitialVelocityTime = initialVelocityTime;
 		this.m_bulletImage = BitmapFactory.decodeResource(activityContext.getResources(), R.drawable.bullet);
 		if (AstroSmashSettings.doubleFire) {
-			initial_bullets = 2;
+			whileInt = 2;
 		}
 		for (int i = 0; i < whileInt; i++) {
 			Collidable localCollidable = new Collidable();
@@ -38,7 +38,7 @@ public class MunitionsFactory {
 	}
 
 	public MunitionsFactory(int shipMoveDistance, long initialVelocityTime, Context context) {
-		this(initial_bullets, shipMoveDistance, initialVelocityTime, context);
+		this(INITIAL_BULLETS, shipMoveDistance, initialVelocityTime, context);
 	}
 
 	public Collidable getBullet() {

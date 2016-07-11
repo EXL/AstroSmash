@@ -321,6 +321,15 @@ public class AstroSmashLauncher extends Activity {
 			readSettings();
 		}
 
+		aboutDialog = new Dialog(this);
+		helpDialog = new Dialog(this);
+
+		InfoStrings.initializeInfo();
+
+		initWidgets();
+
+		fillLayoutBySettings();
+
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 		if (AstroSmashSettings.sound) {
@@ -332,15 +341,6 @@ public class AstroSmashLauncher extends Activity {
 			SOUND_SHIP = soundPool.load(this, R.raw.s_ship, 1);
 			SOUND_SHOT = soundPool.load(this, R.raw.s_shot, 1);
 		}
-
-		aboutDialog = new Dialog(this);
-		helpDialog = new Dialog(this);
-
-		InfoStrings.initializeInfo();
-
-		initWidgets();
-
-		fillLayoutBySettings();
 
 		Button astroSmashRunButton = (Button) findViewById(R.id.gameButton);
 		astroSmashRunButton.setOnClickListener(new OnClickListener() {
