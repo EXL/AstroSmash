@@ -53,7 +53,7 @@
     <string name="AboutHelpLabel">Справка и помощь</string>
     <string name="Version">v1.0</string>
     <string name="IconDesc">Иконка AstroSmash</string>
-    <string name="AboutString">Портирование с Java ME (J2ME) MIDlet на Android OS с использованием отрисовки с помощью канваса SurfaceView:\n© 2016 S. \"EXL\" KLS\nemail: exl@bk.ru\nemail: exlmotodev@gmail.com\n\nИсходный код:\nhttp://github.com/EXL/AstroSmash\n\nСтатья про портирование AstroSmash:\nhttp://exlmoto.ru/astrosmash-droid\n\nБлагодарности:\nДанилу Медведеву за идею и поддержку;\nНиките Прокопчику за классные фотографии;\nBaat\'у за помощь и поддержку;\nZorge.R\'у за хостинг, терпение и помощь.</string>
+	<string name="AboutString">Портирование с Java ME (J2ME) MIDlet на Android OS с использованием отрисовки с помощью канваса SurfaceView:\n• © 2016 S. \"EXL\" KLS\nemail: exl@bk.ru\nemail: exlmotodev@gmail.com\n\nИсходный код:\nhttp://github.com/EXL/AstroSmash\n\nСтатья про портирование AstroSmash:\nhttp://exlmoto.ru/astrosmash-droid\n\nБлагодарности:\n• Данилу Медведеву за идею и поддержку;\n• Никите Прокопчику за классные фотографии;\n• Baat\'у за помощь и поддержку;\n• Zorge.R\'у за хостинг, терпение и помощь.</string>
     <string name="DoubleFire">Два снаряда</string>
 
 </resources>

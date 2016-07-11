@@ -71,11 +71,11 @@ public class InfoStrings {
 
 	public static String getHelpRussian() {
 		StringBuffer localStringBuffer = new StringBuffer("Цель игры\n");
-		localStringBuffer.append("------------\n");
+		localStringBuffer.append("------------------------------------\n");
 		localStringBuffer.append("Уничтожьте всех противников в звёздном небе! Не позволяйте вращающимся спутникам достичь поверхности, иначе вы будете незамедлительно уничтoжены! Старайтесь убивать все движущиеся объекты, они добавляют очки, если объект коснётся земли, игровой счёт понизится!\n");
 		localStringBuffer.append("\n");
 		localStringBuffer.append("Управление\n");
-		localStringBuffer.append("--------\n");
+		localStringBuffer.append("------------------------------------\n");
 		localStringBuffer.append("Используйте верхнюю часть сенсорного экрана для стрельбы и паузы, а нижнюю часть экрана для управления кораблём. Помимо этого, для управления вы можете использовать клавишу навигации или дополнительные кнопки. Включите автоматический огонь, если это необходимо и используйте прыжок в гиперпространство если враги подобрались близко!\n\n");
 		localStringBuffer.append("Вверх - Вкл/выкл автоматический огонь\n");
 		localStringBuffer.append("Влево - Двигаться влево\n");
@@ -84,7 +84,7 @@ public class InfoStrings {
 		localStringBuffer.append("Центр - Огонь\n");
 		localStringBuffer.append("\n");
 		localStringBuffer.append("Дополнительные клавиши\n");
-		localStringBuffer.append("--------------------------\n");
+		localStringBuffer.append("------------------------------------\n");
 		localStringBuffer.append("A, 4 - Двигаться влево\n");
 		localStringBuffer.append("D, 6 - Двигаться влево\n");
 		localStringBuffer.append("Enter, 5 - Огонь\n");
@@ -96,17 +96,17 @@ public class InfoStrings {
 
 	public static String getCredits1Russian() {
 		StringBuffer localStringBuffer = new StringBuffer("Авторы THQ\n");
-		localStringBuffer.append("-----------\n");
+		localStringBuffer.append("------------------------------------\n");
 		localStringBuffer.append("Продюсер - Stuart Platt\nДополнительный продюсер - Colin Totman\nМаркетинг - Peter Dille\nДиректор Creative Services - Howard Liebeskind\nГлавный менеджер - Chris Sturr\n");
 		localStringBuffer.append("\n");
 		localStringBuffer.append("Команда тестировщиков THQ QA\n");
-		localStringBuffer.append("---------------------------\n");
+		localStringBuffer.append("------------------------------------\n");
 		localStringBuffer.append("Главный тестировщик - Scott Frazier\nТестировщик - Adam Affrunti\nТестировщик - Brad Arnold\nТестировщик - Shelley Franklin\nТестировщик - Donald Sturkey\n");
 		return localStringBuffer.toString();
 	}
 
 	public static String getCredits2Russian() {
-		StringBuffer localStringBuffer = new StringBuffer("Авторы Lavastorm\n-----------------\nПродюсер - Jason Loia\nРазработчик - Albert So\nРазработчик - Horace Lin\nРазработчик - Veeramurthy Veeraprakash\nХудожник - Mark Keavney\n\nОтдельная благодарность\n-----------------\nJohn P. Sohl\n");
+		StringBuffer localStringBuffer = new StringBuffer("Авторы Lavastorm\n------------------------------------\nПродюсер - Jason Loia\nРазработчик - Albert So\nРазработчик - Horace Lin\nРазработчик - Veeramurthy Veeraprakash\nХудожник - Mark Keavney\n\nОтдельная благодарность\n------------------------------------\nJohn P. Sohl\n");
 		return localStringBuffer.toString();
 	}
 
@@ -124,11 +124,11 @@ public class InfoStrings {
 
 	public static String getHelpEnglish() {
 		StringBuffer localStringBuffer = new StringBuffer("Your Mission\n");
-		localStringBuffer.append("------------\n");
+		localStringBuffer.append("------------------------------------\n");
 		localStringBuffer.append("Destroy all enemies from the sky! Don't let any spinning satellites hit the ground or you will be killed instantly! The more you hit, the more points you get! Any objects that hit the ground decrease your score!\n");
 		localStringBuffer.append("\n");
 		localStringBuffer.append("Controls\n");
-		localStringBuffer.append("--------\n");
+		localStringBuffer.append("------------------------------------\n");
 		localStringBuffer.append("Use the top part of the sensor screen to fire or pause, and bottom part for control the ship. You can use the navigation key or the additional keys to control your ship. Toggle auto-fire as needed, and use hyper-space to get out of close calls!\n\n");
 		localStringBuffer.append("Up - Toggle Auto-fire\n");
 		localStringBuffer.append("Left - Left\n");
@@ -137,7 +137,7 @@ public class InfoStrings {
 		localStringBuffer.append("Center - Fire");
 		localStringBuffer.append("\n");
 		localStringBuffer.append("Additional keys Controls\n");
-		localStringBuffer.append("--------------------------\n");
+		localStringBuffer.append("------------------------------------\n");
 		localStringBuffer.append("A, 4 - Move Left\n");
 		localStringBuffer.append("D, 6 - Move Right\n");
 		localStringBuffer.append("Enter, 5 - Fire\n");
@@ -149,17 +149,17 @@ public class InfoStrings {
 
 	public static String getCredits1English() {
 		StringBuffer localStringBuffer = new StringBuffer("THQ Credits\n");
-		localStringBuffer.append("-----------\n");
+		localStringBuffer.append("------------------------------------\n");
 		localStringBuffer.append("Producer - Stuart Platt\nAssociate Producer - Colin Totman\nVP Marketing - Peter Dille\nDirector of Creative Services - Howard Liebeskind\nProduction Manager - Chris Sturr\n");
 		localStringBuffer.append("\n");
 		localStringBuffer.append("THQ QA testing team credits\n");
-		localStringBuffer.append("---------------------------\n");
+		localStringBuffer.append("------------------------------------\n");
 		localStringBuffer.append("Senior tester - Scott Frazier\nTester - Adam Affrunti\nTester - Brad Arnold\nTester - Shelley Franklin\nTester - Donald Sturkey\n");
 		return localStringBuffer.toString();
 	}
 
 	public static String getCredits2English() {
-		StringBuffer localStringBuffer = new StringBuffer("Lavastorm Credits\n-----------------\nProducer - Jason Loia\nLead Coder - Albert So\nLead Coder - Horace Lin\nLead Coder - Veeramurthy Veeraprakash\nArtwork - Mark Keavney\n\nSpecial Thanks to\n-----------------\nJohn P. Sohl\n");
+		StringBuffer localStringBuffer = new StringBuffer("Lavastorm Credits\n------------------------------------\nProducer - Jason Loia\nLead Coder - Albert So\nLead Coder - Horace Lin\nLead Coder - Veeramurthy Veeraprakash\nArtwork - Mark Keavney\n\nSpecial Thanks to\n------------------------------------\nJohn P. Sohl\n");
 		return localStringBuffer.toString();
 	}
 
