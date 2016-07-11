@@ -189,8 +189,8 @@ implements IDeathListener {
 		this.m_nLives = 4;
 		this.m_backgroundManager.setLives(this.m_nLives);
 		// For Debug
-		this.m_nScore = 1000000;
-		// this.m_nScore = 0;
+		// this.m_nScore = 1000000;
+		this.m_nScore = 0;
 		this.m_nPeakScore = 0;
 		this.m_backgroundManager.setScore(this.m_nScore);
 		this.m_ship.reset();
