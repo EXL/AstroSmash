@@ -71,6 +71,7 @@ public class AstroSmashLauncher extends Activity {
 		public static boolean showTouchRect = true;
 		public static boolean colorizeStars = false;
 		public static boolean drawFps = false;
+		public static boolean doubleFire = false;
 
 		public static int graphicsScale = SCALE_240P;
 
@@ -89,6 +90,7 @@ public class AstroSmashLauncher extends Activity {
 	private CheckBox showTouchRectCheckBox = null;
 	private CheckBox colorizeStarsCheckBox = null;
 	private CheckBox drawFpsCheckBox = null;
+	private CheckBox doubleFireCheckBox = null;
 
 	private RadioButton radioButton120 = null;
 	private RadioButton radioButton176 = null;
@@ -110,6 +112,7 @@ public class AstroSmashLauncher extends Activity {
 		AstroSmashSettings.showTouchRect = showTouchRectCheckBox.isChecked();
 		AstroSmashSettings.colorizeStars = colorizeStarsCheckBox.isChecked();
 		AstroSmashSettings.drawFps = drawFpsCheckBox.isChecked();
+		AstroSmashSettings.doubleFire = doubleFireCheckBox.isChecked();
 
 		if (radioButton120.isChecked()) {
 			AstroSmashSettings.graphicsScale = SCALE_120P;
@@ -130,6 +133,7 @@ public class AstroSmashLauncher extends Activity {
 		showTouchRectCheckBox.setChecked(AstroSmashSettings.showTouchRect);
 		colorizeStarsCheckBox.setChecked(AstroSmashSettings.colorizeStars);
 		drawFpsCheckBox.setChecked(AstroSmashSettings.drawFps);
+		doubleFireCheckBox.setChecked(AstroSmashSettings.doubleFire);
 
 		switch (AstroSmashSettings.graphicsScale) {
 		case SCALE_120P:
@@ -169,6 +173,7 @@ public class AstroSmashLauncher extends Activity {
 		AstroSmashSettings.showTouchRect = settingsStorage.getBoolean("showTouchRect", true);
 		AstroSmashSettings.colorizeStars = settingsStorage.getBoolean("colorizeStars", false);
 		AstroSmashSettings.drawFps = settingsStorage.getBoolean("drawFps", false);
+		AstroSmashSettings.doubleFire = settingsStorage.getBoolean("doubleFire", false);
 
 		AstroSmashSettings.graphicsScale = settingsStorage.getInt("graphicsScale", SCALE_240P);
 
@@ -192,6 +197,7 @@ public class AstroSmashLauncher extends Activity {
 		editor.putBoolean("showTouchRect", AstroSmashSettings.showTouchRect);
 		editor.putBoolean("colorizeStars", AstroSmashSettings.colorizeStars);
 		editor.putBoolean("drawFps", AstroSmashSettings.drawFps);
+		editor.putBoolean("doubleFire", AstroSmashSettings.doubleFire);
 
 		editor.putInt("graphicsScale", AstroSmashSettings.graphicsScale);
 
@@ -206,6 +212,7 @@ public class AstroSmashLauncher extends Activity {
 		showTouchRectCheckBox = (CheckBox) findViewById(R.id.checkBoxTouchRect);
 		colorizeStarsCheckBox = (CheckBox) findViewById(R.id.checkBoxColorStars);
 		drawFpsCheckBox = (CheckBox) findViewById(R.id.checkBoxFPS);
+		doubleFireCheckBox = (CheckBox) findViewById(R.id.checkBoxDoubleFire);
 
 		radioButton120 = (RadioButton) findViewById(R.id.radioButton120);
 		radioButton176 = (RadioButton) findViewById(R.id.radioButton176);

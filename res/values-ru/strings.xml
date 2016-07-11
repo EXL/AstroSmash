@@ -10,11 +10,11 @@
     <string name="Radio176">176p</string>
     <string name="Radio240">240p</string>
     <string name="Radio480">480p</string>
-    <string name="AutoFire">Автоматический огонь</string>
+    <string name="AutoFire">Автоогонь</string>
     <string name="Sound">Звук</string>
     <string name="Vibro">Виброотдача</string>
     <string name="Antialiasing">Сглаживание</string>
-    <string name="TouchRect">Прямоугольник для управления</string>
+    <string name="TouchRect">Стрелка</string>
     <string name="ColorStars">Цветные звёзды</string>
     <string name="FPS">Отрисовка FPS</string>
     <string name="GraphicsLabel">Масштаб графики</string>
@@ -54,5 +54,6 @@
     <string name="Version">v1.0</string>
     <string name="IconDesc">Иконка AstroSmash</string>
     <string name="AboutString">Портирование с Java ME (J2ME) MIDlet на Android OS с использованием отрисовки с помощью SurfaceView Canvas:\n© 2016 S. \"EXL\" KLS\nemail: exl@bk.ru\nemail: exlmotodev@gmail.com\n\nИсходный код:\nhttp://github.com/EXL/AstroSmash\n\nСтатья про портирование AstroSmash:\nhttp://exlmoto.ru/astrosmash-droid\n\nБлагодарности:\nДанилу Медведеву за идею и поддержку.</string>
+    <string name="DoubleFire">Два снаряда</string>
 
 </resources>

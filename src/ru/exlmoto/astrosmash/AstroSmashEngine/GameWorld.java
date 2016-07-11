@@ -107,7 +107,7 @@ implements IDeathListener {
 			if ((!this.m_ship.getCollided()) && (!this.m_bGameOver)) {
 				tickBullets(paramLong);
 				tickEnemies(paramLong);
-				if ((this.m_bAutoFire) && (this.m_nTimeSinceLastFire > 333L)) {
+				if ((this.m_bAutoFire) && (this.m_nTimeSinceLastFire > AUTOFIRE_DELAY_MS)) {
 					fireBullet();
 					this.m_nTimeSinceLastFire = 0L;
 				} else {
@@ -188,7 +188,9 @@ implements IDeathListener {
 		this.m_backgroundManager.setGameLevel(this.m_nLevel);
 		this.m_nLives = 4;
 		this.m_backgroundManager.setLives(this.m_nLives);
-		this.m_nScore = 0;
+		// For Debug
+		this.m_nScore = 1000000;
+		// this.m_nScore = 0;
 		this.m_nPeakScore = 0;
 		this.m_backgroundManager.setScore(this.m_nScore);
 		this.m_ship.reset();
@@ -512,8 +514,6 @@ implements IDeathListener {
 		if (i != 0) {
 			setLevel(this.m_nLevel);
 		}
-		// For Debug
-		//		setLevel(MAX_LEVEL);
 	}
 
 	protected void updateScore(int paramInt) {

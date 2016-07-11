@@ -41,29 +41,45 @@
                 android:text="@string/AutoFire" />
 
             <CheckBox
+                android:id="@+id/checkBoxDoubleFire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/DoubleFire" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/checkBoxVibro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Vibro" />
+
+            <CheckBox
                 android:id="@+id/checkBoxSound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Sound" />
         </TableRow>
 
-        <CheckBox
-            android:id="@+id/checkBoxVibro"
+        <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Vibro" />
+            android:layout_height="wrap_content" >
 
-        <CheckBox
-            android:id="@+id/checkBoxAntialiasing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Antialiasing" />
+            <CheckBox
+                android:id="@+id/checkBoxAntialiasing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Antialiasing" />
 
-        <CheckBox
-            android:id="@+id/checkBoxTouchRect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/TouchRect" />
+            <CheckBox
+                android:id="@+id/checkBoxTouchRect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/TouchRect" />
+        </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
