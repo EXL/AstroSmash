@@ -9,6 +9,10 @@ This is my port of AstroSmash from Java ME (J2ME) MIDlet to Android OS applicati
 
 ![AstroSmash Android Screen](https://raw.github.com/EXL/AstroSmash/master/images/AstroSmash_android_screen.png)
 
+## Download
+
+You can download APK-package on [releases](https://github.com/EXL/AstroSmash/releases) section.
+
 ## Build instructions
 
 For example, GNU/Linux:

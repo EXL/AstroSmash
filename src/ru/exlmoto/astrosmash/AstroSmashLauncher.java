@@ -75,7 +75,7 @@ public class AstroSmashLauncher extends Activity {
 
 		public static int graphicsScale = SCALE_240P;
 
-		public static String[] playerNames = { "Zorge.R", "Baat", "Osta", "Armhalfer", "J()KER",
+		public static String[] playerNames = { "Zorge.R", "baat", "Osta", "Armhalfer", "J()KER",
 				"a1batross", "mvb06", "NoPH8", "PUSYA", "Neko-mata" };
 		public static final int[] playerScores = { 100000, 70000, 60000, 50000, 40000, 30000, 20000, 10000, 5000, 1000 };
 	}
