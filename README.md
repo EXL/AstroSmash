@@ -11,7 +11,7 @@ This is my port of AstroSmash from Java ME (J2ME) MIDlet to Android OS applicati
 
 ## Download
 
-You can download APK-package on [releases](https://github.com/EXL/AstroSmash/releases) section.
+You can download APK-package for Android OS from the [releases](https://github.com/EXL/AstroSmash/releases) section.
 
 ## Build instructions
 

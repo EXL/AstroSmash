@@ -66,7 +66,7 @@ public class InfoStrings {
 	public static void initializeRussian() {
 		GAME_PAUSED_STRING = "Пауза";
 		GAME_OVER_STRING = "Конец игры";
-		PEAK_SCORE_STRING = "Счёт";
+		PEAK_SCORE_STRING = "Максимум";
 	}
 
 	public static String getHelpRussian() {
