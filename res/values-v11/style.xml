@@ -2,7 +2,11 @@
 <resources>
 
     <style name="DialogBaseTheme" parent="@android:style/Theme.Holo.Dialog.MinWidth">
-    <!-- API 11 theme customizations can go here. -->
+        <!-- API 11 theme customizations can go here. -->
+    </style>
+
+    <style name="AppBaseTheme" parent="@android:style/Theme.Holo">
+        <!-- API 11 theme customizations can go here. -->
     </style>
 
 </resources>

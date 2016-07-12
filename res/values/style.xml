@@ -3,7 +3,12 @@
 
     <style name="DialogBaseTheme" parent="@android:style/Theme.Dialog"></style>
 
+    <style name="AppBaseTheme" parent="@android:style/Theme.Black"></style>
+
     <!-- Dialog theme. -->
     <style name="DialogTheme" parent="DialogBaseTheme"></style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme"></style>
 
 </resources>
