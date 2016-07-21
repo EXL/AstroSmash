@@ -332,15 +332,13 @@ public class AstroSmashLauncher extends Activity {
 
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-		if (AstroSmashSettings.sound) {
-			soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
-			toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
+		soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+		toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
 
-			SOUND_HIT = soundPool.load(this, R.raw.s_hit, 1);
-			SOUND_UFO = soundPool.load(this, R.raw.s_ufo, 1);
-			SOUND_SHIP = soundPool.load(this, R.raw.s_ship, 1);
-			SOUND_SHOT = soundPool.load(this, R.raw.s_shot, 1);
-		}
+		SOUND_HIT = soundPool.load(this, R.raw.s_hit, 1);
+		SOUND_UFO = soundPool.load(this, R.raw.s_ufo, 1);
+		SOUND_SHIP = soundPool.load(this, R.raw.s_ship, 1);
+		SOUND_SHOT = soundPool.load(this, R.raw.s_shot, 1);
 
 		Button astroSmashRunButton = (Button) findViewById(R.id.gameButton);
 		astroSmashRunButton.setOnClickListener(new OnClickListener() {
