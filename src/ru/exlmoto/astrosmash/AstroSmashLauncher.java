@@ -97,8 +97,8 @@ public class AstroSmashLauncher extends Activity {
 	private RadioButton radioButton240 = null;
 	private RadioButton radioButton480 = null;
 
-	private static TextView[] playerNamesView;
-	private static TextView[] playerScoresView;
+	private static TextView playerNamesView;
+	private static TextView playerScoresView;
 
 	private static Vibrator vibrator = null;
 	private static SoundPool soundPool = null;
@@ -152,17 +152,22 @@ public class AstroSmashLauncher extends Activity {
 			break;
 		}
 
-		for (int i = 0; i < HISCORE_PLAYERS; ++i) {
-			playerNamesView[i].setText(AstroSmashSettings.playerNames[i]);
-			playerScoresView[i].setText(Integer.toString(AstroSmashSettings.playerScores[i]));
-		}
+		updateGameTable();
 	}
 
 	public static void updateGameTable() {
+		String players = "";
+		String scores = "";
 		for (int i = 0; i < HISCORE_PLAYERS; ++i) {
-			playerNamesView[i].setText(AstroSmashSettings.playerNames[i]);
-			playerScoresView[i].setText(Integer.toString(AstroSmashSettings.playerScores[i]));
+			players += AstroSmashSettings.playerNames[i];
+			scores += AstroSmashSettings.playerScores[i];
+			if (i < HISCORE_PLAYERS - 1) {
+				players += "\n";
+				scores += "\n";
+			}
 		}
+		playerNamesView.setText(players);
+		playerScoresView.setText(scores);
 	}
 
 	public void readSettings() {
@@ -219,28 +224,8 @@ public class AstroSmashLauncher extends Activity {
 		radioButton240 = (RadioButton) findViewById(R.id.radioButton240);
 		radioButton480 = (RadioButton) findViewById(R.id.radioButton480);
 
-		playerNamesView = new TextView[HISCORE_PLAYERS];
-		playerScoresView = new TextView[HISCORE_PLAYERS];
-		playerNamesView[0] = (TextView) findViewById(R.id.PlayerName1);
-		playerScoresView[0] = (TextView) findViewById(R.id.PlayerScore1);
-		playerNamesView[1] = (TextView) findViewById(R.id.PlayerName2);
-		playerScoresView[1] = (TextView) findViewById(R.id.PlayerScore2);
-		playerNamesView[2] = (TextView) findViewById(R.id.PlayerName3);
-		playerScoresView[2] = (TextView) findViewById(R.id.PlayerScore3);
-		playerNamesView[3] = (TextView) findViewById(R.id.PlayerName4);
-		playerScoresView[3] = (TextView) findViewById(R.id.PlayerScore4);
-		playerNamesView[4] = (TextView) findViewById(R.id.PlayerName5);
-		playerScoresView[4] = (TextView) findViewById(R.id.PlayerScore5);
-		playerNamesView[5] = (TextView) findViewById(R.id.PlayerName6);
-		playerScoresView[5] = (TextView) findViewById(R.id.PlayerScore6);
-		playerNamesView[6] = (TextView) findViewById(R.id.PlayerName7);
-		playerScoresView[6] = (TextView) findViewById(R.id.PlayerScore7);
-		playerNamesView[7] = (TextView) findViewById(R.id.PlayerName8);
-		playerScoresView[7] = (TextView) findViewById(R.id.PlayerScore8);
-		playerNamesView[8] = (TextView) findViewById(R.id.PlayerName9);
-		playerScoresView[8] = (TextView) findViewById(R.id.PlayerScore9);
-		playerNamesView[9] = (TextView) findViewById(R.id.PlayerName10);
-		playerScoresView[9] = (TextView) findViewById(R.id.PlayerScore10);
+		playerNamesView = (TextView) findViewById(R.id.PlayerNames);
+		playerScoresView = (TextView) findViewById(R.id.PlayerScores);
 	}
 
 	private void showHelpDialog() {
