@@ -134,7 +134,7 @@ public class InfoStrings {
 		localStringBuffer.append("Left - Left\n");
 		localStringBuffer.append("Right - Right\n");
 		localStringBuffer.append("Down - Hyperspace\n");
-		localStringBuffer.append("Center - Fire");
+		localStringBuffer.append("Center - Fire\n");
 		localStringBuffer.append("\n");
 		localStringBuffer.append("Additional keys Controls\n");
 		localStringBuffer.append("------------------------------------\n");
