@@ -34,8 +34,9 @@ import android.graphics.Paint;
 import android.graphics.Paint.Cap;
 import android.graphics.Rect;
 import android.view.KeyEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.view.View;
+// import android.view.SurfaceHolder;
+// import android.view.SurfaceView;
 
 import ru.exlmoto.astrosmash.AstroSmashLauncher.AstroSmashSettings;
 import ru.exlmoto.astrosmash.AstroSmashEngine.GameWorld;
@@ -43,8 +44,8 @@ import ru.exlmoto.astrosmash.AstroSmashEngine.Version;
 import ru.exlmoto.astrosmash.AstroSmashEngine.IGameWorldListener;
 
 @SuppressWarnings("unused")
-public class AstroSmashView extends SurfaceView
-implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
+public class AstroSmashView extends /*Surface*/View // Move to View for HW Canvas Acceleration
+implements /*SurfaceHolder.Callback,*/ IGameWorldListener, Runnable {
 
 	public static final int INITIAL_KEY_DELAY = 250;
 	public static final int KEY_REPEAT_CYCLE = 75;
@@ -94,7 +95,9 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 
 	private static Random m_random;
 
-	private SurfaceHolder surfaceHolder = null;
+	// private SurfaceHolder surfaceHolder = null;
+	
+	private boolean firstFrame = true;
 
 	private AstroSmashActivity astroSmashActivity = null;
 
@@ -122,8 +125,8 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 			break;
 		}
 
-		surfaceHolder = getHolder();
-		surfaceHolder.addCallback(this);
+		// surfaceHolder = getHolder();
+		// surfaceHolder.addCallback(this);
 
 		gameScreen = Bitmap.createBitmap(Version.getWidth(), Version.getHeight(), Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(gameScreen);
@@ -345,6 +348,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		screenRectChunkProcent = screenHeight - screenHeightPercent;
 	}
 
+	/*
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		AstroSmashActivity.toDebug("Surface created");
@@ -384,6 +388,40 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 				AstroSmashActivity.toDebug("Error joining to Game Thread");
 			}
 		}
+	}
+	*/
+
+	@Override
+	protected void onDraw(Canvas canvas) {
+		if (firstFrame) {
+			AstroSmashActivity.toDebug("Surface created");
+			screenWidth = canvas.getWidth();
+			screenHeight = canvas.getHeight();
+
+			init();
+
+			start();
+			/*
+			if (AstroSmashActivity.paused) {
+				pause(true);
+			}
+
+			if (isGameOver) {
+				gameIsOver();
+			}
+			*/
+			firstFrame = false;
+		}
+		render(canvas);
+		invalidate();
+		super.onDraw(canvas);
+	}
+	
+	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		AstroSmashActivity.toDebug("Surface changed: " + w + "x" + h + "|" 
+									+ screenWidth + "x" + screenHeight + "|" 
+									+ oldw + "x" + oldh);
 	}
 
 	public int getScorePosition(int score) {
@@ -490,6 +528,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 					this.m_gameWorld.handleAction(this.m_heldDownGameAction);
 				}
 				this.m_gameWorld.tick(l4);
+				/*
 				try {
 					this.globalCanvas = surfaceHolder.lockCanvas();
 					synchronized (surfaceHolder) {
@@ -500,6 +539,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 						surfaceHolder.unlockCanvasAndPost(this.globalCanvas);
 					}
 				}
+				*/
 				l2 = l3;
 			}
 		} catch (Exception localException) {
