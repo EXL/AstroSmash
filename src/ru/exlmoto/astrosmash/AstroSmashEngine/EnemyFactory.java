@@ -96,7 +96,7 @@ public class EnemyFactory {
 	public Enemy getEnemy(int paramInt) {
 		Enemy localEnemy = null;
 		if (!this.m_enemyStacks[paramInt].isEmpty()) {
-			localEnemy = (Enemy)this.m_enemyStacks[paramInt].pop();
+			localEnemy = this.m_enemyStacks[paramInt].pop();
 		} else {
 			localEnemy = createEnemy(paramInt);
 		}

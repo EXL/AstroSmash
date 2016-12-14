@@ -44,7 +44,7 @@ public class MunitionsFactory {
 	public Collidable getBullet() {
 		Collidable localCollidable = null;
 		if (!this.m_stackBullets.isEmpty()) {
-			localCollidable = (Collidable)this.m_stackBullets.pop();
+			localCollidable = this.m_stackBullets.pop();
 			localCollidable.setCollided(false);
 		}
 		return localCollidable;

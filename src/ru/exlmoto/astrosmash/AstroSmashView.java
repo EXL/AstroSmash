@@ -40,8 +40,8 @@ import android.view.View;
 
 import ru.exlmoto.astrosmash.AstroSmashLauncher.AstroSmashSettings;
 import ru.exlmoto.astrosmash.AstroSmashEngine.GameWorld;
-import ru.exlmoto.astrosmash.AstroSmashEngine.Version;
 import ru.exlmoto.astrosmash.AstroSmashEngine.IGameWorldListener;
+import ru.exlmoto.astrosmash.AstroSmashEngine.Version;
 
 @SuppressWarnings("unused")
 public class AstroSmashView extends /*Surface*/View // Move to View for HW Canvas Acceleration
@@ -96,7 +96,7 @@ implements /*SurfaceHolder.Callback,*/ IGameWorldListener, Runnable {
 	private static Random m_random;
 
 	// private SurfaceHolder surfaceHolder = null;
-	
+
 	private boolean firstFrame = true;
 
 	private AstroSmashActivity astroSmashActivity = null;
@@ -416,11 +416,11 @@ implements /*SurfaceHolder.Callback,*/ IGameWorldListener, Runnable {
 		invalidate();
 		super.onDraw(canvas);
 	}
-	
+
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-		AstroSmashActivity.toDebug("Surface changed: " + w + "x" + h + "|" 
-									+ screenWidth + "x" + screenHeight + "|" 
+		AstroSmashActivity.toDebug("Surface changed: " + w + "x" + h + "|"
+									+ screenWidth + "x" + screenHeight + "|"
 									+ oldw + "x" + oldh);
 	}
 

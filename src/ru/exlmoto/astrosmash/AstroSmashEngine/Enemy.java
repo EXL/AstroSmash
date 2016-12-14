@@ -18,6 +18,7 @@ public class Enemy extends Collidable {
 		reset();
 	}
 
+	@Override
 	public void reset() {
 		super.reset();
 		this.m_currentExplosionImage = 0;
@@ -63,6 +64,7 @@ public class Enemy extends Collidable {
 		return this.m_xPlosionImages;
 	}
 
+	@Override
 	public void paint(Canvas canvas, Paint paint) {
 		if ((true == getCollided()) && (1 == this.m_hitReaction)) {
 			if (this.m_currentExplosionImage < this.m_xPlosionImages.length) {
@@ -79,6 +81,7 @@ public class Enemy extends Collidable {
 		}
 	}
 
+	@Override
 	public void tick(long paramLong, GameWorld paramGameWorld) {
 		if (false == getCollided()) {
 			super.tick(paramLong, paramGameWorld);

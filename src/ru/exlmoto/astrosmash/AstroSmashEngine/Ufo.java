@@ -9,6 +9,7 @@ public class Ufo extends Enemy {
 		this.m_nFireInterval = paramInt;
 	}
 
+	@Override
 	public void tick(long paramLong, GameWorld paramGameWorld) {
 		this.m_timeSinceFired += paramLong;
 		if (this.m_timeSinceFired > this.m_nFireInterval) {

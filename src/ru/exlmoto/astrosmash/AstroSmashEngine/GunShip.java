@@ -6,6 +6,7 @@ import android.graphics.Paint;
 
 public class GunShip extends Enemy {
 
+	@Override
 	public void paint(Canvas canvas, Paint paint) {
 		if ((true == getCollided()) && (1 == getHitReaction())) {
 			if (hasNextExplosionImage()) {

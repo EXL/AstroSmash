@@ -10,6 +10,7 @@ public class SwappableEnemy extends Enemy {
 	private boolean m_bUseSwapImage = false;
 	private long m_timeSinceLastSwap = 0L;
 
+	@Override
 	public void setImage(Bitmap paramImage) {
 		super.setImage(paramImage);
 		this.m_copyOfImage = paramImage;
@@ -27,6 +28,7 @@ public class SwappableEnemy extends Enemy {
 		this.m_nSwapInterval = paramInt;
 	}
 
+	@Override
 	public void tick(long paramLong, GameWorld paramGameWorld) {
 		this.m_timeSinceLastSwap += paramLong;
 		if (this.m_timeSinceLastSwap > this.m_nSwapInterval) {

@@ -2,6 +2,7 @@ package ru.exlmoto.astrosmash.AstroSmashEngine;
 
 public class Pulser extends SwappableEnemy {
 
+	@Override
 	public void tick(long paramLong, GameWorld paramGameWorld) {
 		Enemy localEnemy = paramGameWorld.getShip();
 		int i = localEnemy.getCenterY() - getCenterY();

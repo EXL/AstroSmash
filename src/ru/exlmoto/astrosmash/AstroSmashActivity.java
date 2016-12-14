@@ -77,7 +77,7 @@ public class AstroSmashActivity extends Activity {
 			return false;
 		}
 		int action = event.getActionMasked();
-		switch(action) {
+		switch (action) {
 		case MotionEvent.ACTION_DOWN:
 			if (!astroSmashView.isM_bRunning()) {
 				AstroSmashActivity.toDebug("Restart Game");
