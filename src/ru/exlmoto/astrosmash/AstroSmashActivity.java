@@ -113,6 +113,30 @@ public class AstroSmashActivity extends Activity {
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		toDebug("AstroSmashActivity: onResume()");
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		toDebug("AstroSmashActivity: onPause()");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		toDebug("AstroSmashActivity: onStop()");
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		toDebug("AstroSmashActivity: onDestroy()");
+	}
+
+	@Override
 	public void onBackPressed() {
 		paused = false;
 		astroSmashView.checkHiScores(AstroSmashActivity.RESTART_GAME_NO);
