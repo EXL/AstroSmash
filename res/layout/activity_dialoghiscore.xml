@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="@dimen/mariginLayout" >
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/textViewScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Score"
+        android:layout_margin="@dimen/mariginLayout"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -17,12 +17,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/HiScoreTextHint"
+        android:layout_margin="@dimen/mariginLayout"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
         android:id="@+id/editTextPlayerName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/mariginLayout"
         android:ems="10"
         android:hint="@string/HintString" >
 
