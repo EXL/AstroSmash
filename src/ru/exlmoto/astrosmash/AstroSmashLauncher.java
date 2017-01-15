@@ -25,7 +25,7 @@
 package ru.exlmoto.astrosmash;
 
 import android.app.Activity;
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,7 +34,9 @@ import android.media.SoundPool;
 import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -80,8 +82,8 @@ public class AstroSmashLauncher extends Activity {
 		public static final int[] playerScores = { 100000, 82245, 70000, 50000, 40000, 30000, 20000, 10000, 5000, 1000 };
 	}
 
-	private Dialog aboutDialog = null;
-	private Dialog helpDialog = null;
+	private AlertDialog aboutDialog = null;
+	private AlertDialog helpDialog = null;
 
 	private CheckBox autoFireCheckBox = null;
 	private CheckBox soundCheckBox = null;
@@ -228,65 +230,36 @@ public class AstroSmashLauncher extends Activity {
 		playerScoresView = (TextView) findViewById(R.id.PlayerScores);
 	}
 
-	private void showHelpDialog() {
-		this.runOnUiThread(new Runnable() {
+	private void initHelpDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setCancelable(false);
+		LayoutInflater inflater = this.getLayoutInflater();
+		View dialogView = inflater.inflate(R.layout.dialog_help, null);
+		builder.setView(dialogView);
+		builder.setTitle(R.string.app_name);
+		builder.setPositiveButton(R.string.StringOK, null);
 
-			@Override
-			public void run() {
-				helpDialog.setContentView(R.layout.dialog_help);
-				helpDialog.setCancelable(true);
-				helpDialog.setTitle(R.string.app_name);
+		TextView helpText = (TextView) dialogView.findViewById(R.id.textViewHelp);
+		TextView creditsText1 = (TextView) dialogView.findViewById(R.id.textViewCredits1);
+		TextView creditsText2 = (TextView) dialogView.findViewById(R.id.textViewCredits2);
+		TextView creditsText3 = (TextView) dialogView.findViewById(R.id.textViewCredits3);
+		helpText.setText(InfoStrings.getHelp());
+		creditsText1.setText(InfoStrings.getCredits1());
+		creditsText2.setText(InfoStrings.getCredits2());
+		creditsText3.setText(InfoStrings.getCredits3());
 
-				TextView helpText = (TextView) helpDialog.findViewById(R.id.textViewHelp);
-				TextView creditsText1 = (TextView) helpDialog.findViewById(R.id.textViewCredits1);
-				TextView creditsText2 = (TextView) helpDialog.findViewById(R.id.textViewCredits2);
-				TextView creditsText3 = (TextView) helpDialog.findViewById(R.id.textViewCredits3);
-				helpText.setText(InfoStrings.getHelp());
-				creditsText1.setText(InfoStrings.getCredits1());
-				creditsText2.setText(InfoStrings.getCredits2());
-				creditsText3.setText(InfoStrings.getCredits3());
-
-				Button buttonHelpOk = (Button) helpDialog.findViewById(R.id.buttonHelpOk);
-				buttonHelpOk.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View buttonView) {
-						if (helpDialog != null) {
-							helpDialog.cancel();
-						}
-					}
-
-				});
-
-				helpDialog.show();
-			}
-		});
+		helpDialog = builder.create();
 	}
 
-	private void showAboutDialog() {
-		this.runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-				aboutDialog.setContentView(R.layout.dialog_about);
-				aboutDialog.setCancelable(true);
-				aboutDialog.setTitle(R.string.app_name);
-
-				Button buttonAboutOk = (Button) aboutDialog.findViewById(R.id.buttonAboutOk);
-				buttonAboutOk.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View buttonView) {
-						if (aboutDialog != null) {
-							aboutDialog.cancel();
-						}
-					}
-
-				});
-
-				aboutDialog.show();
-			}
-		});
+	private void initAboutDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setCancelable(false);
+		LayoutInflater inflater = this.getLayoutInflater();
+		View dialogView = inflater.inflate(R.layout.dialog_about, null);
+		builder.setView(dialogView);
+		builder.setTitle(R.string.app_name);
+		builder.setPositiveButton(R.string.StringOK, null);
+		aboutDialog = builder.create();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -306,8 +279,8 @@ public class AstroSmashLauncher extends Activity {
 			readSettings();
 		}
 
-		aboutDialog = new Dialog(this);
-		helpDialog = new Dialog(this);
+		initHelpDialog();
+		initAboutDialog();
 
 		InfoStrings.initializeInfo();
 
@@ -342,7 +315,7 @@ public class AstroSmashLauncher extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				showAboutDialog();
+				showMyDialog(aboutDialog);
 			}
 		});
 
@@ -351,7 +324,7 @@ public class AstroSmashLauncher extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				showHelpDialog();
+				showMyDialog(helpDialog);
 			}
 		});
 	}
@@ -390,12 +363,24 @@ public class AstroSmashLauncher extends Activity {
 		}
 	}
 
+	// Prevent dialog dismiss when orientation changes
+	// http://stackoverflow.com/a/27311231/2467443
+	private static void doKeepDialog(AlertDialog dialog) {
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+		lp.copyFrom(dialog.getWindow().getAttributes());
+		lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+		lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+		dialog.getWindow().setAttributes(lp);
+	}
+
+	private void showMyDialog(AlertDialog dialog) {
+		dialog.show();
+		doKeepDialog(dialog);
+	}
+
 	@Override
 	protected void onDestroy() {
 		writeSettings();
-
-		aboutDialog.dismiss();
-		helpDialog.dismiss();
 
 		super.onDestroy();
 	}
