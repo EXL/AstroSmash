@@ -24,7 +24,13 @@
 
 package ru.exlmoto.astrosmash;
 
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Random;
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +39,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Cap;
 import android.graphics.Rect;
+import android.opengl.GLSurfaceView;
+import android.opengl.GLUtils;
 import android.view.KeyEvent;
 import android.view.View;
 // import android.view.SurfaceHolder;
@@ -44,8 +52,8 @@ import ru.exlmoto.astrosmash.AstroSmashEngine.IGameWorldListener;
 import ru.exlmoto.astrosmash.AstroSmashEngine.Version;
 
 @SuppressWarnings("unused")
-public class AstroSmashView extends /*Surface*/View // Move to View for HW Canvas Acceleration
-implements /*SurfaceHolder.Callback,*/ IGameWorldListener, Runnable {
+public class AstroSmashView extends /*Surface*/GLSurfaceView // Move to View for HW Canvas Acceleration
+implements /*SurfaceHolder.Callback,*/ IGameWorldListener, Runnable, GLSurfaceView.Renderer {
 
 	public static final int INITIAL_KEY_DELAY = 250;
 	public static final int KEY_REPEAT_CYCLE = 75;
@@ -64,6 +72,8 @@ implements /*SurfaceHolder.Callback,*/ IGameWorldListener, Runnable {
 	Thread m_currentThread = null;
 	int m_nThreadSwitches = 0;
 	long m_nLastMemoryUsageTime = 0L;
+
+	private int[] textures;
 
 	private int screenWidth;
 	private int screenHeight;
@@ -128,7 +138,7 @@ implements /*SurfaceHolder.Callback,*/ IGameWorldListener, Runnable {
 		// surfaceHolder = getHolder();
 		// surfaceHolder.addCallback(this);
 
-		gameScreen = Bitmap.createBitmap(Version.getWidth(), Version.getHeight(), Bitmap.Config.ARGB_8888);
+		gameScreen = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
 		bitmapCanvas = new Canvas(gameScreen);
 		painter = new Paint();
 
@@ -148,6 +158,10 @@ implements /*SurfaceHolder.Callback,*/ IGameWorldListener, Runnable {
 		setFocusable(true);
 		setFocusableInTouchMode(true);
 		requestFocus();
+
+		//setEGLContextClientVersion(1);
+		setRenderer(this);
+		//setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
 	}
 
 	public void render(Canvas canvas) {
@@ -391,6 +405,7 @@ implements /*SurfaceHolder.Callback,*/ IGameWorldListener, Runnable {
 	}
 	*/
 
+	/*
 	@Override
 	protected void onDraw(Canvas canvas) {
 		if (firstFrame) {
@@ -409,7 +424,7 @@ implements /*SurfaceHolder.Callback,*/ IGameWorldListener, Runnable {
 			if (isGameOver) {
 				gameIsOver();
 			}
-			*/
+			*//*
 			firstFrame = false;
 		}
 		render(canvas);
@@ -423,6 +438,8 @@ implements /*SurfaceHolder.Callback,*/ IGameWorldListener, Runnable {
 									+ screenWidth + "x" + screenHeight + "|"
 									+ oldw + "x" + oldh);
 	}
+
+	*/
 
 	public int getScorePosition(int score) {
 		for (int i = 0; i < AstroSmashLauncher.HISCORE_PLAYERS; i++) {
@@ -547,4 +564,72 @@ implements /*SurfaceHolder.Callback,*/ IGameWorldListener, Runnable {
 			localException.printStackTrace();
 		}
 	}
+
+	@Override
+	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+		AstroSmashActivity.toDebug("Surface created");
+		textures = new int[1];
+		gl.glEnable(GL10.GL_TEXTURE_2D);
+		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+
+		gl.glGenTextures(1, textures, 0);
+		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
+
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
+
+		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, gameScreen, 0);
+
+		init();
+
+		start();
+	}
+
+	@Override
+	public void onSurfaceChanged(GL10 gl, int width, int height) {
+		AstroSmashActivity.toDebug("Surface changed " + width + "x" + height);
+		screenWidth = width;
+		screenHeight = height;
+		gl.glViewport(0, 0, width, height);
+	}
+
+	@Override
+	public void onDrawFrame(GL10 gl) {
+		this.m_gameWorld.paint(bitmapCanvas, painter);
+
+		GLUtils.texSubImage2D(GL10.GL_TEXTURE_2D, 0, 0, 0, gameScreen);
+
+		gl.glActiveTexture(GL10.GL_TEXTURE0);
+		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
+
+		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, VERTEX_BUFFER);
+		gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, TEXCOORD_BUFFER);
+		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
+	}
+
+	private static final float[] VERTEX_COORDINATES = new float[] {
+			-1.0f, +1.0f, 0.0f,
+			+1.0f, +1.0f, 0.0f,
+			-1.0f, -1.0f, 0.0f,
+			+1.0f, -1.0f, 0.0f
+	};
+
+	private static final float[] TEXTURE_COORDINATES = new float[] {
+			0.0f, 0.0f,
+			1.0f, 0.0f,
+			0.0f, 1.0f,
+			1.0f, 1.0f
+	};
+
+	private static final Buffer TEXCOORD_BUFFER =
+			ByteBuffer.allocateDirect(TEXTURE_COORDINATES.length * 4)
+			.order(ByteOrder.nativeOrder()).asFloatBuffer()
+			.put(TEXTURE_COORDINATES).rewind();
+	private static final Buffer VERTEX_BUFFER =
+			ByteBuffer.allocateDirect(VERTEX_COORDINATES.length * 4)
+			.order(ByteOrder.nativeOrder()).asFloatBuffer()
+			.put(VERTEX_COORDINATES).rewind();
 }
