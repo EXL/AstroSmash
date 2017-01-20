@@ -72,6 +72,8 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 	private Canvas bitmapCanvas = null;
 	private Canvas globalCanvas = null;
 	private Bitmap gameScreen = null;
+	private Bitmap touchArrowBitmap = null;
+	private Canvas touchArrowCanvas = null;
 
 	private Rect touchRect = null;
 	private Rect bitmapRect = null;
@@ -163,7 +165,9 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 							bitmapRect,
 							screenRectPercent,
 							painter);
-					drawTouchArrow(canvas, painter);
+					canvas.drawBitmap(touchArrowBitmap,
+							0, screenRectChunkProcent,
+							painter);
 				} else {
 					canvas.drawBitmap(gameScreen,
 							bitmapRect,
@@ -181,7 +185,7 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 
 	private void drawTouchArrow(Canvas canvas, Paint paint) {
 		paint.setColor(Version.GREENCOLOR_DARK);
-		canvas.drawRect(0, screenRectChunkProcent, screenWidth, screenHeight, paint);
+		canvas.drawRect(0, 0, screenWidth, screenHeightPercent, paint);
 		paint.setStrokeCap(Cap.ROUND);
 		paint.setAntiAlias(true);
 		for (int i = 0; i < 2; ++i) {
@@ -335,14 +339,19 @@ implements SurfaceHolder.Callback, IGameWorldListener, Runnable {
 		px25 = px(25);
 		px25double = px25 * 2;
 
-		arrow_Y0 = screenHeight - touchRect.height() / 2;
-		arrow_Y1 = screenHeight - touchRect.height() / 4;
-		arrow_Y2 = screenHeight - touchRect.height() / 4 * 3;
+		arrow_Y0 = touchRect.height() / 2;
+		arrow_Y1 = touchRect.height() / 4;
+		arrow_Y2 = touchRect.height() / 4 * 3;
 
 		arrow_X0 = screenWidth - px25;
 		arrow_X1 = screenWidth - px25double;
 
 		screenRectChunkProcent = screenHeight - screenHeightPercent;
+
+		touchArrowBitmap = Bitmap.createBitmap(screenWidth, screenHeightPercent, Bitmap.Config.ARGB_8888);
+		touchArrowCanvas = new Canvas(touchArrowBitmap);
+
+		drawTouchArrow(touchArrowCanvas, painter);
 	}
 
 	@Override
