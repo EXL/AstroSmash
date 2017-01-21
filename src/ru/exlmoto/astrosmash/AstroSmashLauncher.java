@@ -79,7 +79,7 @@ public class AstroSmashLauncher extends Activity {
 
 		public static String[] playerNames = { "Zorge.R", "baat", "Osta", "Armhalfer", "J()KER",
 				"a1batross", "mvb06", "NoPH8", "PUSYA", "Neko-mata" };
-		public static final int[] playerScores = { 100000, 85000, 70000, 50000, 40000, 30000, 20000, 10000, 5000, 1000 };
+		public static final int[] playerScores = { 100000, 90000, 80000, 70000, 60000, 50000, 40000, 30000, 20000, 10000 };
 	}
 
 	private AlertDialog aboutDialog = null;

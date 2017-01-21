@@ -175,13 +175,13 @@ implements IDeathListener {
 		int j;
 		for (int i = this.m_vecFlyingEnemies.size(); i > 0; i = this.m_vecFlyingEnemies.size()) {
 			j = i - 1;
-			Enemy localEnemy = (Enemy)this.m_vecFlyingEnemies.elementAt(j);
+			Enemy localEnemy = this.m_vecFlyingEnemies.elementAt(j);
 			this.m_vecFlyingEnemies.removeElementAt(j);
 			this.m_enemyFactory.putEnemy(localEnemy);
 		}
 		for (int i = this.m_vecFlyingBullets.size(); i > 0; i = this.m_vecFlyingBullets.size()) {
 			j = i - 1;
-			Collidable localCollidable = (Collidable)this.m_vecFlyingBullets.elementAt(j);
+			Collidable localCollidable = this.m_vecFlyingBullets.elementAt(j);
 			this.m_vecFlyingBullets.removeElementAt(j);
 			this.m_munitionsFactory.putBullet(localCollidable);
 		}
@@ -228,7 +228,7 @@ implements IDeathListener {
 	protected void tickBullets(long paramLong) {
 		//		try {
 		for (int i = 0; i < this.m_vecFlyingBullets.size(); i++) {
-			Collidable localCollidable = (Collidable)this.m_vecFlyingBullets.elementAt(i);
+			Collidable localCollidable = this.m_vecFlyingBullets.elementAt(i);
 			localCollidable.tick(paramLong, this);
 			int j = localCollidable.getY() + localCollidable.getHeight();
 			if (j <= 0) {
@@ -280,7 +280,7 @@ implements IDeathListener {
 	protected void tickEnemies(long paramLong) {
 		//		try {
 		for (int i = 0; i < this.m_vecFlyingEnemies.size(); i++) {
-			Enemy localEnemy2 = (Enemy)this.m_vecFlyingEnemies.elementAt(i);
+			Enemy localEnemy2 = this.m_vecFlyingEnemies.elementAt(i);
 			localEnemy2.tick(paramLong, this);
 			if ((localEnemy2.getY() + localEnemy2.getHeight() >= this.m_groundHeight) || (localEnemy2.getX() + localEnemy2.getWidth() >= this.m_nScreenWidth) || (localEnemy2.getY() < 0) || (localEnemy2.getX() < 0)) {
 				if ((localEnemy2.getY() + localEnemy2.getHeight() >= this.m_groundHeight) || (localEnemy2.getY() < 0)) {
@@ -300,7 +300,7 @@ implements IDeathListener {
 					break;
 				}
 				for (int k = 0; k < this.m_vecFlyingBullets.size(); k++) {
-					Collidable localCollidable = (Collidable)this.m_vecFlyingBullets.elementAt(k);
+					Collidable localCollidable = this.m_vecFlyingBullets.elementAt(k);
 					if (localCollidable.intersects(localEnemy2, 1, 2)) {
 						AstroSmashLauncher.doVibrate(AstroSmashLauncher.VIBRATE_SHORT);
 						AstroSmashLauncher.playSound(AstroSmashLauncher.SOUND_HIT);
@@ -427,6 +427,7 @@ implements IDeathListener {
 		System.out.println("shudder...");
 	}
 
+	@Override
 	public void doneExploding(Enemy paramEnemy) {
 		int i = paramEnemy.getHitReaction();
 		switch (i) {
@@ -452,7 +453,7 @@ implements IDeathListener {
 
 	protected void sendWaitingEnemiesToFactory() {
 		while (!this.m_EnemiesToRecycleStack.empty()) {
-			Enemy localEnemy = (Enemy)this.m_EnemiesToRecycleStack.pop();
+			Enemy localEnemy = this.m_EnemiesToRecycleStack.pop();
 			sendDeadEnemyToHell(localEnemy);
 		}
 	}
@@ -525,8 +526,10 @@ implements IDeathListener {
 			int j = i / 1000;
 			int k = this.m_nPeakScore / 1000;
 			if (k > j) {
-				this.m_nLives += 1;
-				this.m_backgroundManager.setLives(this.m_nLives);
+				if (this.m_nLives < 9) { // As Original Astrosmash Game on Motorola V150 and C350: 9 lives is max
+					this.m_nLives += 1;
+					this.m_backgroundManager.setLives(this.m_nLives);
+				}
 			}
 			this.m_backgroundManager.setPeakScore(this.m_nPeakScore);
 		}
