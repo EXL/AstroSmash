@@ -232,7 +232,7 @@ public class AstroSmashLauncher extends Activity {
 
 	private void initHelpDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setCancelable(false);
+		// builder.setCancelable(false);
 		LayoutInflater inflater = this.getLayoutInflater();
 		View dialogView = inflater.inflate(R.layout.dialog_help, null);
 		builder.setView(dialogView);
@@ -253,7 +253,7 @@ public class AstroSmashLauncher extends Activity {
 
 	private void initAboutDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setCancelable(false);
+		// builder.setCancelable(false);
 		LayoutInflater inflater = this.getLayoutInflater();
 		View dialogView = inflater.inflate(R.layout.dialog_about, null);
 		builder.setView(dialogView);
