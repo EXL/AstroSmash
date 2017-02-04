@@ -226,18 +226,18 @@ implements IDeathListener {
 	}
 
 	protected void tickBullets(long paramLong) {
-		//		try {
-		for (int i = 0; i < this.m_vecFlyingBullets.size(); i++) {
-			Collidable localCollidable = this.m_vecFlyingBullets.elementAt(i);
-			localCollidable.tick(paramLong, this);
-			int j = localCollidable.getY() + localCollidable.getHeight();
-			if (j <= 0) {
-				sendBulletToHell(localCollidable);
+		try {
+			for (int i = 0; i < this.m_vecFlyingBullets.size(); i++) {
+				Collidable localCollidable = this.m_vecFlyingBullets.elementAt(i);
+				localCollidable.tick(paramLong, this);
+				int j = localCollidable.getY() + localCollidable.getHeight();
+				if (j <= 0) {
+					sendBulletToHell(localCollidable);
+				}
 			}
+		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException) {
+			localArrayIndexOutOfBoundsException.printStackTrace();
 		}
-		//		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException) {
-		//			localArrayIndexOutOfBoundsException.printStackTrace();
-		//		}
 	}
 
 	protected void paintMessage(Canvas canvas, Paint paint, String paramString1, String paramString2) {
@@ -263,14 +263,14 @@ implements IDeathListener {
 	}
 
 	protected void paintFlyingBullets(Canvas canvas, Paint paint) {
-		//		try {
-		for (int i = 0; i < this.m_vecFlyingBullets.size(); i++) {
-			Collidable localCollidable = this.m_vecFlyingBullets.elementAt(i);
-			localCollidable.paint(canvas, paint);
+		try {
+			for (int i = 0; i < this.m_vecFlyingBullets.size(); i++) {
+				Collidable localCollidable = this.m_vecFlyingBullets.elementAt(i);
+				localCollidable.paint(canvas, paint);
+			}
+		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException) {
+			localArrayIndexOutOfBoundsException.printStackTrace();
 		}
-		//		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException) {
-		//			localArrayIndexOutOfBoundsException.printStackTrace();
-		//		}
 	}
 
 	protected void hyperSpace() {
@@ -278,42 +278,42 @@ implements IDeathListener {
 	}
 
 	protected void tickEnemies(long paramLong) {
-		//		try {
-		for (int i = 0; i < this.m_vecFlyingEnemies.size(); i++) {
-			Enemy localEnemy2 = this.m_vecFlyingEnemies.elementAt(i);
-			localEnemy2.tick(paramLong, this);
-			if ((localEnemy2.getY() + localEnemy2.getHeight() >= this.m_groundHeight) || (localEnemy2.getX() + localEnemy2.getWidth() >= this.m_nScreenWidth) || (localEnemy2.getY() < 0) || (localEnemy2.getX() < 0)) {
-				if ((localEnemy2.getY() + localEnemy2.getHeight() >= this.m_groundHeight) || (localEnemy2.getY() < 0)) {
-					updateScore(localEnemy2.getGroundScore());
-				}
-				this.m_EnemiesToRecycleStack.push(localEnemy2);
-				if ((localEnemy2.getEnemyTypeId() == 8) || (localEnemy2.getEnemyTypeId() == 9)) {
-					this.m_ship.setCollided(true);
-					shipDestroyed();
-					updateScore(-100);
-					break;
-				}
-			} else {
-				if (this.m_ship.intersects(localEnemy2)) {
-					shipDestroyed();
-					updateScore(-100);
-					break;
-				}
-				for (int k = 0; k < this.m_vecFlyingBullets.size(); k++) {
-					Collidable localCollidable = this.m_vecFlyingBullets.elementAt(k);
-					if (localCollidable.intersects(localEnemy2, 1, 2)) {
-						AstroSmashLauncher.doVibrate(AstroSmashLauncher.VIBRATE_SHORT);
-						AstroSmashLauncher.playSound(AstroSmashLauncher.SOUND_HIT);
-						updateScore(localEnemy2.getHitScore());
-						sendBulletToHell(localCollidable);
+		try {
+			for (int i = 0; i < this.m_vecFlyingEnemies.size(); i++) {
+				Enemy localEnemy2 = this.m_vecFlyingEnemies.elementAt(i);
+				localEnemy2.tick(paramLong, this);
+				if ((localEnemy2.getY() + localEnemy2.getHeight() >= this.m_groundHeight) || (localEnemy2.getX() + localEnemy2.getWidth() >= this.m_nScreenWidth) || (localEnemy2.getY() < 0) || (localEnemy2.getX() < 0)) {
+					if ((localEnemy2.getY() + localEnemy2.getHeight() >= this.m_groundHeight) || (localEnemy2.getY() < 0)) {
+						updateScore(localEnemy2.getGroundScore());
+					}
+					this.m_EnemiesToRecycleStack.push(localEnemy2);
+					if ((localEnemy2.getEnemyTypeId() == 8) || (localEnemy2.getEnemyTypeId() == 9)) {
+						this.m_ship.setCollided(true);
+						shipDestroyed();
+						updateScore(-100);
 						break;
+					}
+				} else {
+					if (this.m_ship.intersects(localEnemy2)) {
+						shipDestroyed();
+						updateScore(-100);
+						break;
+					}
+					for (int k = 0; k < this.m_vecFlyingBullets.size(); k++) {
+						Collidable localCollidable = this.m_vecFlyingBullets.elementAt(k);
+						if (localCollidable.intersects(localEnemy2, 1, 2)) {
+							AstroSmashLauncher.doVibrate(AstroSmashLauncher.VIBRATE_SHORT);
+							AstroSmashLauncher.playSound(AstroSmashLauncher.SOUND_HIT);
+							updateScore(localEnemy2.getHitScore());
+							sendBulletToHell(localCollidable);
+							break;
+						}
 					}
 				}
 			}
+		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException) {
+			localArrayIndexOutOfBoundsException.printStackTrace();
 		}
-		//		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException) {
-		//			localArrayIndexOutOfBoundsException.printStackTrace();
-		//		}
 		sendWaitingEnemiesToFactory();
 		if (!this.m_bSuspendEnemies) {
 			if (this.m_vecFlyingEnemies.size() < MAX_NUM_ENEMIES[this.m_nLevel]) {
@@ -378,14 +378,14 @@ implements IDeathListener {
 	}
 
 	protected void paintEnemies(Canvas canvas, Paint paint) {
-		//		try {
-		for (int i = 0; i < this.m_vecFlyingEnemies.size(); i++) {
-			Enemy localEnemy = this.m_vecFlyingEnemies.elementAt(i);
-			localEnemy.paint(canvas, paint);
+		try {
+			for (int i = 0; i < this.m_vecFlyingEnemies.size(); i++) {
+				Enemy localEnemy = this.m_vecFlyingEnemies.elementAt(i);
+				localEnemy.paint(canvas, paint);
+			}
+		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException) {
+			localArrayIndexOutOfBoundsException.printStackTrace();
 		}
-		//		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException) {
-		//			localArrayIndexOutOfBoundsException.printStackTrace();
-		//		}
 	}
 
 	protected void sendBulletToHell(Collidable paramCollidable) {
@@ -396,23 +396,23 @@ implements IDeathListener {
 	protected void shipDestroyed() {
 		AstroSmashLauncher.doVibrate(AstroSmashLauncher.VIBRATE_LONG);
 		AstroSmashLauncher.playSound(AstroSmashLauncher.SOUND_SHIP);
-		//		try {
-		for (int i = 0; i < this.m_vecFlyingEnemies.size(); i++) {
-			Enemy enemy = this.m_vecFlyingEnemies.elementAt(i);
-			this.m_EnemiesToRecycleStack.push(enemy);
+		try {
+			for (int i = 0; i < this.m_vecFlyingEnemies.size(); i++) {
+				Enemy enemy = this.m_vecFlyingEnemies.elementAt(i);
+				this.m_EnemiesToRecycleStack.push(enemy);
+			}
+		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException1) {
+			localArrayIndexOutOfBoundsException1.printStackTrace();
 		}
-		//		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException1) {
-		//			localArrayIndexOutOfBoundsException1.printStackTrace();
-		//		}
 		sendWaitingEnemiesToFactory();
-		//		try {
-		for (int j = 0; j < this.m_vecFlyingBullets.size(); j++) {
-			Collidable collidable = this.m_vecFlyingBullets.elementAt(j);
-			this.m_BulletsToRecycleStack.push(collidable);
+		try {
+			for (int j = 0; j < this.m_vecFlyingBullets.size(); j++) {
+				Collidable collidable = this.m_vecFlyingBullets.elementAt(j);
+				this.m_BulletsToRecycleStack.push(collidable);
+			}
+		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException2) {
+			localArrayIndexOutOfBoundsException2.printStackTrace();
 		}
-		//		} catch (ArrayIndexOutOfBoundsException localArrayIndexOutOfBoundsException2) {
-		//			localArrayIndexOutOfBoundsException2.printStackTrace();
-		//		}
 		this.m_vecFlyingBullets.removeAllElements();
 		while (!this.m_BulletsToRecycleStack.empty()) {
 			Collidable localCollidable = this.m_BulletsToRecycleStack.pop();

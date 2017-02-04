@@ -33,7 +33,7 @@
     <string name="CreditsHelp">Help</string>
     <string name="ButtonHelp">Help Game</string>
     <string name="AboutHelpLabel">About &amp; Help</string>
-    <string name="Version">v1.1 | 23-JAN-2017</string>
+    <string name="Version">v1.1 | 04-FEB-2017</string>
     <string name="IconDesc">Icon AstroSmash</string>
     <string name="AboutString">Porting from Java ME (J2ME) MIDlet to Android OS application with using SurfaceView Canvas drawing:\n• © 2016 S. \"EXL\" KLS\nemail: exl@bk.ru\nemail: exlmotodev@gmail.com\n\nSource Code:\nhttp://github.com/EXL/AstroSmash\n\nArticle About Porting AstroSmash:\nhttp://exlmoto.ru/astrosmash-droid\n\nThanks to:\n• Danil Medvedev for idea and support;\n• Nikita Prokopchik for cool photos;\n• mvb06 for testing APK-package;\n• baat for help and support;\n• Zorge.R for hosting, patience and help.</string>
     <string name="DoubleFire">Double Fire</string>
