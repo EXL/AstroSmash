@@ -267,6 +267,8 @@ public class AstroSmashLauncher extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		InfoStrings.initializeInfo();
+
 		setContentView(R.layout.activity_astrosmashlauncher);
 
 		settingsStorage = getSharedPreferences("ru.exlmoto.astrosmash", MODE_PRIVATE);
@@ -281,8 +283,6 @@ public class AstroSmashLauncher extends Activity {
 
 		initHelpDialog();
 		initAboutDialog();
-
-		InfoStrings.initializeInfo();
 
 		initWidgets();
 
