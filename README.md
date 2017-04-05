@@ -26,7 +26,7 @@ cd ~/Deploy/
 git clone https://github.com/EXL/AstroSmash AstroSmashAndroid
 ```
 
-* Edit "project.properties" file and set the latest Android API SDK version here, for example:
+* Edit "project.properties" file and set the installed Android API SDK version here, for example:
 
 ```sh
 # Project target.
